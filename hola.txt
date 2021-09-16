@@ -1,6 +1,23 @@
+**APORTES AL DOCUMENTO**
+
 Donde está el comentario de Luis
 hola soy leidy
 Un comentario más--Maribel
-hola Soy Luis y quien me borro >:( ajja
+hola Soy Luis y este es mi ultimo comentario 14/09/2021
 comentario xoxoxox-- leidy
-Buenas noches, Layo
+Buenas noches, Layo actualizado el 14/09/2021
+buenas noches compañeros Developer actualizacion 14/09/2021
+nombre leidy romero 
+accediento a la rama desarrollo, 14/09/2021 Edgar 
+Nueva actualizacion 15/09/2021 Edgar Layonal Alvarez Scrum Master
+Ultima actualización 15/09/2021 Maribel Valencia 
+Andrés Lopez 15/09/2021
+
+***********************************
+PREGUNTAS AL TUTOR 16/09/2021
+1.como se va a trabajar sobre las ramasde GitHub (pull request).
+2. la estructura del documento sprint1 es optima para tomarlo de referencia en los siguientes sprint.
+
+3. revisar el backlog del sprint2, aceptamos sujerencias 
+4. solo el desarrollador(luis duque) es el encargado de autorizar y manejar el repositorio?
+5. llego un correo  de soporte indicando que el daily  debe ser ingresado de lunes a viernes y solamente un integrante hace el daily, por favor confirmar esta informacion.
