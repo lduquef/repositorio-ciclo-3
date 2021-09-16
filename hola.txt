@@ -16,3 +16,4 @@ PREGUNTAS AL TUTOR 16/09/2021
 
 3. revisar el backlog del sprint2, aceptamos sujerencias 
 4. solo el desarrollador(luis duque) es el encargado de autorizar y manejar el repositorio?
+5. llego un correo  de soporte indicando que el daily  debe ser ingresado de lunes a viernes y solamente un integrante hace el daily, por favor confirmar esta informacion.
