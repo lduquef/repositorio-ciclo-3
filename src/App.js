@@ -5,6 +5,7 @@ import FondoTrabajo from "./img/fondotrabajo.JPG";
 
 function App() {
   return (
+    <div className="conten">
     <div className="App">
       <section className="login_Developer">
       <img class="avatar" src={Developer} alt="Logo_del_grupo"/>
@@ -21,6 +22,7 @@ function App() {
 
       </form>
       </section>
+    </div>
     </div>
   );
 }
