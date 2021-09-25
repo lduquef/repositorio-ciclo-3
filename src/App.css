@@ -26,6 +26,7 @@ body {
   transform: translate(-50%, -50%);
   box-sizing:border-box;
   padding: 70px 30px;
+  border-radius: 15px;
 
 
 }
@@ -82,6 +83,8 @@ body {
   font-size: 18px;
   border-radius: 20px;
   border: outset 1px #ccc;
+  margin-top: 18px;
+  
     
     
 }

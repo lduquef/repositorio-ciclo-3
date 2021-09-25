@@ -1,7 +1,6 @@
-import logo from './logo.svg';
 import './App.css';
 import Developer from "./img/developer.jpg";
-import FondoTrabajo from "./img/fondotrabajo.JPG";
+
 
 function App() {
   return (
@@ -16,9 +15,7 @@ function App() {
       <label for="Constraseña">Constraseña</label>
       <input type="password" placeholder="Ingrese su contraseña"></input>
       <input type="submit" value="Ingresar"></input>
-      <a href="#">He perdido mi contraseña</a><br>
-      </br>
-      <a href="#">Aun no tengo cuenta empresarial</a>
+      
 
       </form>
       </section>
