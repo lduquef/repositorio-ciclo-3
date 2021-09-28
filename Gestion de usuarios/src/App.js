@@ -1,5 +1,5 @@
 import Layout from './Layouts/layout.jsx';
-import './App.css';
+import './Estilos/Style.css';
 import Gestion_productos from './pages/Gestion_productos.jsx';
 import Gestion_usuario from './pages/Gestion_usuario.jsx';
 import Gestion_ventas from './pages/Gestion_ventas.jsx';
