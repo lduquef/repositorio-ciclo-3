@@ -7,8 +7,9 @@ body {
   background: url(../img/Fondo\ Ciudad.jpg) no-repeat center top; 
   background-size: cover;
   font-family: sans-serif;
-  height: 100%
-}
+  height: 100%;
+  }
+
 .page {
   display: flex;
   flex-direction: column;
@@ -138,4 +139,19 @@ nav{
 }
 .fill{
   width: 22%;
+}
+
+.page2{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100% !important;
+  width: 100% !important;
+  background-color: chartreuse;
+}
+
+.page_ventas{
+  background-color: #FFF;
+  height: 100%;
+  width: 80%;
 }
