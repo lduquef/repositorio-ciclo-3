@@ -1,3 +1,6 @@
+@import url(https://fonts.googleapis.com/css?family=Lato);
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css);
+
 body {
   margin: 0;
   padding: 0;
@@ -6,43 +9,121 @@ body {
   font-family: sans-serif;
   height: 100vh;
 }
-
-.conten::before {  
-  content:"";
-  width: 100%;
-  height: 400%;
-  background-color:#ffffff59;
-         }
-
-.login_Developer {
-  width: 380px;
-  height: 100px;
-  background: rgba(0, 0, 0, 0.719); 
-  color: #fff;
-  top: 14%;
-  left: 149%;
-  position: absolute;
-  transform: translate(-150%, -60%);
-  box-sizing:border-box;
-  padding: 70px 675px;
-  
-
-
-}
-.login_Developer .avatar {
-  width: 120px;
-  height: 120px;
+ .avatar {
+  width: 100px;
+  height: 90px;
   border-radius: 50%;
   position: absolute;
-  top: 10px;
-  left: calc(30% - 50px);
-
-
+  top: 0px;
+  left: 45%;
+}
+header{
+  width: absolute;
+  height: 90px;
+  background-color: rgba(0, 0, 0, 0.363);
+}
+footer
+{
+  margin-top: 490px;
+  position:relative; 
+  background-color:rgba(0, 0, 0, 0.363);
+  width:absolute;
+  height:5%;
+  color:#FFF;
+  clear:both;
 }
 
 
+p{
+  color: #fff;
+  text-align: center;
+  
+}
+ul {
+    padding:0;
+    list-style: none;
+}
+.footer-social-icons {
+    width: 350px;
+    display:inline;
+    margin-left: 75%;
+    position: absolute;
+    
+    
+}
+.social-icon {
+    color: #fff;
+}
+ul.social-icons {
+    margin-top: -30px;
+    margin-left: 93%;
+}
+.social-icons li {
+    
+    display: inline;
+    height: 100px;
+}
+.social-icons a {
+    color: #fff;
+    text-decoration: none;
+}
+.fa-facebook {
+    padding:10px 14px;
+    -o-transition:.5s;
+    -ms-transition:.5s;
+    -moz-transition:.5s;
+    -webkit-transition:.5s;
+    transition: .5s;
+    background-color: #322f30;
+}
+.fa-facebook:hover {
+    background-color: #3d5b99;
+}
+
+.fa-github {
+    padding:10px 14px;
+    -o-transition:.5s;
+    -ms-transition:.5s;
+    -moz-transition:.5s;
+    -webkit-transition:.5s;
+    transition: .5s;
+    background-color: #322f30;
+}
+.fa-github:hover {
+    background-color: #5a32a3;
+}
 
 
+.menuCSS3 ul {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.menuCSS3 a {
+  display: block;
+  padding: 1em;
+  background-color: rgba(0, 0, 0, 0.363);
+  text-decoration: none;
+  color: #f6f7fa;
+  
+  
+  
+}
+nav{
+  float: right;
+  margin-top: 20px;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 
-
-
+}
+.menuCSS3 a:hover {
+  background-color: #57ee32;
+}
+.menuCSS3 ul li ul {
+  display: none;
+}
+.menuCSS3 ul li a:hover + ul, .menuCSS3 ul li ul:hover {
+  display: block;
+}
+/* *****************DESDE ACA SE EMPIEZA EL NUEVO CODIGO******************************** */
+/* COLORES PARA TRABAJAR: NEGRO-VERDE FLUORESCENTE-BLANCO:LETRA */
