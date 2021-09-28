@@ -1,53 +1,29 @@
-
+import Layout from './Layouts/layout.jsx';
 import './App.css';
-import Developer from "./img/developer.jpg";
-
+import Gestion_productos from './pages/Gestion_productos.jsx';
+import Gestion_usuario from './pages/Gestion_usuario.jsx';
+import Gestion_ventas from './pages/Gestion_ventas.jsx';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 function App() {
   return (
-  <div className="App">
-    <header>
-      <nav class="menuCSS3">
-        <ul>
-          <li><a href="#">Inicio</a></li>
-          <li><a href="#">Navegacion</a>
-          <ul>
-            <li><a href="#">Usuarios</a></li>
-            <li><a href="#">Gestion de Ventas</a></li>
-            <li><a href="#">Roles de Usario</a></li>
-            <li><a href="#">Mas Ventas</a></li>
-          </ul>
-            </li>
-            <li><a href="#">Contacto</a></li>
-            <li><a href="#">Salir</a></li>
-            </ul>
-            
-            </nav>
-            <div>
-            <img className="avatar" src={Developer} />
-          </div>  
-            
-          </header>
-         
-          <section>
-          <div>
-            ACA SE ESCRIBE EL CODIGO
-          </div>
-          </section>
-        
-          <footer>
-            <p>pbx:54513621651651</p>
-            <p>email: devgroup@mail.com</p>
-
-            <ul class="social-icons">
-              <li><a href="https://www.facebook.com/" class="social-icon"> <i class="fa fa-facebook"></i></a></li>
-              <li><a href="https://github.com/lduquef/repositorio-ciclo-3" class="social-icon"> <i class="fa fa-github"></i></a></li>
-            </ul>
-          </footer>
-
-        
-      </div>
+  <div lassName="App">
+    <Router>
+    <Layout>
+    <Switch>
+      <Route path="/src/pages/Gestion_productos.jsx">
+        <Gestion_productos/>
+      </Route>
+      <Route path="/src/pages/Gestion_usuario.jsx">
+        <Gestion_usuario/>
+      </Route>
+      <Route path="/src/pages/Gestion_ventas.jsx">
+      <Gestion_ventas/>
+      </Route> 
+    </Switch>    
+    </Layout>
+    </Router>
+  </div>
   );
 }
-
 export default App;
