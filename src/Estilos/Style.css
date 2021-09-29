@@ -20,12 +20,19 @@ body {
   border-radius: 50%;
 
 }
-header{
+.header2{
   display: flex;
   flex-direction: row;
-  justify-content:space-between;
+  justify-content:center;
   height: 100px;
   background-color: rgba(0, 0, 0, 0.363);
+}
+header{
+  margin-top: -100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  background-color: rgba(0, 0, 0, 0);
 }
 header >li{
   list-style: none;
@@ -93,7 +100,6 @@ ul.social-icons {
     background-color: #5a32a3;
 }
 
-
 .menuCSS3 ul {
   display: flex;
   padding: 0;
@@ -124,7 +130,6 @@ nav{
 }
 .menuCSS3 ul li a:hover + ul, .menuCSS3 ul li ul:hover {
   display: block;
-
 }
 /* ******DESDE ACA SE EMPIEZA EL NUEVO CODIGO*********** */
 /* COLORES PARA TRABAJAR: NEGRO-VERDE FLUORESCENTE-BLANCO:LETRA */

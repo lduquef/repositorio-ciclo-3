@@ -1,18 +1,17 @@
 import Developer from "../img/developer.jpg";
 import { Link } from "react-router-dom";
-const Header2 =() =>{
+const Header =() =>{
     return (
-    <header><div>
-      
-    </div>
-        <div className="fill">
-        </div>
-        <li> <Link to="../../public/index.html"> <img className="avatar" src={Developer} />
-        </Link> </li>
-            
-      <nav class="menuCSS3">
+    <div>
+      <div className ="header2">
+      <span><Link to="../../public/index.html"> <img className="avatar" src={Developer} />
+        </Link> </span>
+      </div>
+    <header>
+      <nav className="menuCSS3">
         <ul>
           <li> <Link to="../../public/index.html"> Inicio</Link></li>
+          
           <li><a href="#">Navegacion</a>
           <ul>
             <li><Link to="/src/pages/Gestion_usuario.jsx"> Usuarios </Link> </li>
@@ -24,9 +23,9 @@ const Header2 =() =>{
             <li><a href="#">Contacto</a></li>
             <li><a href="#">Salir</a></li>
             </ul>
-            
         </nav>
     </header>
+    </div>
     )
 }
-export default Header2
+export default Header
