@@ -151,7 +151,14 @@ nav{
 }
 
 .page_ventas{
-  background-color: #FFF;
-  height: 100%;
+  background-color: rgba(95, 94, 94, 0.384);
+  height:99%;
   width: 80%;
+  margin: 1%;
+}
+main{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
 }
