@@ -2,7 +2,9 @@ import Developer from "../img/developer.jpg";
 import { Link } from "react-router-dom";
 const Header2 =() =>{
     return (
-    <header>
+    <header><div>
+      
+    </div>
         <div className="fill">
         </div>
         <li> <Link to="../../public/index.html"> <img className="avatar" src={Developer} />
