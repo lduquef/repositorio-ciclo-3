@@ -28,9 +28,8 @@ body {
   background-color: rgba(0, 0, 0, 0.363);
 }
 header{
-  margin-top: -100px;
+  margin-top: -72px;
   display: flex;
-  flex-direction: row;
   justify-content: flex-end;
   background-color: rgba(0, 0, 0, 0);
 }
@@ -116,7 +115,7 @@ ul.social-icons {
 }
 nav{
   float: right;
-  margin-top: 20px;
+  margin-top: 0;
   margin-right: 1%;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 
@@ -141,4 +140,20 @@ nav{
 }
 .fill2{
   width: 10%;
+}
+
+.page_general{
+  background-color: rgba(0, 0, 0, 0.363);
+  height:90%;
+  width: 80%;
+  margin-top: 2%;
+ 
+  border-radius: 1%;
+  padding: 1%;
+}
+main{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
 }
