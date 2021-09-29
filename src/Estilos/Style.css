@@ -33,8 +33,11 @@ header >li{
 footer
 {
   background-color:rgba(0, 0, 0, 0.363);
-
+  height: 12%;
   color:#FFF;
+  display:flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
 
@@ -50,14 +53,11 @@ ul {
 .footer-social-icons {
     width: 350px;
     display:flex;
-    
-    
 }
 .social-icon {
     color: #fff;
 }
 ul.social-icons {
-    margin-top: -30px;
     display: flex;
     justify-content: flex-end;
     padding-right: 2%;
@@ -125,7 +125,6 @@ nav{
 
 .menuCSS3 ul li ul {
   display: none;
-  height:auto;
 }
 .menuCSS3 ul li a:hover + ul, .menuCSS3 ul li ul:hover {
   display: block;
@@ -138,4 +137,7 @@ nav{
 }
 .fill{
   width: 22%;
+}
+.fill2{
+  width: 10%;
 }
