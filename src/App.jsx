@@ -1,4 +1,5 @@
 import Layout from './Layouts/layout.jsx';
+import Layout_vacio from './Layouts/Layout_vacio.jsx';
 import './Estilos/Style.css';
 import "./Estilos/estilos2.css"
 import Gestion_productos from './pages/Gestion_productos.jsx';
@@ -23,11 +24,15 @@ function App() {
       <Route path="/src/pages/Gestion_ventas.jsx">
       <Gestion_ventas/>
       </Route> 
-      <Route path="/src/pages/ingreso.jsx">
-      <Ingreso/>
-      </Route> 
     </Switch>    
     </Layout>
+    <Layout_vacio>
+    <Switch>
+    <Route path="/src/pages/ingreso.jsx">
+      <Ingreso/>
+    </Route> 
+    </Switch>
+    </Layout_vacio>
     </Router>
   </div>
   );
