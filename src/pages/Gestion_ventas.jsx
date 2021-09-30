@@ -1,10 +1,8 @@
 import React  from "react";
-import "../Estilos/Style.css"
 const Gestion_ventas = () =>{
     return(
-        <div>
-    
-        </div>    
-        )
+    <div>
+hola este es modulo de gestion de ventas
+    </div>)
 }
 export default Gestion_ventas

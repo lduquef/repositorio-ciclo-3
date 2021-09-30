@@ -4,11 +4,10 @@ import Footer from '../components/Footer.jsx';
 const Layout=({children}) =>{
     return(
         <div className= "page">
-        <Header/>
+        <Header/> 
         <main>
-            <div className="page_general">{children}</div>
+                {children}
         </main>
-        
         <Footer/>
   </div>
     );
