@@ -1,5 +1,7 @@
 import './App.css';
 import Developer from "./img/developer.jpg";
+import Google from "./img/Google.png";
+
 
 
 function App() {
@@ -15,7 +17,13 @@ function App() {
       <input type="text" placeholder="Ingrese Nombre de Usuario"></input>
       <label for="Constraseña">Contraseña</label>
       <input type="password" placeholder="Ingrese su contraseña"></input>
-      <input type="submit" value="Ingresar"></input> 
+      
+      <div className="botones">
+      <button type="submit">Ingresar</button> 
+      <span> -------  o  ------- </span>
+      <button type="Google">Ingresar con Google</button> 
+      </div>
+     
       <div class="foot-lnk">
         <a href="#forgot">Registrarse</a>
         </div>
