@@ -10,7 +10,7 @@ const Header =() =>{
     <header>
       <nav className="menuCSS3">
         <ul>
-          <li> <Link to="../../public/index.html"> Inicio</Link></li>
+          <li> <Link to="/src/pages/ingreso.jsx"> Inicio</Link></li>
           
           <li><a href="#">Navegacion</a>
           <ul>
