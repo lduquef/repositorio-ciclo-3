@@ -3,6 +3,7 @@ import "../Estilos/producto.css"
 const Gestion_productos = () =>{
     return(<div>
         <div className="conten">
+            <div>
             <section className="login_Developer_1"> 
               <h1>PRODUCTOS</h1>
                <form>
@@ -51,7 +52,7 @@ const Gestion_productos = () =>{
                    
                  </table>
             </section>
-
+            </div>
           </div>
     </div>  )
 }
