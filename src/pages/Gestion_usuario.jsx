@@ -1,8 +1,8 @@
 import "../Estilos/bootstrap.css"
 const Gestion_usuario = ()=>{
     return(<div>
-            <table class="table table-hover">
-                <thead>
+        <table class="table table-hover">
+            <thead>
                     <tr class="table-dark">
                         <th>
                             Buscar Producto
@@ -15,7 +15,7 @@ const Gestion_usuario = ()=>{
                         </th>
                     </tr>
                 </thead>
-                <tbody>
+            <tbody>
                     <tr class="table-secondary">
                         <th>
                             <select class="form-select" id="exampleSelect1">
@@ -36,11 +36,8 @@ const Gestion_usuario = ()=>{
                             <option>3</option>
                         </select>
                         </td>
-
                 </tr>
-                
             </tbody>
-            
         </table>
         <table class="table table-hover">
                 <thead>
@@ -82,7 +79,8 @@ const Gestion_usuario = ()=>{
                         <td>$----</td>
                     </tr>
                 </tbody>
-            </table><table class="table table-hover">
+            </table>
+        <table class="table table-hover">
                 <thead>
                     <tr class="table-dark">
                         <th>
@@ -110,9 +108,8 @@ const Gestion_usuario = ()=>{
 
                     </tr>
                 </tbody>
-            </table>
-
+        </table>
 </div>
     );
-}
+ }
 export default Gestion_usuario
