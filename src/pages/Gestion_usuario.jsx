@@ -1,9 +1,22 @@
 import "../Estilos/bootstrap.css"
 const Tabla_ventas = ()=>{
-    return(
+    return(        
 <div>
         <table class="table table-hover">
   <thead>
+  <div class="form-group">
+           <select class="form-select" id="exampleSelect1">
+        <option>Buscar Producto</option>
+        <div class="form-group">
+           <select class="form-select" id="exampleSelect1">
+        <option>Producto</option>
+            </select>
+    </div>
+        <option>Buscar ID</option>
+        <option>Cantidad</option>
+        </select>
+    </div>
+
     <tr class="table-dark">
       <th scope="col">ID producto</th>
       <th scope="col">producto</th>
