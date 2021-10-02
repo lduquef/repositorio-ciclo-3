@@ -2,28 +2,22 @@
 @import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css);
 
 body {
-  margin: 0;
-  padding: 0;
-  background: url(../img/Fondo\ Ciudad.jpg) no-repeat center top; 
-  background-size: cover;
-  background-attachment: fixed;
-  background-position: center center;
-
-  font-family: sans-serif;
-  height: 100%;
-  
-
-}
-.page {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  min-width: 680px;
+  background: url(../img/Fondo\ Ciudad.jpg); 
+  background-size: cover;
+  font-family: sans-serif;
+  background-repeat:repeat-y;
+  
 }
+
+.contenedor,footer {
+  position: relative;
+}
+
 .avatar {
-  margin: 6%;
-  width: 13vh;
-  height: 13vh;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
 
 }
@@ -31,29 +25,36 @@ body {
   display: flex;
   flex-direction: row;
   justify-content:center;
-  height: 15vh;
+  height: 60px;
   background-color: rgba(0, 0, 0, 0.363);
-  min-width: 680px;
-}
+  }
+  
 header{
-  margin-top: -72px;
+  margin-top: -55px;
   display: flex;
   justify-content: flex-end;
-  background-color: rgba(0, 0, 0, 0);
-  min-width: 680px;
+  height: 20px;
+  font-size: 14px;
+  
 }
 header >li{
   list-style: none;
 }
-footer
-{
+footer {
   background-color:rgba(0, 0, 0, 0.363);
-  height: 10vh;
+  height: 10%;
+  text-align:center;
+  font-size:12px;
   color:#FFF;
+  padding-left: 160px;
   display:flex;
-  flex-direction: row;
-  justify-content: space-around;
-}
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  align-items: center;
+  justify-content: space-evenly;
+  
+ }
 
 
 p{
@@ -68,20 +69,19 @@ ul {
 .footer-social-icons {
     width: 350px;
     display:flex;
+    
 }
-.social-icon {
-    color: #fff;
-}
+
 ul.social-icons {
     display: flex;
-    justify-content: flex-end;
-    padding-right: 2%;
 }
+
 
 .social-icons a {
     color: #fff;
     text-decoration: none;
 }
+
 .fa-facebook {
     padding:10px 14px;
     -o-transition:.5s;
@@ -127,7 +127,7 @@ nav{
   margin-top: 0;
   margin-right: 1%;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-
+  
 }
 .menuCSS3 a:hover {
   background-color: #57ee32;
@@ -139,31 +139,9 @@ nav{
 .menuCSS3 ul li a:hover + ul, .menuCSS3 ul li ul:hover {
   display: block;
 }
-/* ******DESDE ACA SE EMPIEZA EL NUEVO CODIGO*********** */
+/* ***DESDE ACA SE EMPIEZA EL NUEVO CODIGO**** */
 /* COLORES PARA TRABAJAR: NEGRO-VERDE FLUORESCENTE-BLANCO:LETRA */
-.page >main{
-  height: 100% ;
-}
+
 .fill{
   width: 22%;
-}
-.fill2{
-  width: 10%;
-}
-
-.page_general{
-  background-color: rgba(0, 0, 0, 0.363);
-  height:90%;
-  width: 80%;
-  margin-top: 2%;
- 
-  border-radius: 1%;
-  padding: 1%;
-}
-main{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 75vh;
-  margin-top: 5vh !important;
 }

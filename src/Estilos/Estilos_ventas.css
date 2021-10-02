@@ -1,6 +1,7 @@
 
 .container{
     max-width: 100vh;
+    
 }
 .container2
 {
@@ -13,10 +14,10 @@ width: 100%;
 max-width: 60vh;
 }
 main{
-    display: flex;
-    margin-top: 0;
+    display: flex;   
     max-height: 85vh;
-
+    padding-top: 17vh;
+margin-bottom: 10%;
 }
 .container2 label{
     margin-top: 1rem;
@@ -38,4 +39,18 @@ justify-content: center;
     border-radius: 10%;
     padding: 10%;
     background-color:  rgba(0, 0, 0, 0.5);
+}
+.btn-success     {
+    color:black !important;
+    margin: 1%;
+    margin-bottom: 2%;
+    margin-right: 3%;
+    width: 16%;
+}
+.end {
+    display: flex;
+    justify-content: end;
+}
+.container > div{
+
 }

@@ -6,6 +6,7 @@ import Tabla_ventas1 from "../components/Tabla_ventas1";
 const Gestion_ventas = () =>{
     return(
     < >
+
         <Tabla_ventas1>
 
         </Tabla_ventas1>

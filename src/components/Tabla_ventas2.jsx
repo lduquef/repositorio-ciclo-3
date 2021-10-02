@@ -1,4 +1,4 @@
-
+import "../Estilos/bootstrap.css"
 const Tabla_ventas2 = ()=>{
     return(
       <div className="container ">
@@ -40,6 +40,11 @@ const Tabla_ventas2 = ()=>{
                 </tr>
             </tbody>
         </table>
+        <div className="end">
+        <button type="button" className="btn btn-success">
+         finalizar 
+        </button>
+        </div>
         <table class="table table-hover">
                 <thead>
                     <tr class="table-dark">
@@ -68,13 +73,6 @@ const Tabla_ventas2 = ()=>{
                     <tr class="table-primary">
                         <th scope="row">3</th>
                         <td>producto3</td>
-                        <td>#</td>
-                        <td>$----</td>
-                        <td>$----</td>
-                    </tr>
-                    <tr class="table-secondary">
-                        <th scope="row">4</th>
-                        <td>producto4</td>
                         <td>#</td>
                         <td>$----</td>
                         <td>$----</td>
@@ -110,6 +108,11 @@ const Tabla_ventas2 = ()=>{
                     </tr>
                 </tbody>
         </table>
+        <div className="end">
+        <button type="button" className="btn btn-success">
+         finalizar 
+        </button>
+        </div>
 </div>
     );
 }
