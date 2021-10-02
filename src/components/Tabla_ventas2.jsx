@@ -1,7 +1,7 @@
-import "../Estilos/bootstrap.css"
-import "../Estilos/Estilos_ventas.css"
-const Gestion_usuario = ()=>{
-    return(<div className="container">
+
+const Tabla_ventas2 = ()=>{
+    return(
+      <div className="container ">
         <table class="table table-hover">
             <thead>
                     <tr class="table-dark">
@@ -113,5 +113,4 @@ const Gestion_usuario = ()=>{
 </div>
     );
 }
-
-export default Gestion_usuario
+export default Tabla_ventas2

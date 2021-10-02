@@ -26,13 +26,11 @@ function App() {
       </Route> 
     </Switch>    
     </Layout>
-    <Layout_vacio>
     <Switch>
     <Route path="/src/pages/ingreso.jsx">
       <Ingreso/>
     </Route> 
     </Switch>
-    </Layout_vacio>
     </Router>
   </div>
   );
