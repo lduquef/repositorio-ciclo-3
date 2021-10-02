@@ -3,7 +3,7 @@ import "../Estilos/estilos2.css"
 import Developer from "../img/developer.jpg"
 const ingreso = () =>{
     return(
-    <div>
+    <div className="container">
       <div className="conten">
       <section className="login_Developer">
       <img class="avatar" src={Developer} alt="Logo_del_grupo"/>
