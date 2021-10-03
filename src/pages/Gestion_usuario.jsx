@@ -1,7 +1,10 @@
-import React  from "react";
-const Gestion_usuario = () =>{
-    return(<div>
-insertar código modulo Gestión Usuario
-    </div>  )
+import "../Estilos/bootstrap.css"
+import "../Estilos/Estilos_ventas.css"
+const Gestion_usuario = ()=>{
+    return(<div >
+ingrese aquí código
+</div>
+    );
 }
+
 export default Gestion_usuario

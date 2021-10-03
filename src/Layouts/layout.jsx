@@ -1,11 +1,13 @@
-import Header2 from "../components/header.jsx"
+import Header from "../components/header.jsx"
 import Footer from '../components/Footer.jsx';
 
 const Layout=({children}) =>{
     return(
         <div className= "page">
-        <Header2/>
-        <main>{children}</main>
+        <Header/> 
+        <main>
+                {children}
+        </main>
         <Footer/>
   </div>
     );

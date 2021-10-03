@@ -2,9 +2,8 @@
 const Footer = ()=>{
     return(
         <footer>
-        <p>pbx:54513621651651</p>
-        <p>email: devgroup@mail.com</p>
-
+          <span> DEVELOPER GROUP <br/>  Teléfono:018000xx -   Dirección: Cra.xx #00 - 00 <br/> 
+    E-mail:developerGroup@xxxxxx.com </span>
         <ul class="social-icons">
           <li><a href="https://www.facebook.com/" class="social-icon"> <i class="fa fa-facebook"></i></a></li>
           <li><a href="https://github.com/lduquef/repositorio-ciclo-3" class="social-icon"> <i class="fa fa-github"></i></a></li>
