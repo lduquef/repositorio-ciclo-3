@@ -1,6 +1,5 @@
 import React  from "react";
 import "../Estilos/estilos2.css"
-import Developer from "../img/developer.jpg"
 const ingreso = () =>{
     return(
       <div className="App">

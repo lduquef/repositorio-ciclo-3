@@ -127,7 +127,7 @@ nav{
   margin-top: 0;
   margin-right: 1%;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  
+  position: absolute;
 }
 .menuCSS3 a:hover {
   background-color: #57ee32;

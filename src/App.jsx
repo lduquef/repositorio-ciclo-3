@@ -1,5 +1,4 @@
 import Layout from './Layouts/layout.jsx';
-import Layout_vacio from './Layouts/Layout_vacio.jsx';
 import './Estilos/Style.css';
 import "./Estilos/estilos2.css"
 import Gestion_productos from './pages/Gestion_productos.jsx';

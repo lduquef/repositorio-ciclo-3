@@ -1,4 +1,4 @@
-import React  from "react";
+
 import "../Estilos/bootstrap.css"
 import "../Estilos/Estilos_ventas.css"
 import Tabla_ventas2 from "../components/Tabla_ventas2";

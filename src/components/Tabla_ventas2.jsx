@@ -1,5 +1,59 @@
+import React, { useEffect, useState} from 'react';
 import "../Estilos/bootstrap.css"
-const Tabla_ventas2 = ()=>{
+function parImpar(numero){
+    var value = true
+    numero%2 == 0 ? value = true : value = false;
+    return(value)
+}
+
+const listaVentaBackend=[
+    {
+        ID_producto: 1,
+        producto: "producto1",
+        cantidad:1,
+        Precio_Unitario:"$---",
+        subtotal: "$---",
+    },
+    {
+        ID_producto: 2,
+        producto: "producto2",
+        cantidad:2,
+         Precio_Unitario:"$---",
+        subtotal: "$---",
+    },
+    {
+        ID_producto: 3,
+        producto: "producto3",
+        cantidad:3,
+        Precio_Unitario:"$---",
+        subtotal: "$---",
+    },
+    {
+        ID_producto: 1,
+        producto: "producto1",
+        cantidad:1,
+        Precio_Unitario:"$---",
+        subtotal: "$---",
+    },
+]
+const Ventas =()=>{
+    const [ventas, setVentas] = useState([])
+    useEffect(() => {
+        //obtener lista vehiculos desde el fronten
+        setVentas(listaVentaBackend)
+    }, []);
+    return(
+        <div>
+         <Tabla_ventas2 listaVenta={ventas}/>  
+        </div>
+    );
+}
+
+const Tabla_ventas2 = ({listaVenta})=>{
+    useEffect(() => {
+    console.log("lista ventas",listaVenta )
+}, [listaVenta])
+var count= count +1
     return(
       <div className="container ">
         <table class="table table-hover">
@@ -56,27 +110,30 @@ const Tabla_ventas2 = ()=>{
                     </tr>
                 </thead>
                 <tbody>
+                
+            {listaVenta.map((ventas,index) => {
+                return(
+                    //  cambia color segun arreglo  
+                    parImpar(index) ?(
                     <tr class="table-primary">
-                        <th scope="row">1</th>
-                        <td>producto1</td>
-                        <td>#</td>
-                        <td>$----</td>
-                        <td>$----</td>
-                    </tr>
-                    <tr class="table-secondary">
-                        <th scope="row">2</th>
-                        <td>producto2</td>
-                        <td>#</td>
-                        <td>$----</td>
-                        <td>$----</td>
-                    </tr>
-                    <tr class="table-primary">
-                        <th scope="row">3</th>
-                        <td>producto3</td>
-                        <td>#</td>
-                        <td>$----</td>
-                        <td>$----</td>
-                    </tr>
+                        <th scope="row">{ventas.ID_producto}</th>
+                        <td>{ventas.producto}</td>
+                        <td>{ventas.cantidad}</td>
+                        <td>{ventas.Precio_Unitario}</td>
+                        <td>{ventas.subtotal}</td>
+                    </tr>)  :
+                    (
+                        <tr class="table-light">
+                        <th scope="row">{ventas.ID_producto}</th>
+                        <td>{ventas.producto}</td>
+                        <td>{ventas.cantidad}</td>
+                        <td>{ventas.Precio_Unitario}</td>
+                        <td>{ventas.subtotal}</td>
+                    </tr> 
+                    )
+                ) 
+                 ;
+                })}
                 </tbody>
             </table>
         <table class="table table-hover">
@@ -116,4 +173,4 @@ const Tabla_ventas2 = ()=>{
 </div>
     );
 }
-export default Tabla_ventas2
+export default Ventas
