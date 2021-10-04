@@ -8,9 +8,9 @@ const ingreso = () =>{
       
       <h1>Iniciar Sesion</h1>      
       <form>
-      <label for="nombre_usuario">Nombre de usuario</label>
+      <label htmlFor="nombre_usuario">Nombre de usuario</label>
       <input type="text" placeholder="Ingrese Nombre de Usuario"></input>
-      <label for="Constraseña">Contraseña</label>
+      <label htmlFor="Constraseña">Contraseña</label>
       <input type="password" placeholder="Ingrese su contraseña"></input>
       
       <div className="botones">
@@ -19,7 +19,7 @@ const ingreso = () =>{
       <button type="Google">Ingresar con Google</button> 
       </div>
      
-      <div class="foot-lnk">
+      <div className="foot-lnk">
         <a href="#forgot">Registrarse</a>
         </div>
       

@@ -2,7 +2,7 @@ import React, { useEffect, useState} from 'react';
 import "../Estilos/bootstrap.css"
 function parImpar(numero){
     var value = true
-    numero%2 == 0 ? value = true : value = false;
+    numero%2 === 0 ? value = true : value = false;
     return(value)
 }
 
@@ -43,65 +43,22 @@ const Ventas =()=>{
         setVentas(listaVentaBackend)
     }, []);
     return(
-        <div>
-         <Tabla_ventas2 listaVenta={ventas}/>  
+        <div className= "container">
+        <Formulario/>
+        <TablaVentas2 listaVenta={ventas}/>  
         </div>
     );
 }
 
-const Tabla_ventas2 = ({listaVenta})=>{
+const TablaVentas2 = ({listaVenta})=>{
     useEffect(() => {
     console.log("lista ventas",listaVenta )
 }, [listaVenta])
-var count= count +1
     return(
       <div className="container ">
-        <table class="table table-hover">
-            <thead>
-                    <tr class="table-dark">
-                        <th>
-                            Buscar Producto
-                        </th>
-                        <th>
-                            Buscar ID
-                        </th>
-                        <th>
-                            Cantidad
-                        </th>
-                    </tr>
-                </thead>
-            <tbody>
-                    <tr class="table-secondary">
-                        <th>
-                            <select class="form-select" id="exampleSelect1">
-                                <option>Producto</option>
-                            </select>
-                            </th>                
-                    <td>
-                        <select class="form-select" id="exampleSelect1">
-                            <option>ID_1</option>
-                            <option>ID_2</option>
-                            <option>ID_3</option>
-                        </select>
-                        </td>
-                        <td>
-                        <select class="form-select" id="exampleSelect1">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                        </select>
-                        </td>
-                </tr>
-            </tbody>
-        </table>
-        <div className="end">
-        <button type="button" className="btn btn-success">
-         finalizar 
-        </button>
-        </div>
-        <table class="table table-hover">
+        <table className="table table-hover">
                 <thead>
-                    <tr class="table-dark">
+                    <tr className="table-dark">
                         <th scope="col">ID producto</th>
                         <th scope="col">producto</th>
                         <th scope="col">cantidad</th>
@@ -115,7 +72,7 @@ var count= count +1
                 return(
                     //  cambia color segun arreglo  
                     parImpar(index) ?(
-                    <tr class="table-primary">
+                    <tr className="table-primary">
                         <th scope="row">{ventas.ID_producto}</th>
                         <td>{ventas.producto}</td>
                         <td>{ventas.cantidad}</td>
@@ -123,7 +80,7 @@ var count= count +1
                         <td>{ventas.subtotal}</td>
                     </tr>)  :
                     (
-                        <tr class="table-light">
+                        <tr className="table-light">
                         <th scope="row">{ventas.ID_producto}</th>
                         <td>{ventas.producto}</td>
                         <td>{ventas.cantidad}</td>
@@ -136,9 +93,9 @@ var count= count +1
                 })}
                 </tbody>
             </table>
-        <table class="table table-hover">
+        <table className="table table-hover">
                 <thead>
-                    <tr class="table-dark">
+                    <tr className="table-dark">
                         <th>
                             Unidades Totales
                         </th>
@@ -151,16 +108,16 @@ var count= count +1
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="table-secondary">
+                    <tr className="table-secondary">
                         <th scope="row">3</th>
                         <td>$ ----</td>
-                        <div class="form-group">
-                            <select class="form-select" id="exampleSelect1">
+                        <td className="form-group">
+                            <select className="form-select" id="exampleSelect1">
                                 <option>En Proceso</option>
                                 <option>Cancelado</option>
                                 <option>Entregado</option>
                             </select>
-                        </div>
+                        </td>
 
                     </tr>
                 </tbody>
@@ -170,7 +127,62 @@ var count= count +1
          finalizar 
         </button>
         </div>
-</div>
+        </div>
+    );
+};
+
+const Formulario = () =>{
+    const [ID,setID]=useState("")
+    const [cantidad,setCantidad] = useState("")
+    const [nombreProducto,setNombreProducto] = useState("")
+    const enviarAlBackend = () =>{
+    console.log("nombre",nombreProducto,"ID",ID,"cantidad",cantidad)}
+    return(
+        <div>
+        <table className="table table-hover">
+            <thead>
+                    <tr className="table-dark">
+                        <th>
+                            Buscar Producto
+                        </th>
+                        <th>
+                            Buscar ID
+                        </th>
+                        <th>
+                            Cantidad
+                        </th>
+                    </tr>
+                </thead>
+            <tbody>
+                    <tr className="table-secondary">
+                        <th>
+                            <select className="form-select" name="productos" value={nombreProducto} onChange={(e)=> setNombreProducto(e.target.value)}>
+                            <option disabled>Productos</option>
+                            <option>Producto1</option>
+                            <option>Producto2</option>
+                            <option>Producto3</option>
+                            </select>
+                            </th>                
+                    <td>
+                        <select className="form-select" name = "ID" value ={ID} onChange ={(e)=>setID(e.target.value)} >
+                            <option disabled> buscar por ID</option>
+                            <option>ID_1</option>
+                            <option>ID_2</option>
+                            <option>ID_3</option>
+                        </select>
+                        </td>
+                        <td>
+                        <input type="number"  className="form-control" value={cantidad} onChange={(e)=>setCantidad(e.target.value)} />
+                        </td>
+                </tr>
+            </tbody>
+        </table>
+        <div className="end">
+        <button type="button" className="btn btn-success" onClick={()=>{enviarAlBackend()}}>
+         agregar
+        </button>
+        </div>
+        </div>
     );
 }
 export default Ventas
