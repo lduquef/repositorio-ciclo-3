@@ -1,16 +1,17 @@
 import React  from "react";
 import "../Estilos/usuarios.css"
+
 const Gestion_usuario = () =>{
     return(
             <div className="contenedor">
                  <h3>Gestión de usuarios</h3>
-                 <hr></hr>
+                  <hr/>
                 <form>
                     <input id="fecha" type="date"/>
                     <div className="opciones">
                     <select className="seleccionar" required defaultValue={0}>
                         <option disabled value={0}>
-                        usuario
+                        Usuario
                         </option>
                         <option>Usuario1</option>
                         <option>Usuario2</option>
@@ -27,14 +28,14 @@ const Gestion_usuario = () =>{
                     
                     <div className="opciones2">
                         <input name= "id" placeholder="Identificación"/>  
-                        <input type="codigo" placeholder="Código asignado"/>   
+                        <input type="codigo" placeholder="Código"/>   
                         <input name= "estado" placeholder="Estado Actual"/>
                     </div>
-                    <hr />
-                    <h4>Cambiar Estado</h4>
+                    <hr/>
+
+                    <h4>Cambiar estado de usuario</h4>
                     <div className="selec">
-                    
-                        
+        
                         <select  required defaultValue={0}>
                         <option disabled value={0}>
                             Estado
@@ -45,7 +46,7 @@ const Gestion_usuario = () =>{
                         </select> 
                     </div>
 
-                    <div className="botones">
+                    <div className="botones1">
                         <button type ="save">Guardar Datos</button>
                         <button type ="reset"> Limpiar Campos </button>
                     </div>
