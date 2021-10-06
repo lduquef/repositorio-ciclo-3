@@ -56,7 +56,7 @@ const Ventas =()=>{
 
 const TablaVentas2 = ({listaVenta})=>{
     useEffect(() => {
-    console.log("lista ventas",listaVenta )
+    console.log("lista venta para  leidy y mari",listaVenta )
 }, [listaVenta])
     return(
       <div className="container ">
