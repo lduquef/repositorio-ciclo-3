@@ -4,7 +4,7 @@ const Header =() =>{
     return (
     <div>
       <div className ="header2">
-      <span><Link to="../../public/index.html"> <img className="avatar" src={Developer} />
+      <span><Link to="../../public/index.html"> <img className="avatar" src={Developer}  alt="Logo Empresarial"/>
         </Link> </span>
       </div>
     <header>
@@ -12,17 +12,17 @@ const Header =() =>{
         <ul>
           <li> <Link to="/src/pages/ingreso.jsx"> Inicio</Link></li>
           
-          <li><a href="#">Navegacion</a>
+          <li><a href=" ">Navegacion</a>
           <ul>
-            <li><Link to="/src/pages/Gestion_usuario.jsx"> Usuarios </Link> </li>
-            <li><Link to="/src/pages/Gestion_ventas.jsx"> Ventas </Link></li>
-            <li><Link to="/src/pages/Gestion_ventas.jsx"> productos </Link></li>
-            <li><a href="#">Mas Ventas</a></li>
+            <li><Link to="/src/pages/GestionUsuario.jsx"> Usuarios </Link> </li>
+            <li><Link to="/src/pages/GestionVentas.jsx"> Ventas </Link></li>
+            <li><Link to="/src/pages/GestionProductos.jsx"> productos </Link></li>
+            <li><a href="/# ">Mas Ventas</a></li>
             <br />
         </ul>
             </li>
-            <li><a href="#">Contacto</a></li>
-            <li><a href="#">Salir</a></li>
+            <li><a href="/#">Contacto</a></li>
+            <li><a href="/#">Salir</a></li>
             </ul>
         </nav>
     </header>

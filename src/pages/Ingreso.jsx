@@ -1,26 +1,35 @@
 import React  from "react";
 import "../Estilos/estilos2.css"
-import Developer from "../img/developer.jpg"
 const ingreso = () =>{
     return(
-    <div>
+      <div className="App">
       <div className="conten">
       <section className="login_Developer">
-      <img class="avatar" src={Developer} alt="Logo_del_grupo"/>
-      <h1>Iniciar Sesion</h1>
+      
+      <h1>Iniciar Sesion</h1>      
       <form>
-      <label for="nombre_usuario">Nombre de usuario</label>
+      <label htmlFor="nombre_usuario">Nombre de usuario</label>
       <input type="text" placeholder="Ingrese Nombre de Usuario"></input>
-      <label for="Constraseña">Contraseña</label>
+      <label htmlFor="Constraseña">Contraseña</label>
       <input type="password" placeholder="Ingrese su contraseña"></input>
-      <input type="submit" value="Ingresar"></input> 
-      <div class="foot-lnk">
+      
+      <div className="botones">
+      <button type="submit">Ingresar</button> 
+      <span> -------  o  ------- </span>
+      <button type="Google">Ingresar con Google</button> 
+      </div>
+     
+      <div className="foot-lnk">
         <a href="#forgot">Registrarse</a>
         </div>
+      
+
       </form>
       </section>
     </div>
-</div>
+    </div>
+
+
 
 )
 }
