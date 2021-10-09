@@ -1,7 +1,8 @@
-import React  from "react";
+import React from 'react';
 import "../Estilos/usuarios.css"
 
-const Gestion_usuario = () =>{
+const Gestion_usuario = () => {
+
     return(
             <div className="contenedor">
                  <h3>Gestión de usuarios</h3>
@@ -17,7 +18,16 @@ const Gestion_usuario = () =>{
                         <option>Usuario2</option>
                         <option>Usuario3</option>
                     </select>
-                    <select required defaultValue={0}>
+
+                    <input className="seleccionar" name= "id" placeholder="Identificación"/> 
+                    
+                    </div>
+                    
+                    <div className="opciones2">
+                         
+                        <input name= "estado" placeholder="Estado Actual"/> 
+                        <input type="codigo" placeholder="Código"/>                         
+                        <select required defaultValue={0}>
                         <option disabled value={0}>
                             Rol de usuario
                         </option>
@@ -25,21 +35,14 @@ const Gestion_usuario = () =>{
                         <option>Vendedor</option>                  
                     </select>
                     </div>
-                    
-                    <div className="opciones2">
-                        <input name= "id" placeholder="Identificación"/>  
-                        <input type="codigo" placeholder="Código"/>   
-                        <input name= "estado" placeholder="Estado Actual"/>
-                    </div>
                     <hr/>
 
-                    <h4>Cambiar estado de usuario</h4>
+                    
                     <div className="selec">
+                        <label>Cambiar estado de usuario</label>
         
-                        <select  required defaultValue={0}>
-                        <option disabled value={0}>
-                            Estado
-                        </option>
+                        <select required defaultValue={0}>
+                        <option disabled value={0}>Estado</option>
                         <option>Pendiente</option>
                         <option>Autorizado</option>
                         <option>No Autorizado</option>
@@ -49,11 +52,14 @@ const Gestion_usuario = () =>{
                     <div className="botones1">
                         <button type ="save">Guardar Datos</button>
                         <button type ="reset"> Limpiar Campos </button>
+                        
                     </div>
   
             </form>
                 
             </div>  
     )
+
 }
+
 export default Gestion_usuario
