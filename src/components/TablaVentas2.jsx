@@ -7,8 +7,11 @@ function parImpar(numero){
     numero%2 === 0 ? value = true : value = false;
     return(value)
 }
-
+//simula la base de datos
 const listaVentaBackend=[
+    
+]
+const listaProductosBackend=[
     {
         ID: 1,
         producto: "producto1",
@@ -38,25 +41,33 @@ const listaVentaBackend=[
         subtotal: 0,
     },   
 ]
+//logica general
 const Ventas =()=>{
     const [ventas, setVentas] = useState([])
+    const [listaProducto, setListaProducto] = useState([])
     useEffect(() => {
         //obtener lista vehiculos desde el fronten
         setVentas(listaVentaBackend)
     }, []);
+    useEffect(() => {
+        //obtener lista vehiculos desde el fronten
+        setListaProducto(listaProductosBackend)
+    }, []);
     return(
         <div className= "container">
-        <Formulario funcionParAgregarVenta = {setVentas} listaVenta={ventas}/>
+        <Formulario funcionParAgregarVenta = {setVentas} listaVenta={ventas} listaProducto={listaProducto}/>
         <ToastContainer position="bottom-center" autoclose ={3000}/>
         <TablaVentas2 listaVenta={ventas}/>  
         
         </div>
     );
 }
-
+//parte de la tabla
 const TablaVentas2 = ({listaVenta})=>{
+    let total = 0;
+    let unidad = 0;
     useEffect(() => {
-    console.log("lista venta para  leidy y mari",listaVenta )
+    console.log("lista venta" )
 }, [listaVenta])
     return(
       <div className="container ">
@@ -73,6 +84,8 @@ const TablaVentas2 = ({listaVenta})=>{
                 <tbody>
                 
             {listaVenta.map((ventas,index) => {
+                total += ventas.subtotal;
+                unidad += parseInt(ventas.cantidad);
                 return(
                     //  cambia color segun arreglo  
                     parImpar(index) ?(
@@ -80,16 +93,16 @@ const TablaVentas2 = ({listaVenta})=>{
                         <th scope="row">{ventas.ID}</th>
                         <td>{ventas.producto}</td>
                         <td>{ventas.cantidad}</td>
-                        <td>{ventas.precioUnitario}</td>
-                        <td>{ventas.subtotal}</td>
+                        <td>${ventas.precioUnitario}</td>
+                        <td>${ventas.subtotal}</td>
                     </tr>)  :
                     (
                     <tr  className="table-light">
                         <th scope="row">{ventas.ID}</th>
                         <td>{ventas.producto}</td>
                         <td>{ventas.cantidad}</td>
-                        <td>{ventas.precioUnitario}</td>
-                        <td>{ventas.subtotal}</td>
+                        <td>${ventas.precioUnitario}</td>
+                        <td>${ventas.subtotal}</td>
                     </tr> 
                     )
                 ) 
@@ -114,8 +127,10 @@ const TablaVentas2 = ({listaVenta})=>{
                 <tbody>
                 
                     <tr className="table-secondary">
-                        <th scope="row">3</th>
-                        <td>$ ----</td>
+                        <th scope="row">{unidad}</th>
+                        <td>
+                            $ {total}
+                        </td>
                         <td className="form-group">
                             <select className="form-select" id="exampleSelect1">
                                 <option>En Proceso</option>
@@ -135,18 +150,20 @@ const TablaVentas2 = ({listaVenta})=>{
         </div>
     );
 };
-
-const Formulario = ({funcionParAgregarVenta ,listaVenta}) =>{
+//formulario
+const Formulario = ({funcionParAgregarVenta ,listaVenta , listaProducto}) =>{
     const [ID,setID]=useState("")
     const [cantidad,setCantidad] = useState("")
     const [producto,setProducto] = useState("")
     const [precioUnitario,setPrecioUnitario]=useState("")
-    const enviarAlBackend = () =>{
-    console.log("nombre:",producto,"ID:",ID,"cantidad:",cantidad);
-        toast.success("bien agregado")
-        funcionParAgregarVenta([...listaVenta,{ID:ID,producto:producto,cantidad:cantidad,
-            precioUnitario:3,subtotal: 3*cantidad }])
-}
+const enviarAlBackend = () =>{
+    console.log("precio Unitario");
+
+    funcionParAgregarVenta([...listaVenta,{ID:ID,producto:producto,cantidad:cantidad,
+        precioUnitario:precioUnitario,subtotal: 3*cantidad }])
+    toast.success("bien agregado")
+    }
+
 const submitForm =(e) =>{
 console.log("datos enviados")
 }
@@ -170,18 +187,21 @@ console.log("datos enviados")
                     <tr className="table-secondary">
                         <th>
                             <select className="form-select" name="productos" value={producto} onChange={(e)=> setProducto(e.target.value)} required>
-                            <option disabled>Productos</option>
-                            <option>Producto1</option>
-                            <option>Producto2</option>
-                            <option>Producto3</option>
+                            <option value="" disabled>Productos</option>
+                            {listaProducto.map((producto) => {
+                                return(
+                            <option>{producto.producto}</option>)
+                                })}
+                    
                             </select>
                             </th>                
                     <td>
                         <select className="form-select" name = "ID" value ={ID} onChange ={(e)=>setID(e.target.value)} required >
                             <option disabled> buscar por ID</option>
-                            <option>ID_1</option>
-                            <option>ID_2</option>
-                            <option>ID_3</option>
+                            {listaProducto.map((producto) => {
+                                return(
+                            <option>{producto.ID}</option>)
+                                })}
                         </select>
                         </td>
                         <td>
@@ -192,6 +212,7 @@ console.log("datos enviados")
             </tbody>
         </table>
         <div className="end">
+            
         <button type="submit" className="btn btn-success" onClick={()=>{enviarAlBackend()}}>
          agregar
         </button>
