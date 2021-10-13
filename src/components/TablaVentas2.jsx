@@ -13,31 +13,31 @@ const listaVentaBackend=[
 ]
 const listaProductosBackend=[
     {
-        ID: 1,
-        producto: "producto1",
+        Id: 1,
+        nombre: "producto1",
         cantidad:1,
-        precioUnitario:1,
+        precio:1,
         subtotal: 0,
     },
     {
-        ID: 2,
-        producto: "producto2",
+        Id: 2,
+        nombre: "producto2",
         cantidad:2,
-        precioUnitario:2,
+        precio:2,
         subtotal: 0,
     },
     {
-        ID: 3,
-        producto: "producto3",
+        Id: 3,
+        nombre: "producto3",
         cantidad:0,
-        precioUnitario:3,
+        precio:3,
         subtotal: 0,
     },
     {
-        ID: 4,
-        producto: "producto1",
+        Id: 4,
+        nombre: "producto1",
         cantidad:4,
-        precioUnitario:4,
+        precio:4,
         subtotal: 0,
     },   
 ]
@@ -55,6 +55,9 @@ const Ventas =()=>{
     }, []);
     return(
         <div className= "container">
+        <button type="button" className="btn btn-success">
+        historial 
+        </button>
         <Formulario funcionParAgregarVenta = {setVentas} listaVenta={ventas} listaProducto={listaProducto}/>
         <ToastContainer position="bottom-center" autoclose ={3000}/>
         <TablaVentas2 listaVenta={ventas}/>  
@@ -74,8 +77,8 @@ const TablaVentas2 = ({listaVenta})=>{
         <table className="table table-hover">
                 <thead>
                     <tr className="table-dark">
-                        <th scope="col">ID producto</th>
-                        <th scope="col">producto</th>
+                        <th scope="col">Id nombre</th>
+                        <th scope="col">nombre</th>
                         <th scope="col">cantidad</th>
                         <th scope="col">Precio Unitario</th>
                         <th scope="col">subtotal</th>
@@ -87,24 +90,29 @@ const TablaVentas2 = ({listaVenta})=>{
                 total += ventas.subtotal;
                 unidad += parseInt(ventas.cantidad);
                 return(
-                    //  cambia color segun arreglo  
+                    //  cambia color segun arreglo 
+                    index !== 0?(
                     parImpar(index) ?(
                     <tr  className="table-primary">
-                        <th scope="row">{ventas.ID}</th>
-                        <td>{ventas.producto}</td>
+                        <th scope="row">{ventas.Id}</th>
+                        <td>{ventas.nombre}</td>
                         <td>{ventas.cantidad}</td>
-                        <td>${ventas.precioUnitario}</td>
+                        <td>${ventas.precio}</td>
                         <td>${ventas.subtotal}</td>
                     </tr>)  :
                     (
                     <tr  className="table-light">
-                        <th scope="row">{ventas.ID}</th>
-                        <td>{ventas.producto}</td>
+                        <th scope="row">{ventas.Id}</th>
+                        <td>{ventas.nombre}</td>
                         <td>{ventas.cantidad}</td>
-                        <td>${ventas.precioUnitario}</td>
+                        <td>${ventas.precio}</td>
                         <td>${ventas.subtotal}</td>
                     </tr> 
                     )
+                    ) :(<tr  className="table-light">
+                    
+                </tr> )
+
                 ) 
                  ;
                 })}
@@ -132,7 +140,7 @@ const TablaVentas2 = ({listaVenta})=>{
                             $ {total}
                         </td>
                         <td className="form-group">
-                            <select className="form-select" id="exampleSelect1">
+                            <select className="form-select" Id="exampleSelect1">
                                 <option>En Proceso</option>
                                 <option>Cancelado</option>
                                 <option>Entregado</option>
@@ -152,31 +160,34 @@ const TablaVentas2 = ({listaVenta})=>{
 };
 //formulario
 const Formulario = ({funcionParAgregarVenta ,listaVenta , listaProducto}) =>{
-    const [ID,setID]=useState("")
+    const [Id,setID]=useState("")
     const [cantidad,setCantidad] = useState("")
-    const [producto,setProducto] = useState("")
-    const [precioUnitario,setPrecioUnitario]=useState("")
-const enviarAlBackend = () =>{
-    console.log("precio Unitario");
+    const [nombre,setProducto] = useState("")
+    const [precio,setPrecioUnitario]=useState("")
 
-    funcionParAgregarVenta([...listaVenta,{ID:ID,producto:producto,cantidad:cantidad,
-        precioUnitario:precioUnitario,subtotal: 3*cantidad }])
+const enviarAlBackend = () =>{
+    setPrecioUnitario(buscarPorID(Id))
+    funcionParAgregarVenta([...listaVenta,{Id:Id,nombre:nombre,cantidad:cantidad,
+        precio:precio,subtotal: precio*cantidad }])
     toast.success("bien agregado")
     }
-
-const submitForm =(e) =>{
-console.log("datos enviados")
-}
+    const buscarPorID = (Id) =>{
+        const newUser = listaProducto.filter(function(element) {
+            return(element.Id==Id);
+        })
+        console.log("soy new user",newUser[0].precio);
+        return(newUser[0].precio)
+    }
     return(
         <div>
-        <table onSubmit={submitForm} className="table table-hover">
+        <table className="table table-hover">
             <thead>
                     <tr className="table-dark">
                         <th>
                             Buscar Producto
                         </th>
                         <th>
-                            Buscar ID
+                            Buscar Id
                         </th>
                         <th>
                             Cantidad
@@ -186,26 +197,28 @@ console.log("datos enviados")
             <tbody>
                     <tr className="table-secondary">
                         <th>
-                            <select className="form-select" name="productos" value={producto} onChange={(e)=> setProducto(e.target.value)} required>
+                            <select className="form-select" name="productos" value={nombre} onChange={(e)=> setProducto(e.target.value)} required>
                             <option value="" disabled>Productos</option>
-                            {listaProducto.map((producto) => {
+                            {listaProducto.map((nombre) => {
                                 return(
-                            <option>{producto.producto}</option>)
+                            <option>{nombre.nombre}</option>)
                                 })}
                     
                             </select>
                             </th>                
                     <td>
-                        <select className="form-select" name = "ID" value ={ID} onChange ={(e)=>setID(e.target.value)} required >
-                            <option disabled> buscar por ID</option>
-                            {listaProducto.map((producto) => {
+                        <select className="form-select" name = "Id" value ={Id} onChange ={(e)=>(setID(e.target.value))} required >
+                            <option disabled> buscar por Id</option>
+                            {listaProducto.map((nombre) => {
+                                
                                 return(
-                            <option>{producto.ID}</option>)
+                            <option>{nombre.Id}</option>)
                                 })}
                         </select>
                         </td>
                         <td>
                         <input type="number" min="0" className="form-control" value={cantidad} onChange={(e)=>setCantidad(e.target.value)}  required />
+                        
                         </td>
                         
                 </tr>
@@ -219,5 +232,6 @@ console.log("datos enviados")
         </div>
         </div>
     );
+
 }
 export default Ventas
