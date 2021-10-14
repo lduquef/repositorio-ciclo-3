@@ -6,7 +6,7 @@ import GestionUsuario from './pages/GestionUsuario.jsx';
 import GestionVentas from './pages/GestionVentas.jsx';
 import Ingreso from './pages/Ingreso.jsx';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-
+import axios from 'axios';
 
 function App() {
   return (

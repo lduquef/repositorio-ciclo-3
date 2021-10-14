@@ -2,6 +2,7 @@ import React, { useEffect, useState} from 'react';
 import "../Estilos/bootstrap.css"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Link } from 'react-router-dom';
 function parImpar(numero){
     var value = true
     numero%2 === 0 ? value = true : value = false;
@@ -56,7 +57,7 @@ const Ventas =()=>{
     return(
         <div className= "container">
         <button type="button" className="btn btn-success">
-        historial 
+        <Link to="/src/pages/GestionVentas2.jsx"> historial </Link>
         </button>
         <Formulario funcionParAgregarVenta = {setVentas} listaVenta={ventas} listaProducto={listaProducto}/>
         <ToastContainer position="bottom-center" autoclose ={3000}/>
