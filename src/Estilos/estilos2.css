@@ -46,7 +46,7 @@
   font-size: 90%;
 }
 
-button[type="submit"] {
+#ingresar {
 
   background: rgb(64, 255, 47) ;
   border-radius: 20px;

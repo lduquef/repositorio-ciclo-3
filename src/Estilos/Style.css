@@ -31,8 +31,9 @@ body {
   
 header{
   margin-top: -55px;
+  margin-left: 1%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   height: 20px;
   font-size: 14px;
   
@@ -138,4 +139,17 @@ nav{
 }
 .menuCSS3 ul li a:hover + ul, .menuCSS3 ul li ul:hover {
   display: block;
+}
+
+#salir {
+    height: 5vh;
+    width: 10vw;
+    border-radius: 10px;
+    cursor: pointer;
+    color: #050505;
+    background-color: #57ee32;
+    font-weight: bold;   
+    border: outset 1px #ccc;
+    margin-left: 650%;
+    margin-top: 12%;
 }
