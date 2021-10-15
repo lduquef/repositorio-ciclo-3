@@ -14,52 +14,52 @@ const listaVentaBackend=[
 ]
 const listaProductosBackend=[
     {
-        Id: 1,
-        nombre: "producto1",
-        cantidad:1,
-        precio:1,
-        subtotal: 0,
+        Factura: 1,
+        Cliente: "producto1",
+        Cliente_ID:1,
+        Fecha:1,
+        Estado_Venta: "entregado",
     },
     {
-        Id: 2,
-        nombre: "producto2",
-        cantidad:2,
-        precio:2,
-        subtotal: 0,
+        Factura: 2,
+        Cliente: "producto2",
+        Cliente_ID:2,
+        Fecha:2,
+        Estado_Venta: "En Proceso",
     },
     {
-        Id: 3,
-        nombre: "producto3",
-        cantidad:0,
-        precio:3,
-        subtotal: 0,
+        Factura: 3,
+        Cliente: "producto1",
+        Cliente_ID:3,
+        Fecha:3,
+        Estado_Venta: "cancelado",
     },
     {
-        Id: 4,
-        nombre: "producto1",
-        cantidad:4,
-        precio:4,
-        subtotal: 0,
-    },   
+        Factura: 4,
+        Cliente: "producto1",
+        Cliente_ID:4,
+        Fecha:4,
+        Estado_Venta: "entregado",
+    },  
+     
 ]
 //logica general
 const Ventas =()=>{
     const [ventas, setVentas] = useState([])
-    const [lista
-        , setListaProducto] = useState([])
+    const [listaProducto, setListaProducto] = useState([])
     useEffect(() => {
         //obtener lista vehiculos desde el fronten
         setVentas(listaVentaBackend)
     }, []);
     useEffect(() => {
         //obtener lista vehiculos desde el fronten
-        setListaProducto(listaProductosBackend)
+        setListaProducto(listaVentaBackend)
     }, []);
     return(
         <div className= "container">
         <button type="button" className="btn btn-success">
-        <Link to="/src/pages/GestionVentas2.jsx"> historial </Link>
-        </button>
+        <Link to="/src/pages/GestionVentas.jsx"> Devolver </Link> 
+        </button> 
         <Formulario funcionParAgregarVenta = {setVentas} listaVenta={ventas} listaProducto={listaProducto}/>
         <ToastContainer position="bottom-center" autoclose ={3000}/>
         <TablaVentas2 listaVenta={ventas}/>  
@@ -69,8 +69,7 @@ const Ventas =()=>{
 }
 //parte de la tabla
 const TablaVentas2 = ({listaVenta})=>{
-    let total = 0;
-    let unidad = 0;
+    
     useEffect(() => {
     console.log("lista venta" )
 }, [listaVenta])
@@ -79,36 +78,35 @@ const TablaVentas2 = ({listaVenta})=>{
         <table className="table table-hover">
                 <thead>
                     <tr className="table-dark">
-                        <th scope="col">Id nombre</th>
-                        <th scope="col">nombre</th>
-                        <th scope="col">cantidad</th>
-                        <th scope="col">Precio Unitario</th>
-                        <th scope="col">subtotal</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Cliente</th>
+                        <th scope="col">Cliente_ID</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Estado_Venta</th>
                     </tr>
                 </thead>
                 <tbody>
                 
             {listaVenta.map((ventas,index) => {
-                total += ventas.subtotal;
-                unidad += parseInt(ventas.cantidad);
+                
                 return(
                     //  cambia color segun arreglo 
                     index !== 0?(
                     parImpar(index) ?(
                     <tr  className="table-primary">
-                        <th scope="row">{ventas.Id}</th>
-                        <td>{ventas.nombre}</td>
-                        <td>{ventas.cantidad}</td>
-                        <td>${ventas.precio}</td>
-                        <td>${ventas.subtotal}</td>
+                        <th scope="row">{ventas.Factura}</th>
+                        <td>{ventas.Cliente}</td>
+                        <td>{ventas.Cliente_ID}</td>
+                        <td>${ventas.Fecha}</td>
+                        <td>${ventas.Estado_Venta}</td>
                     </tr>)  :
                     (
                     <tr  className="table-light">
-                        <th scope="row">{ventas.Id}</th>
-                        <td>{ventas.nombre}</td>
-                        <td>{ventas.cantidad}</td>
-                        <td>${ventas.precio}</td>
-                        <td>${ventas.subtotal}</td>
+                        <th scope="row">{ventas.Factura}</th>
+                        <td>{ventas.Cliente}</td>
+                        <td>{ventas.Cliente_ID}</td>
+                        <td>${ventas.Fecha}</td>
+                        <td>${ventas.Estado_Venta}</td>
                     </tr> 
                     )
                     ) :(<tr  className="table-light">
@@ -120,38 +118,7 @@ const TablaVentas2 = ({listaVenta})=>{
                 })}
                 </tbody>
             </table>
-        <table className="table table-hover">
-                <thead>
-                    <tr className="table-dark">
-                        <th>
-                            Unidades Totales
-                        </th>
-                        <th>
-                            Total
-                        </th>
-                        <th>
-                            Estado Venta
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                
-                    <tr className="table-secondary">
-                        <th scope="row">{unidad}</th>
-                        <td>
-                            $ {total}
-                        </td>
-                        <td className="form-group">
-                            <select className="form-select" Id="exampleSelect1">
-                                <option>En Proceso</option>
-                                <option>Cancelado</option>
-                                <option>Entregado</option>
-                            </select>
-                        </td>
-
-                    </tr>
-                </tbody>
-        </table>
+        
         <div className="end">
         <button type="button" className="btn btn-success">
          finalizar 
@@ -162,20 +129,21 @@ const TablaVentas2 = ({listaVenta})=>{
 };
 //formulario
 const Formulario = ({funcionParAgregarVenta ,listaVenta , listaProducto}) =>{
-    const [Id,setID]=useState("")
-    const [cantidad,setCantidad] = useState("")
-    const [nombre,setProducto] = useState("")
-    const [precio,setPrecioUnitario]=useState("")
+    const [Factura,setFactura]=useState("")
+    const [Cliente,setCliente] = useState("")
+    const [Cliente_ID,setCliente_ID] = useState("")
+    const [Fecha,setFecha]=useState("")
+    const [Estado_Venta,setEstado_Venta]=useState("")
 
 const enviarAlBackend = () =>{
-    setPrecioUnitario(buscarPorID(Id))
-    funcionParAgregarVenta([...listaVenta,{Id:Id,nombre:nombre,cantidad:cantidad,
-        precio:precio,subtotal: precio*cantidad }])
+    setEstado_Venta(buscarPorFactura(Factura))
+    funcionParAgregarVenta([...listaVenta,{Factura:Factura,Cliente:Cliente,Cliente_ID:Cliente_ID,
+        Fecha:Fecha,Estado_Venta:Estado_Venta, }])
     toast.success("bien agregado")
     }
-    const buscarPorID = (Id) =>{
+    const buscarPorFactura = (Factura) =>{
         const newUser = listaProducto.filter(function(element) {
-            return(element.Id==Id);
+            return(element.Factura==Factura);
         })
         console.log("soy new user",newUser[0].precio);
         return(newUser[0].precio)
@@ -186,40 +154,40 @@ const enviarAlBackend = () =>{
             <thead>
                     <tr className="table-dark">
                         <th>
-                            Buscar Producto
+                            Factura
                         </th>
                         <th>
-                            Buscar Id
+                            Cliente
                         </th>
                         <th>
-                            Cantidad
+                            Cliente_ID
                         </th>
                     </tr>
                 </thead>
             <tbody>
                     <tr className="table-secondary">
                         <th>
-                            <select className="form-select" name="productos" value={nombre} onChange={(e)=> setProducto(e.target.value)} required>
-                            <option value="" disabled>Productos</option>
+                            <select className="form-select" name="Cliente" value={Cliente} onChange={(e)=> setCliente(e.target.value)} required>
+                            <option value="" disabled>Cliente</option>
                             {listaProducto.map((nombre) => {
                                 return(
-                            <option>{nombre.nombre}</option>)
+                            <option>{nombre.Cliente}</option>)
                                 })}
                     
                             </select>
                             </th>                
                     <td>
-                        <select className="form-select" name = "Id" value ={Id} onChange ={(e)=>(setID(e.target.value))} required >
-                            <option disabled> buscar por Id</option>
+                        <select className="form-select" name = "Factura" value ={Factura} onChange ={(e)=>(setFactura(e.target.value))} required >
+                            <option disabled> buscar por Factura</option>
                             {listaProducto.map((nombre) => {
                                 
                                 return(
-                            <option>{nombre.Id}</option>)
+                            <option>{nombre.Factura}</option>)
                                 })}
                         </select>
                         </td>
                         <td>
-                        <input type="number" min="0" className="form-control" value={cantidad} onChange={(e)=>setCantidad(e.target.value)}  required />
+                        <input type="number" min="0" className="form-control" value={Cliente_ID} onChange={(e)=>setCliente_ID(e.target.value)}  required />
                         
                         </td>
                         
