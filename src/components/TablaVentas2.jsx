@@ -3,6 +3,7 @@ import "../Estilos/bootstrap.css"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
+
 function parImpar(numero){
     var value = true
     numero%2 === 0 ? value = true : value = false;
@@ -71,7 +72,6 @@ const TablaVentas2 = ({listaVenta})=>{
     let total = 0;
     let unidad = 0;
     useEffect(() => {
-    console.log("lista venta" )
 }, [listaVenta])
     return(
       <div className="container ">
@@ -165,12 +165,27 @@ const Formulario = ({funcionParAgregarVenta ,listaVenta , listaProducto}) =>{
     const [cantidad,setCantidad] = useState("")
     const [nombre,setProducto] = useState("")
     const [precio,setPrecioUnitario]=useState("")
-
-const enviarAlBackend = () =>{
+    
+const enviarAlBackend = async () =>{
+    
     setPrecioUnitario(buscarPorID(Id))
     funcionParAgregarVenta([...listaVenta,{Id:Id,nombre:nombre,cantidad:cantidad,
         precio:precio,subtotal: precio*cantidad }])
-    toast.success("bien agregado")
+        var axios = require("axios").default;
+        const options = {
+            method: 'POST',
+            url: 'http://localhost:3000/api/product',
+            headers: {'Content-Type': 'application/json'},
+            data: {Id:1001,nproducto:5033,nprecio:70000}
+          };
+          
+          await axios.request(options).then(function (response) {
+            console.log(response.data);
+            toast.success("bien agregado");
+          }).catch(function (error) {
+            console.error(error);
+            toast.warning("ojo mal ingresado ")
+          });
     }
     const buscarPorID = (Id) =>{
         const newUser = listaProducto.filter(function(element) {
