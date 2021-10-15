@@ -3,7 +3,6 @@ import "../Estilos/bootstrap.css"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
-
 function parImpar(numero){
     var value = true
     numero%2 === 0 ? value = true : value = false;
@@ -46,7 +45,8 @@ const listaProductosBackend=[
 //logica general
 const Ventas =()=>{
     const [ventas, setVentas] = useState([])
-    const [listaProducto, setListaProducto] = useState([])
+    const [lista
+        , setListaProducto] = useState([])
     useEffect(() => {
         //obtener lista vehiculos desde el fronten
         setVentas(listaVentaBackend)
