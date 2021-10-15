@@ -45,8 +45,7 @@ const listaProductosBackend=[
 //logica general
 const Ventas =()=>{
     const [ventas, setVentas] = useState([])
-    const [lista
-        , setListaProducto] = useState([])
+    const [listaProducto, setListaProducto] = useState([])
     useEffect(() => {
         //obtener lista vehiculos desde el fronten
         setVentas(listaVentaBackend)
