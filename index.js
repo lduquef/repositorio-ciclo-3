@@ -1,10 +1,18 @@
 "use strict"
+import {MongoClient} from "mongodb"
 const express = require("express");
 const bodyParser = require("body-parser")
 const mongoose = require("mongoose")
 const Product = require("./modelo/product");
 const product = require("./modelo/product");
 const cors =require("cors");
+
+const stringConexion = "mongodb+srv://admin:admin123@cluster0.fjnmf.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+
+const client = MongoClient(stringConexion,{
+    usenewUrlParser:true,
+    useUnifiedTopology:true,
+});
 
 const app = express();
 app.use(cors())
@@ -41,7 +49,6 @@ app.get("/api/product/:productId", (req, res) => {
 app.post("/api/product", (req, res) => {
     console.log("POST /api/product")
     console.log(req.body)
-
     let product = new Product()
     product.id = req.body.id
     product.nombre = req.body.nombre
@@ -49,8 +56,6 @@ app.post("/api/product", (req, res) => {
     product.estado = req.body.estado
     //product.category = req.body.category
     //product.description = req.body.description
-
-
     product.save((err, productStored) => {
         if (err) {
             res.status(500).send({ message: `Error al salvar la base de datos: ${err} ` })
@@ -70,16 +75,28 @@ app.delete("/api/product/:productID", (req, res) => {
 
 })
 
-mongoose.connect("mongodb://localhost:27017/shop", (err, res) => {
-    if (err) {
-        return console.log(`error al conectar en base de datos: ${err} `)
-    }
-    console.log("conexion de bases establecida con éxito")
+// mongoose.connect("mongodb://localhost:27017/shop", (err, res) => {
+//     if (err) {
+//         return console.log(`error al conectar en base de datos: ${err} `)
+//     }
+//     console.log("conexion de bases establecida con éxito")
 
-    app.listen(port, () => {
+//     app.listen(port, () => {
 
-        console.log(`API REST corriendo en http:/localhost:${port}`)
-    })
+//         console.log(`API REST corriendo en http:/localhost:${port}`)
+//     })
+// });
 
-
-});
+const main = () =>{
+    client.connect((err,db)=>{
+        if(err){
+            console.log("error en la conexion")
+        }
+        const conexion = db.db("productos")
+        
+        return app.listen(3001,() =>{
+            console.log("escuchando 3001")
+        });
+    });
+};
+main();
