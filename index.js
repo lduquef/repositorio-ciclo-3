@@ -1,5 +1,5 @@
 "use strict"
-import {MongoClient} from "mongodb"
+import {MongoClient} from "mongodb";
 const express = require("express");
 const bodyParser = require("body-parser")
 const mongoose = require("mongoose")
