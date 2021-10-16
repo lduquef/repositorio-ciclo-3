@@ -165,27 +165,6 @@ const Formulario = ({funcionParAgregarVenta ,listaVenta , listaProducto}) =>{
     const [nombre,setProducto] = useState("")
     const [precio,setPrecioUnitario]=useState("")
     
-const enviarAlBackend = async () =>{
-    
-    setPrecioUnitario(buscarPorID(Id))
-    funcionParAgregarVenta([...listaVenta,{Id:Id,nombre:nombre,cantidad:cantidad,
-        precio:precio,subtotal: precio*cantidad }])
-        var axios = require("axios").default;
-        const options = {
-            method: 'POST',
-            url: 'http://localhost:3000/api/product',
-            headers: {'Content-Type': 'application/json'},
-            data: {Id:1001,nproducto:5033,nprecio:70000}
-          };
-          
-          await axios.request(options).then(function (response) {
-            console.log(response.data);
-            toast.success("bien agregado");
-          }).catch(function (error) {
-            console.error(error);
-            toast.warning("ojo mal ingresado ")
-          });
-    }
     const buscarPorID = (Id) =>{
         const newUser = listaProducto.filter(function(element) {
             return(element.Id==Id);
@@ -193,6 +172,19 @@ const enviarAlBackend = async () =>{
         console.log("soy new user",newUser[0].precio);
         return(newUser[0].precio)
     }
+
+    const enviarAlBackend = async () =>{
+    if(Id==="") {
+        toast.warn("error")
+    }
+    else
+    {
+    setPrecioUnitario(buscarPorID(Id));
+    funcionParAgregarVenta([...listaVenta,{Id:Id,nombre:nombre,cantidad:cantidad,
+        precio:precio,subtotal: precio*cantidad }]);
+        toast.success("bien ingresado");    
+    }}
+    
     return(
         <div>
         <table className="table table-hover">
@@ -240,7 +232,6 @@ const enviarAlBackend = async () =>{
             </tbody>
         </table>
         <div className="end">
-            
         <button type="submit" className="btn btn-success" onClick={()=>{enviarAlBackend()}}>
          agregar
         </button>
