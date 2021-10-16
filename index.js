@@ -70,7 +70,7 @@ app.delete("/api/product/:productID", (req, res) => {
 
 })
 
-mongoose.connect("mongodb://localhost:27017/shop", (err, res) => {
+mongoose.connect("mongodb+srv://admin:admin123@cluster0.fjnmf.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", (err, res) => {
     if (err) {
         return console.log(`error al conectar en base de datos: ${err} `)
     }
