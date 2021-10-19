@@ -59,9 +59,9 @@ return (
    )}
    <td>
    <div >
-     {edit? (<a onClick={()=> actualizarproducto} className="fas fa-check "/>
+     {edit? (<a onClick={()=> actualizarproducto} className="fas fa-check a"/>
      ):(
-     <a onClick={()=>setEdit(!edit)} className="fas fa-pencil-alt "  />
+     <a onClick={()=>setEdit(!edit)} className="fas fa-pencil-alt a"  />
      )}
      < a  className="fas fa-trash-alt a"/>
      </div>

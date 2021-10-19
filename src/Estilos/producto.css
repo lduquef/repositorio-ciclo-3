@@ -35,7 +35,7 @@
     margin: 2em;
     padding: .5em;
     border: 2px solid #6bb99c;
-    width: 12em;
+    width: 10em;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 2px;
@@ -97,7 +97,7 @@
   
   .login_Developer_2 input {
   
-    width: 5vw; 
+    width: 11vw; 
     margin: 1%;
     padding: 1%;
   }
