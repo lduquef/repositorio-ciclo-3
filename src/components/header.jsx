@@ -27,7 +27,7 @@ const Header =() =>{
             <li><Link to="/src/pages/Gestion_usuario.jsx"> Usuarios </Link> </li>
             <li><Link to="/src/pages/Gestion_ventas.jsx"> Ventas </Link></li>
             <li><Link to="/src/pages/Gestion_productos.jsx"> productos </Link></li>
-            <li><a href="#">Mas Ventas</a></li>
+            
             <br />
         </ul>
             </li>
