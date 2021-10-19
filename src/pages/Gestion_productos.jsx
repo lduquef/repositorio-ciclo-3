@@ -44,7 +44,7 @@ const Gestion_productos = () =>{
       return(
       < >
        
-            <TablaProducto1  />
+            {/* <TablaProducto1  /> */}
             <TablaProducto2 listaProductos={productos} setMostrarProductos={setMostrarProductos}/>
             <ToastContainer position="top-center"
                   autoClose={5000}/>
