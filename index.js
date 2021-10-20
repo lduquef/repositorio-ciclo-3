@@ -43,7 +43,7 @@ app.post("/api/product", (req, res) => {
     console.log(req.body)
 
     let product = new Product()
-    product.id = req.body.id
+    product.codigo = req.body.codigo
     product.nombre = req.body.nombre
     product.precio = req.body.precio
     product.estado = req.body.estado
@@ -60,14 +60,36 @@ app.post("/api/product", (req, res) => {
     })
 })
 
-app.put("/api/product/:productID", (req, res) => {
+app.put("/api/product", (req, res) => {
+    console.log(req.body.id)
+    let product = req.body.id
+    let update = req.body
+    Product.findByIdAndUpdate(product, update, (err,  productUpdated) =>{
+        if (err) {
+         return res.status(500).send({ message: `Error al actuaizar producto: ${err} ` })
+            
+        }
+        res.status(201).send({ product: productUpdated})
+    })
+
 
 })
 
-app.delete("/api/product/:productID", (req, res) => {
+app.delete("/api/product/", (req, res) => {
+    
+    let product = req.body.id
+    Product.findById(product, (err, product)  =>{
+        if (err) {
+         return res.status(500).send({ message: `Error al eliminar producto: ${err} ` })
+        }
+         product.remove(err =>{
+             if  (err) {
+                return res.status(500).send({ message: `Error al eliminar producto: ${err} ` })
+        }
+        res.status(201).send({message: "El producto ha sido eliminado"})
+    })
 
-
-
+    })
 })
 
 mongoose.connect("mongodb://localhost:27017/shop", (err, res) => {
