@@ -3,6 +3,7 @@ import "../Estilos/bootstrap.css"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
+import axios from "axios";
 function parImpar(numero){
     var value = true
     numero%2 === 0 ? value = true : value = false;
@@ -12,54 +13,67 @@ function parImpar(numero){
 const listaVentaBackend=[
     
 ]
-const listaProductosBackend=[
-    {
-        Id: 1,
-        nombre: "producto1",
-        cantidad:1,
-        precio:1,
-        subtotal: 0,
-    },
-    {
-        Id: 2,
-        nombre: "producto2",
-        cantidad:2,
-        precio:2,
-        subtotal: 0,
-    },
-    {
-        Id: 3,
-        nombre: "producto3",
-        cantidad:0,
-        precio:3,
-        subtotal: 0,
-    },
-    {
-        Id: 4,
-        nombre: "producto1",
-        cantidad:4,
-        precio:4,
-        subtotal: 0,
-    },   
-]
+// const listaProductosBackend=[
+//     {
+//         Id: 1,
+//         nombre: "producto1",
+//         cantidad:1,
+//         precio:1,
+//         subtotal: 0,
+//     },
+//     {
+//         Id: 2,
+//         nombre: "producto2",
+//         cantidad:2,
+//         precio:2,
+//         subtotal: 0,
+//     },
+//     {
+//         Id: 3,
+//         nombre: "producto3",
+//         cantidad:0,
+//         precio:3,
+//         subtotal: 0,
+//     },
+//     {
+//         Id: 4,
+//         nombre: "producto1",
+//         cantidad:4,
+//         precio:4,
+//         subtotal: 0,
+//     },   
+// ]
 //logica general
 const Ventas =()=>{
     const [ventas, setVentas] = useState([])
     const [listaProducto, setListaProducto] = useState([])
+    const [productos, setMostrarProductos] = useState([]);
     useEffect(() => {
-        //obtener lista vehiculos desde el fronten
+          const options = { method: 'GET', url: 'http://localhost:3001/api/product' };
+
+          axios.request(options).then(function (response) {
+                console.log(response.data);
+                setMostrarProductos(response.data.productos)
+
+          }).catch(function (error) {
+                console.error(error);
+          });
+    }, [setMostrarProductos]);
+
+    useEffect(() => {
+        //obtener lista articulos desde el fronten
         setVentas(listaVentaBackend)
     }, []);
-    useEffect(() => {
-        //obtener lista vehiculos desde el fronten
-        setListaProducto(listaProductosBackend)
-    }, []);
+    // // useEffect(() => {
+    // //     //obtener lista articulos desde el fronten
+    // //     setListaProducto(listaProductosBackend)
+    // }, []);
     return(
         <div className= "container">
         <button type="button" className="btn btn-success">
         <Link to="/src/pages/GestionVentas2.jsx"> historial </Link>
         </button>
-        <Formulario funcionParAgregarVenta = {setVentas} listaVenta={ventas} listaProducto={listaProducto}/>
+        <Formulario funcionParaAgregarVenta = {setVentas} listaVenta={ventas} listaProducto={productos}/>
         <ToastContainer position="bottom-center" autoclose ={3000}/>
         <TablaVentas2 listaVenta={ventas}/>  
         
@@ -72,6 +86,22 @@ const TablaVentas2 = ({listaVenta})=>{
     let unidad = 0;
     useEffect(() => {
 }, [listaVenta])
+const enviarAlBackend = async(e)=> {
+    
+    const options = {
+        method: 'POST',
+        url: 'http://localhost:3001/api/venta',
+        headers: {'Content-Type': 'application/json'},
+        data: {listaVenta  }
+      };
+      
+      axios.request(options).then(function (response) {
+        console.log(response.data);
+      }).catch(function (error) {
+        console.error(error);
+      });
+}
+
     return(
       <div className="container ">
         <table className="table table-hover">
@@ -94,19 +124,19 @@ const TablaVentas2 = ({listaVenta})=>{
                     index !== 0?(
                     parImpar(index) ?(
                     <tr  className="table-primary">
-                        <th scope="row">{ventas.Id}</th>
+                        <th scope="row">{ventas.codigo}</th>
                         <td>{ventas.nombre}</td>
                         <td>{ventas.cantidad}</td>
                         <td>${ventas.precio}</td>
-                        <td>${ventas.subtotal}</td>
+                        <td>${parseInt(ventas.precio) * parseInt(ventas.cantidad)}</td>
                     </tr>)  :
                     (
                     <tr  className="table-light">
-                        <th scope="row">{ventas.Id}</th>
+                        <th scope="row">{ventas.codigo}</th>
                         <td>{ventas.nombre}</td>
                         <td>{ventas.cantidad}</td>
                         <td>${ventas.precio}</td>
-                        <td>${ventas.subtotal}</td>
+                        <td>${parseInt(ventas.precio) * parseInt(ventas.cantidad)}</td>
                     </tr> 
                     )
                     ) :(<tr  className="table-light">
@@ -151,36 +181,39 @@ const TablaVentas2 = ({listaVenta})=>{
                 </tbody>
         </table>
         <div className="end">
-        <button type="button" className="btn btn-success">
-         finalizar 
+        <button type="submit" className="btn btn-success" onClick={()=>{enviarAlBackend()}}>
+         agregar
         </button>
         </div>
         </div>
     );
 };
 //formulario
-const Formulario = ({funcionParAgregarVenta ,listaVenta , listaProducto}) =>{
-    const [Id,setID]=useState("")
+const Formulario = ({funcionParaAgregarVenta ,listaVenta , listaProducto}) =>{
+    const [codigo,setCodigo]=useState("")
     const [cantidad,setCantidad] = useState("")
     const [nombre,setProducto] = useState("")
     const [precio,setPrecioUnitario]=useState("")
-    
-    const buscarPorID = (Id) =>{
-        const newUser = listaProducto.filter(function(element) {
-            return(element.Id==Id);
-        })
-        console.log("soy new user",newUser[0].precio);
-        return(newUser[0].precio)
-    }
+    useEffect(() => {
+        
+    }, [setCodigo,setPrecioUnitario,setCantidad,setProducto])
+     const buscarPorID = (codigo) =>{
+         const newUser = listaProducto.filter(function(element) {
+             return(element.codigo==codigo);
+         })
+         console.log("soy new user",newUser[0].codigo);
+         return( setProducto(newUser[0].nombre),
+             setPrecioUnitario(newUser[0].precio))
+     }  
 
-    const enviarAlBackend = async () =>{
-    if(Id==="") {
+    const enviarAlBackend =  () =>{
+    if(codigo==="") {
         toast.warn("error")
     }
     else
     {
-    setPrecioUnitario(buscarPorID(Id));
-    funcionParAgregarVenta([...listaVenta,{Id:Id,nombre:nombre,cantidad:cantidad,
+    buscarPorID(codigo);
+    funcionParaAgregarVenta([...listaVenta,{codigo:codigo,nombre:nombre,cantidad:cantidad,
         precio:precio,subtotal: precio*cantidad }]);
         toast.success("bien ingresado");    
     }}
@@ -190,7 +223,7 @@ const Formulario = ({funcionParAgregarVenta ,listaVenta , listaProducto}) =>{
         <table className="table table-hover">
             <thead>
                     <tr className="table-dark">
-                        <th>
+                    <th>
                             Buscar Producto
                         </th>
                         <th>
@@ -203,23 +236,23 @@ const Formulario = ({funcionParAgregarVenta ,listaVenta , listaProducto}) =>{
                 </thead>
             <tbody>
                     <tr className="table-secondary">
-                        <th>
-                            <select className="form-select" name="productos" value={nombre} onChange={(e)=> setProducto(e.target.value)} required>
+                    <th>
+                            {/* <select className="form-select" name="productos" value={nombre} onChange={(e)=> setProducto(e.target.value)} required>
                             <option value="" disabled>Productos</option>
                             {listaProducto.map((nombre) => {
                                 return(
                             <option>{nombre.nombre}</option>)
                                 })}
-                    
-                            </select>
-                            </th>                
+                            </select> */}
+                            <h4>{nombre}</h4>
+                    </th>
                     <td>
-                        <select className="form-select" name = "Id" value ={Id} onChange ={(e)=>(setID(e.target.value))} required >
+                        <select className="form-select" name = "Id" value ={codigo} onChange ={(e)=>(setCodigo(e.target.value))} required >
                             <option disabled> buscar por Id</option>
                             {listaProducto.map((nombre) => {
-                                
                                 return(
-                            <option>{nombre.Id}</option>)
+                            <option>{nombre.codigo}</option> 
+                             )
                                 })}
                         </select>
                         </td>

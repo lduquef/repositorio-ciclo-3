@@ -6,7 +6,6 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 
-
 // const productosBackend = [
 //       {id: "OOOO1",
 //       nombre: "camisa",

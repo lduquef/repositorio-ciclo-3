@@ -20,10 +20,10 @@ const FilaProducto =({productos})=>{
   const actualizarproducto = async()=>{
     console.log(infoNuevoProducto)
     const options = {
-      method: 'PUT',
-      url: 'http://localhost:3001/api/product',
+      method: 'POST',
+      url: 'http://localhost:3001/api/venta',
       headers: {'Content-Type': 'application/json'},
-      data: { ...infoNuevoProducto, id: productos._id }
+      data: {codigo: 'algo', nombre: 'layo', precio: 902343, estado: 'algo}
     };
     
     await axios
