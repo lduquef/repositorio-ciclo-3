@@ -23,7 +23,7 @@ const FilaProducto =({productos})=>{
       method: 'POST',
       url: 'http://localhost:3001/api/venta',
       headers: {'Content-Type': 'application/json'},
-      data: {codigo: 'algo', nombre: 'layo', precio: 902343, estado: 'algo}
+      data: {codigo: 'algo', nombre: 'layo', precio: 902343, estado: 'algo'}
     };
     
     await axios
