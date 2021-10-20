@@ -20,12 +20,6 @@ import axios from "axios";
 
 
 const Gestion_productos = () =>{
-<<<<<<< HEAD
-    return(
-    <div>
-
-    </div>  )
-=======
       const [productos, setMostrarProductos] = useState([]);
       useEffect(() => {
             const options = { method: 'GET', url: 'http://localhost:3001/api/product' };
@@ -56,6 +50,5 @@ const Gestion_productos = () =>{
                   autoClose={5000}/>
       </>
           );
->>>>>>> 51ee329350638dec2a51aacc03f91ebea4df0f7c
 }
 export default Gestion_productos;
