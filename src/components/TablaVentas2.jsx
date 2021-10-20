@@ -92,7 +92,7 @@ const enviarAlBackend = async(e)=> {
         method: 'POST',
         url: 'http://localhost:3001/api/venta',
         headers: {'Content-Type': 'application/json'},
-        data: {listaVenta  }
+        data: {unidad: unidad,total:total,listaVenta : JSON.stringify(listaVenta)  }
       };
       
       axios.request(options).then(function (response) {
