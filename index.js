@@ -46,10 +46,7 @@ app.post("/api/product", (req, res) => {
     product.nombre = req.body.nombre
     product.precio = req.body.precio
     product.estado = req.body.estado
-<<<<<<< HEAD
-=======
    
->>>>>>> a03508826e35ceb8200efec8e1b05a3917222467
     //product.category = req.body.category
     //product.description = req.body.description
 
