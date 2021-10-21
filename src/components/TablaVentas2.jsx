@@ -13,36 +13,30 @@ function parImpar(numero){
 const listaVentaBackend=[
     
 ]
-// const listaProductosBackend=[
-//     {
-//         Id: 1,
-//         nombre: "producto1",
-//         cantidad:1,
-//         precio:1,
-//         subtotal: 0,
-//     },
-//     {
-//         Id: 2,
-//         nombre: "producto2",
-//         cantidad:2,
-//         precio:2,
-//         subtotal: 0,
-//     },
-//     {
-//         Id: 3,
-//         nombre: "producto3",
-//         cantidad:0,
-//         precio:3,
-//         subtotal: 0,
-//     },
-//     {
-//         Id: 4,
-//         nombre: "producto1",
-//         cantidad:4,
-//         precio:4,
-//         subtotal: 0,
-//     },   
-// ]
+const Tabla_ventas1 = ()=>{
+    return(
+      <div className="container  container2">
+        <div className="column ">
+            <label >Fecha </label>
+            <input type="date" className="form-control" />
+            <label >Vendedor </label>
+            <input type="text" className="form-control"  />
+            <label >Vendedor ID </label>
+            <input type="number" min="0"  className="form-control"  />
+            <label >Cliente </label>
+            <input type="text" className="form-control"  />
+            <label >Cliente ID </label>
+            <input type="number" min="0" className="form-control"  />
+        </div>
+        <div className="container3">
+        <div className="container ">
+           <h4># Factura</h4>
+           <input type="number"min="1000" className="form-control"  />
+        </div>
+        </div>
+</div>
+    );
+}
 //logica general
 const Ventas =()=>{
     const [ventas, setVentas] = useState([])
@@ -69,6 +63,8 @@ const Ventas =()=>{
     // //     setListaProducto(listaProductosBackend)
     // }, []);
     return(
+        <div className="classVentas">
+        <Tabla_ventas1/>
         <div className= "container">
         <button type="button" className="btn btn-success">
         <Link to="/src/pages/GestionVentas2.jsx"> historial </Link>
@@ -76,7 +72,7 @@ const Ventas =()=>{
         <Formulario funcionParaAgregarVenta = {setVentas} listaVenta={ventas} listaProducto={productos}/>
         <ToastContainer position="bottom-center" autoclose ={3000}/>
         <TablaVentas2 listaVenta={ventas}/>  
-        
+        </div>
         </div>
     );
 }
