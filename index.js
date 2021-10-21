@@ -3,10 +3,11 @@ const express = require("express");
 const bodyParser = require("body-parser")
 const mongoose = require("mongoose")
 const Product = require("./modelo/product");
-
+const Usuarios = require("./modelo/usuarios")
 const Ventas = require("./modelo/venta");
 const cors =require("cors");
 const venta = require("./modelo/venta");
+
 
 const app = express();
 app.use(cors())
@@ -44,7 +45,7 @@ app.post("/api/product", (req, res) => {
     product.codigo = req.body.codigo
     product.nombre = req.body.nombre
     product.precio = req.body.precio
-    product.total = req.body.total
+    product.estado = req.body.estado
     //product.category = req.body.category
     //product.description = req.body.description
 
@@ -106,7 +107,7 @@ app.post("/api/venta", (req, res) => {
      let venta = new Ventas()
      venta.unidad= req.body.unidad
      venta.total=req.body.total
-     venta.listaVenta = req.body.listaVenta
+     venta.listaVentas = req.body.listaVenta
 
     venta.save((err, ventaStored) => {
         if (err) {
@@ -116,9 +117,18 @@ app.post("/api/venta", (req, res) => {
 
     })
 })
+app.get("/api/usuario", (req, res) => {
+    Usuarios.find({}, function (err, usuario) {
+        if (err)
+            return res.status(500).send({ message: `Error al realizar la petición: ${err}` })
+        if (!usuario)
+            return res.status(404).send({ message: `No existen usuario` })
+        res.send(200, { usuario })
+    })
+})
 
 
-mongoose.connect("mongodb+srv://admin:admin123@cluster0.fjnmf.mongodb.net/api", (err, res) => {
+mongoose.connect("mongodb+srv://admin:admin123@cluster0.fjnmf.mongodb.net", (err, res) => {
     if (err) {
         return console.log(`error al conectar en base de datos: ${err} `)
     }
