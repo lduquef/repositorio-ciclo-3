@@ -130,7 +130,7 @@ app.get("/api/usuario", (req, res) => {
 })
 
 
-mongoose.connect("mongodb+srv://admin:admin123@cluster0.fjnmf.mongodb.net/api", (err, res) => {
+mongoose.connect("mongodb+srv://admin:admin123@cluster0.fjnmf.mongodb.net", (err, res) => {
     if (err) {
         return console.log(`error al conectar en base de datos: ${err} `)
     }
