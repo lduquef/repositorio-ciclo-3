@@ -6,17 +6,6 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 
-// const productosBackend = [
-//       {id: "OOOO1",
-//       nombre: "camisa",
-//       precio: 23000,
-//       estado: "No_disponible",
-   
-//       },
-                  
-//     ];
-
-
 
 const Gestion_productos = () =>{
       const [productos, setMostrarProductos] = useState([]);
