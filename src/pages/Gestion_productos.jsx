@@ -1,20 +1,9 @@
 import React, {useEffect, useState, }  from "react";
 import "../Estilos/producto.css"
-import TablaProducto1 from "../components/TablaProducto1";
 import TablaProducto2 from "../components/TablaProducto2";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
-
-// const productosBackend = [
-//       {id: "OOOO1",
-//       nombre: "camisa",
-//       precio: 23000,
-//       estado: "No_disponible",
-   
-//       },
-                  
-//     ];
 
 
 

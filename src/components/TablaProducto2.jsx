@@ -20,10 +20,10 @@ const FilaProducto =({productos})=>{
   const actualizarproducto = async()=>{
     console.log(infoNuevoProducto)
     const options = {
-      method: 'POST',
-      url: 'http://localhost:3001/api/venta',
+      method: 'PUT',
+      url: 'http://localhost:3001/api/product',
       headers: {'Content-Type': 'application/json'},
-      data: {codigo: 'algo', nombre: 'layo', precio: 902343, estado: 'algo'}
+      data: { ...infoNuevoProducto, id: productos._id }
     };
     
     await axios
@@ -166,8 +166,13 @@ const TablaProducto2 = ({listaProductos, setMostrarProductos }) =>{
       console.log("datos del form enviados", nuevoProducto); //" aca se puede ver en la consoloa el Json"
       await axios.post("http://localhost:3001/api/product", nuevoProducto)
   }
- 
+  
+    
     return (
+
+      
+            
+         
             <section className="login_Developer_2"> 
 
               <form ref={form} onSubmit ={submitForm}>
