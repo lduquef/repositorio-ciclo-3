@@ -10,27 +10,48 @@ function parImpar(numero){
     return(value)
 }
 //simula la base de datos
-
-const Tabla_ventas1 = ()=>{
+const listaInfo=[
+    
+]
+const Tabla_ventas1 = ( {funcionParaAgregarVenta ,listaInfo })=>{
+    const [vendedor, setVendedor] = useState("Layo")
+    const [vendedorID, setVendedorID] = useState("")
+    const [cliente, setCliente] = useState("")
+    const [clienteID, setClienteID] = useState("")
+    const [Factura, setFactura] = useState("")
+    const [Fecha, setFecha] = useState("")
+    const enviarAlBackend =( )=>{
+        if(Factura==="") {
+            toast.warn("error")
+        }
+        else
+        {
+        funcionParaAgregarVenta([...listaInfo,{datos:{Fecha:Fecha,Factura:Factura,cliente:cliente,
+            clienteID:clienteID,vendedor:vendedor,vendedorID:vendedorID}}]);
+            toast.success("bien ingresado");    
+            console.log(listaInfo)
+        }
+    }
     return(
       <div className="container  container2">
         <div className="column ">
             <label >Fecha </label>
-            <input type="date" className="form-control" />
+            <input type="date" className="form-control" value ={Fecha} onChange ={(e)=>(setFecha(e.target.value))} />
             <label >Vendedor </label>
-            <input type="text" className="form-control"  />
+            <input type="text" className="form-control" value ={vendedor} onChange ={(e)=>(setVendedor(e.target.value))} />
             <label >Vendedor ID </label>
-            <input type="number" min="0"  className="form-control"  />
+            <input type="number" min="0"  className="form-control" value ={vendedorID} onChange ={(e)=>(setVendedorID(e.target.value))} />
             <label >Cliente </label>
-            <input type="text" className="form-control"  />
+            <input type="text" className="form-control"  value ={cliente} onChange ={(e)=>(setCliente(e.target.value))}/>
             <label >Cliente ID </label>
-            <input type="number" min="0" className="form-control"  />
+            <input type="number" min="0" className="form-control" value ={clienteID} onChange ={(e)=>(setClienteID(e.target.value))}/>
         </div>
         <div className="container3">
         <div className="container ">
            <h4># Factura</h4>
-           <input type="number"min="1000" className="form-control"  />
-        </div>
+           <input type="number"min="1000" className="form-control" value ={Factura} onChange ={(e)=>(setFactura(e.target.value))}  />
+         <button className="btn btn-success" onClick={()=>{enviarAlBackend()} }> agregar </button>
+        </div>  
         </div>
 </div>
     );
@@ -51,17 +72,15 @@ const Ventas =()=>{
           });
     }, [setMostrarProductos]);
 
-    useEffect(() => {
-        //obtener lista articulos desde el fronten
-        setVentas(listaVentaBackend)
-    }, []);
+
+
     // // useEffect(() => {
     // //     //obtener lista articulos desde el fronten
     // //     setListaProducto(listaProductosBackend)
     // }, []);
     return(
         <div className="classVentas">
-        <Tabla_ventas1/>
+        <Tabla_ventas1 funcionParaAgregarVenta = {setVentas}  listaInfo={listaInfo} />
         <div className= "container">
         <button type="button" className="btn btn-success">
         <Link to="/src/pages/GestionVentas2.jsx"> historial </Link>
@@ -205,8 +224,8 @@ const Formulario = ({funcionParaAgregarVenta ,listaVenta , listaProducto}) =>{
     else
     {
     buscarPorID(codigo);
-    funcionParaAgregarVenta([...listaVenta,{codigo:codigo,nombre:nombre,cantidad:cantidad,
-        precio:precio,subtotal: precio*cantidad }]);
+    funcionParaAgregarVenta([...listaVenta,{datos:{listaInfo},venta:{codigo:codigo,nombre:nombre,cantidad:cantidad,
+        precio:precio,subtotal: precio*cantidad  }}]);
         toast.success("bien ingresado");    
     }}
     
