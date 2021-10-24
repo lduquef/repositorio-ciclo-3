@@ -23,7 +23,7 @@ app.get("/api/product", (req, res) => {
             return res.status(500).send({ message: `Error al realizar la petición: ${err}` })
         if (!productos)
             return res.status(404).send({ message: `No existen productos` })
-        res.send(200).send({ productos })
+        res.status(200).send({ productos })
     })
 })
 
@@ -98,7 +98,7 @@ app.get("/api/venta", (req, res) => {
             return res.status(500).send({ message: `Error al realizar la petición: ${err}` })
         if (!productos)
             return res.status(404).send({ message: `No existen productos` })
-        res.send(200, { productos })
+        res.status(200).send({ productos })
     })
 })
 
@@ -107,9 +107,10 @@ app.post("/api/venta", (req, res) => {
     console.log(req.body)
      let venta = new Ventas()
      venta.datos = req.body.datos
+     venta.listaVenta = req.body.listaVenta
      venta.unidad= req.body.unidad
      venta.total=req.body.total
-     venta.listaVentas = req.body.listaVenta
+     
 
     venta.save((err, ventaStored) => {
         if (err) {
@@ -125,11 +126,11 @@ app.get("/api/usuario", (req, res) => {
             return res.status(500).send({ message: `Error al realizar la petición: ${err}` })
         if (!usuario)
             return res.status(404).send({ message: `No existen usuario` })
-        res.send(200, { usuario })
+        res.status(200).send({ usuario })
     })
 })
 
-var MONGODB_URI = "mongodb+srv://admin:admin123@cluster0.fjnmf.mongodb.net/myFirstDatabase?retryWrites=true&w=majority/api";
+var MONGODB_URI = "mongodb+srv://admin:admin123@cluster0.fjnmf.mongodb.net/api";
 
 mongoose.connect(MONGODB_URI, (err, res) => {
     if (err) {
