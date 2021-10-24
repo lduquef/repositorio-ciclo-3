@@ -13,37 +13,7 @@ function parImpar(numero){
 const listaVentaBackend=[
     
 ]
-// const listaProductosBackend=[
-//     {
-//         Factura: 1,
-//         Cliente: "producto1",
-//         Cliente_ID:1,
-//         Fecha:1,
-//         Estado_Venta: "entregado",
-//     },
-//     {
-//         Factura: 2,
-//         Cliente: "producto2",
-//         Cliente_ID:2,
-//         Fecha:2,
-//         Estado_Venta: "En Proceso",
-//     },
-//     {
-//         Factura: 3,
-//         Cliente: "producto1",
-//         Cliente_ID:3,
-//         Fecha:3,
-//         Estado_Venta: "cancelado",
-//     },
-//     {
-//         Factura: 4,
-//         Cliente: "producto1",
-//         Cliente_ID:4,
-//         Fecha:4,
-//         Estado_Venta: "entregado",
-//     },  
-     
-// ]
+
 //logica general
 const Ventas =()=>{
     const [ventas, setVentas] = useState([])
