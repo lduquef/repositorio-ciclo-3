@@ -1,6 +1,6 @@
 
 .container{
-    max-width: 50vw;
+    max-width: 600px;
     
 }
 .container2
@@ -16,13 +16,13 @@ max-width: 60vh;
 .container>.container{
     background-color: rgba(255, 255, 255, 0);
 }
-main{
+.classVentas{
     display: flex;   
     max-height: 85vh;
     padding-top: 17vh;
     margin-bottom: 10%;
     justify-content: space-around;
-}
+} 
 .container2 label{
     margin-top: 1rem;
     color: rgb(253, 253, 253);
@@ -49,7 +49,8 @@ justify-content: center;
     margin: 1%;
     margin-bottom: 2%;
     margin-right: 3%;
-    width: 10vw;
+    width: 15vw;
+    max-width:80px ;
 }
 .end {
     display: flex;

@@ -1,11 +1,17 @@
 import React  from "react";
-import "../Estilos/estilos2.css"
-const ingreso = () =>{
+import "../Estilos/estilos2.css";
+import { useAuth0 } from "@auth0/auth0-react"; //Autenticación de usuario con el onClick={() => loginWithRedirect()}
+
+const Ingreso = () =>{
+ 
+  const { loginWithRedirect } = useAuth0();
+  
+  
     return(
       <div className="App">
       <div className="conten">
       <section className="login_Developer">
-      
+   
       <h1>Iniciar Sesion</h1>      
       <form>
       <label htmlFor="nombre_usuario">Nombre de usuario</label>
@@ -14,7 +20,7 @@ const ingreso = () =>{
       <input type="password" placeholder="Ingrese su contraseña"></input>
       
       <div className="botones">
-      <button type="submit">Ingresar</button> 
+      <button  onClick={() => loginWithRedirect()} id="ingresar">Ingresar</button> 
       <span> -------  o  ------- </span>
       <button type="Google">Ingresar con Google</button> 
       </div>
@@ -29,8 +35,7 @@ const ingreso = () =>{
     </div>
     </div>
 
-
-
-)
+);
 }
-export default ingreso
+
+export default Ingreso

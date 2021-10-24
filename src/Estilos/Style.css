@@ -16,8 +16,8 @@ body {
 }
 
 .avatar {
-  width: 60px;
-  height: 60px;
+  width: 15vh;
+  height: 15vh;
   border-radius: 50%;
 
 }
@@ -25,14 +25,15 @@ body {
   display: flex;
   flex-direction: row;
   justify-content:center;
-  height: 60px;
+  height: 20%;
   background-color: rgba(0, 0, 0, 0.363);
   }
   
 header{
   margin-top: -55px;
+  margin-left: 1%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   height: 20px;
   font-size: 14px;
   
@@ -115,6 +116,7 @@ ul.social-icons {
   list-style: none;
 }
 .menuCSS3 a {
+  
   display: block;
   padding: 1em;
   background-color: rgba(0, 0, 0, 0.363);
@@ -123,6 +125,7 @@ ul.social-icons {
 
 }
 nav{
+  position: absolute;
   float: right;
   margin-top: 0;
   margin-right: 1%;
@@ -139,9 +142,16 @@ nav{
 .menuCSS3 ul li a:hover + ul, .menuCSS3 ul li ul:hover {
   display: block;
 }
-/* ***DESDE ACA SE EMPIEZA EL NUEVO CODIGO**** */
-/* COLORES PARA TRABAJAR: NEGRO-VERDE FLUORESCENTE-BLANCO:LETRA */
 
-.fill{
-  width: 22%;
+#salir {
+    height: 5vh;
+    width: 10vw;
+    border-radius: 10px;
+    cursor: pointer;
+    color: #050505;
+    background-color: #57ee32;
+    font-weight: bold;   
+    border: outset 1px #ccc;
+    margin-left: 650%;
+    margin-top: 12%;
 }

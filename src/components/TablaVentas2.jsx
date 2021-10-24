@@ -3,66 +3,92 @@ import "../Estilos/bootstrap.css"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
+import axios from "axios";
 function parImpar(numero){
     var value = true
     numero%2 === 0 ? value = true : value = false;
     return(value)
 }
 //simula la base de datos
-const listaVentaBackend=[
+const listaInfo=[
     
 ]
-const listaProductosBackend=[
-    {
-        Id: 1,
-        nombre: "producto1",
-        cantidad:1,
-        precio:1,
-        subtotal: 0,
-    },
-    {
-        Id: 2,
-        nombre: "producto2",
-        cantidad:2,
-        precio:2,
-        subtotal: 0,
-    },
-    {
-        Id: 3,
-        nombre: "producto3",
-        cantidad:0,
-        precio:3,
-        subtotal: 0,
-    },
-    {
-        Id: 4,
-        nombre: "producto1",
-        cantidad:4,
-        precio:4,
-        subtotal: 0,
-    },   
-]
+const Tabla_ventas1 = ( {funcionParaAgregarVenta ,listaInfo })=>{
+    const [vendedor, setVendedor] = useState("Layo")
+    const [vendedorID, setVendedorID] = useState("")
+    const [cliente, setCliente] = useState("")
+    const [clienteID, setClienteID] = useState("")
+    const [Factura, setFactura] = useState("")
+    const [Fecha, setFecha] = useState("")
+    const enviarAlBackend =( )=>{
+        if(Factura==="") {
+            toast.warn("error")
+        }
+        else
+        {
+        funcionParaAgregarVenta([...listaInfo,{datos:{Fecha:Fecha,Factura:Factura,cliente:cliente,
+            clienteID:clienteID,vendedor:vendedor,vendedorID:vendedorID}}]);
+            toast.success("bien ingresado");    
+            console.log(listaInfo)
+        }
+    }
+    return(
+      <div className="container  container2">
+        <div className="column ">
+            <label >Fecha </label>
+            <input type="date" className="form-control" value ={Fecha} onChange ={(e)=>(setFecha(e.target.value))} />
+            <label >Vendedor </label>
+            <input type="text" className="form-control" value ={vendedor} onChange ={(e)=>(setVendedor(e.target.value))} />
+            <label >Vendedor ID </label>
+            <input type="number" min="0"  className="form-control" value ={vendedorID} onChange ={(e)=>(setVendedorID(e.target.value))} />
+            <label >Cliente </label>
+            <input type="text" className="form-control"  value ={cliente} onChange ={(e)=>(setCliente(e.target.value))}/>
+            <label >Cliente ID </label>
+            <input type="number" min="0" className="form-control" value ={clienteID} onChange ={(e)=>(setClienteID(e.target.value))}/>
+        </div>
+        <div className="container3">
+        <div className="container ">
+           <h4># Factura</h4>
+           <input type="number"min="1000" className="form-control" value ={Factura} onChange ={(e)=>(setFactura(e.target.value))}  />
+         <button className="btn btn-success" onClick={()=>{enviarAlBackend()} }> agregar </button>
+        </div>  
+        </div>
+</div>
+    );
+}
 //logica general
 const Ventas =()=>{
     const [ventas, setVentas] = useState([])
-    const [listaProducto, setListaProducto] = useState([])
+    const [productos, setMostrarProductos] = useState([]);
     useEffect(() => {
-        //obtener lista vehiculos desde el fronten
-        setVentas(listaVentaBackend)
-    }, []);
-    useEffect(() => {
-        //obtener lista vehiculos desde el fronten
-        setListaProducto(listaProductosBackend)
-    }, []);
+          const options = { method: 'GET', url: 'http://localhost:3001/api/product' };
+
+          axios.request(options).then(function (response) {
+                console.log(response.data);
+                setMostrarProductos(response.data.productos)
+
+          }).catch(function (error) {
+                console.error(error);
+          });
+    }, [setMostrarProductos]);
+
+
+
+    // // useEffect(() => {
+    // //     //obtener lista articulos desde el fronten
+    // //     setListaProducto(listaProductosBackend)
+    // }, []);
     return(
+        <div className="classVentas">
+        <Tabla_ventas1 funcionParaAgregarVenta = {setVentas}  listaInfo={listaInfo} />
         <div className= "container">
         <button type="button" className="btn btn-success">
         <Link to="/src/pages/GestionVentas2.jsx"> historial </Link>
         </button>
-        <Formulario funcionParAgregarVenta = {setVentas} listaVenta={ventas} listaProducto={listaProducto}/>
+        <Formulario funcionParaAgregarVenta = {setVentas} listaVenta={ventas} listaProducto={productos}/>
         <ToastContainer position="bottom-center" autoclose ={3000}/>
         <TablaVentas2 listaVenta={ventas}/>  
-        
+        </div>
         </div>
     );
 }
@@ -72,6 +98,21 @@ const TablaVentas2 = ({listaVenta})=>{
     let unidad = 0;
     useEffect(() => {
 }, [listaVenta])
+const enviarAlBackend = async(e)=> {
+    const options = {
+        method: 'POST',
+        url: 'http://localhost:3001/api/venta',
+        headers: {'Content-Type': 'application/json'},
+        data: {unidad: unidad,total:total,listaVenta : JSON.stringify(listaVenta)  }
+      };
+      
+      axios.request(options).then(function (response) {
+        console.log(response.data);
+      }).catch(function (error) {
+        console.error(error);
+      });
+}
+
     return(
       <div className="container ">
         <table className="table table-hover">
@@ -94,19 +135,19 @@ const TablaVentas2 = ({listaVenta})=>{
                     index !== 0?(
                     parImpar(index) ?(
                     <tr  className="table-primary">
-                        <th scope="row">{ventas.Id}</th>
+                        <th scope="row">{ventas.codigo}</th>
                         <td>{ventas.nombre}</td>
                         <td>{ventas.cantidad}</td>
                         <td>${ventas.precio}</td>
-                        <td>${ventas.subtotal}</td>
+                        <td>${parseInt(ventas.precio) * parseInt(ventas.cantidad)}</td>
                     </tr>)  :
                     (
                     <tr  className="table-light">
-                        <th scope="row">{ventas.Id}</th>
+                        <th scope="row">{ventas.codigo}</th>
                         <td>{ventas.nombre}</td>
                         <td>{ventas.cantidad}</td>
                         <td>${ventas.precio}</td>
-                        <td>${ventas.subtotal}</td>
+                        <td>${parseInt(ventas.precio) * parseInt(ventas.cantidad)}</td>
                     </tr> 
                     )
                     ) :(<tr  className="table-light">
@@ -151,54 +192,49 @@ const TablaVentas2 = ({listaVenta})=>{
                 </tbody>
         </table>
         <div className="end">
-        <button type="button" className="btn btn-success">
-         finalizar 
+        <button type="submit" className="btn btn-success" onClick={()=>{enviarAlBackend()}}>
+         agregar
         </button>
         </div>
         </div>
     );
 };
 //formulario
-const Formulario = ({funcionParAgregarVenta ,listaVenta , listaProducto}) =>{
-    const [Id,setID]=useState("")
+const Formulario = ({funcionParaAgregarVenta ,listaVenta , listaProducto}) =>{
+    const [codigo,setCodigo]=useState("")
     const [cantidad,setCantidad] = useState("")
     const [nombre,setProducto] = useState("")
     const [precio,setPrecioUnitario]=useState("")
-    
-const enviarAlBackend = async () =>{
-    
-    setPrecioUnitario(buscarPorID(Id))
-    funcionParAgregarVenta([...listaVenta,{Id:Id,nombre:nombre,cantidad:cantidad,
-        precio:precio,subtotal: precio*cantidad }])
-        var axios = require("axios").default;
-        const options = {
-            method: 'POST',
-            url: 'http://localhost:3000/api/product',
-            headers: {'Content-Type': 'application/json'},
-            data: {Id:1001,nproducto:5033,nprecio:70000}
-          };
-          
-          await axios.request(options).then(function (response) {
-            console.log(response.data);
-            toast.success("bien agregado");
-          }).catch(function (error) {
-            console.error(error);
-            toast.warning("ojo mal ingresado ")
-          });
+    useEffect(() => {
+        
+    }, [setCodigo,setPrecioUnitario,setCantidad,setProducto])
+     const buscarPorID = (codigo) =>{
+         const newUser = listaProducto.filter(function(element) {
+             return(element.codigo==codigo);
+         })
+         console.log("soy new user",newUser[0].codigo);
+         return( setProducto(newUser[0].nombre),
+             setPrecioUnitario(newUser[0].precio))
+     }  
+
+    const enviarAlBackend =  () =>{
+    if(codigo==="") {
+        toast.warn("error")
     }
-    const buscarPorID = (Id) =>{
-        const newUser = listaProducto.filter(function(element) {
-            return(element.Id==Id);
-        })
-        console.log("soy new user",newUser[0].precio);
-        return(newUser[0].precio)
-    }
+    else
+    {
+    buscarPorID(codigo);
+    funcionParaAgregarVenta([...listaVenta,{datos:{listaInfo},venta:{codigo:codigo,nombre:nombre,cantidad:cantidad,
+        precio:precio,subtotal: precio*cantidad  }}]);
+        toast.success("bien ingresado");    
+    }}
+    
     return(
         <div>
         <table className="table table-hover">
             <thead>
                     <tr className="table-dark">
-                        <th>
+                    <th>
                             Buscar Producto
                         </th>
                         <th>
@@ -211,23 +247,23 @@ const enviarAlBackend = async () =>{
                 </thead>
             <tbody>
                     <tr className="table-secondary">
-                        <th>
-                            <select className="form-select" name="productos" value={nombre} onChange={(e)=> setProducto(e.target.value)} required>
+                    <th>
+                            {/* <select className="form-select" name="productos" value={nombre} onChange={(e)=> setProducto(e.target.value)} required>
                             <option value="" disabled>Productos</option>
                             {listaProducto.map((nombre) => {
                                 return(
                             <option>{nombre.nombre}</option>)
                                 })}
-                    
-                            </select>
-                            </th>                
+                            </select> */}
+                            <h4>{nombre}</h4>
+                    </th>
                     <td>
-                        <select className="form-select" name = "Id" value ={Id} onChange ={(e)=>(setID(e.target.value))} required >
+                        <select className="form-select" name = "Id" value ={codigo} onChange ={(e)=>(setCodigo(e.target.value))} required >
                             <option disabled> buscar por Id</option>
                             {listaProducto.map((nombre) => {
-                                
                                 return(
-                            <option>{nombre.Id}</option>)
+                            <option>{nombre.codigo}</option> 
+                             )
                                 })}
                         </select>
                         </td>
@@ -240,7 +276,6 @@ const enviarAlBackend = async () =>{
             </tbody>
         </table>
         <div className="end">
-            
         <button type="submit" className="btn btn-success" onClick={()=>{enviarAlBackend()}}>
          agregar
         </button>

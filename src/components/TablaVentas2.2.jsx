@@ -3,6 +3,7 @@ import "../Estilos/bootstrap.css"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
+import axios from "axios";
 function parImpar(numero){
     var value = true
     numero%2 === 0 ? value = true : value = false;
@@ -12,55 +13,60 @@ function parImpar(numero){
 const listaVentaBackend=[
     
 ]
-const listaProductosBackend=[
-    {
-        Factura: 1,
-        Cliente: "producto1",
-        Cliente_ID:1,
-        Fecha:1,
-        Estado_Venta: "entregado",
-    },
-    {
-        Factura: 2,
-        Cliente: "producto2",
-        Cliente_ID:2,
-        Fecha:2,
-        Estado_Venta: "En Proceso",
-    },
-    {
-        Factura: 3,
-        Cliente: "producto1",
-        Cliente_ID:3,
-        Fecha:3,
-        Estado_Venta: "cancelado",
-    },
-    {
-        Factura: 4,
-        Cliente: "producto1",
-        Cliente_ID:4,
-        Fecha:4,
-        Estado_Venta: "entregado",
-    },  
+// const listaProductosBackend=[
+//     {
+//         Factura: 1,
+//         Cliente: "producto1",
+//         Cliente_ID:1,
+//         Fecha:1,
+//         Estado_Venta: "entregado",
+//     },
+//     {
+//         Factura: 2,
+//         Cliente: "producto2",
+//         Cliente_ID:2,
+//         Fecha:2,
+//         Estado_Venta: "En Proceso",
+//     },
+//     {
+//         Factura: 3,
+//         Cliente: "producto1",
+//         Cliente_ID:3,
+//         Fecha:3,
+//         Estado_Venta: "cancelado",
+//     },
+//     {
+//         Factura: 4,
+//         Cliente: "producto1",
+//         Cliente_ID:4,
+//         Fecha:4,
+//         Estado_Venta: "entregado",
+//     },  
      
-]
+// ]
 //logica general
 const Ventas =()=>{
     const [ventas, setVentas] = useState([])
     const [listaProducto, setListaProducto] = useState([])
+    const [listaVentas, setlistaVentas] = useState([]);
     useEffect(() => {
-        //obtener lista vehiculos desde el fronten
-        setVentas(listaVentaBackend)
-    }, []);
-    useEffect(() => {
-        //obtener lista vehiculos desde el fronten
-        setListaProducto(listaVentaBackend)
-    }, []);
+          var options = { method: 'GET', url: 'http://localhost:3001/api/venta' };
+
+          axios.request(options).then(function (response) {
+                console.log(response.data);
+                setlistaVentas(response.data.listaVentas)
+
+          }).catch(function (error) {
+                console.error(error);
+          });
+    }, [setlistaVentas]);
+
     return(
         <div className= "container">
         <button type="button" className="btn btn-success">
         <Link to="/src/pages/GestionVentas.jsx"> Devolver </Link> 
         </button> 
-        <Formulario funcionParAgregarVenta = {setVentas} listaVenta={ventas} listaProducto={listaProducto}/>
+        <Formulario funcionParAgregarVenta = {setVentas} listaVenta={listaVentas} listaProducto={listaProducto}/>
         <ToastContainer position="bottom-center" autoclose ={3000}/>
         <TablaVentas2 listaVenta={ventas}/>  
         
@@ -171,7 +177,7 @@ const enviarAlBackend = () =>{
                             <option value="" disabled>Cliente</option>
                             {listaProducto.map((nombre) => {
                                 return(
-                            <option>{nombre.Cliente}</option>)
+                            <option>{nombre.unidad}</option>)
                                 })}
                     
                             </select>
@@ -180,9 +186,9 @@ const enviarAlBackend = () =>{
                         <select className="form-select" name = "Factura" value ={Factura} onChange ={(e)=>(setFactura(e.target.value))} required >
                             <option disabled> buscar por Factura</option>
                             {listaProducto.map((nombre) => {
-                                
+
                                 return(
-                            <option>{nombre.Factura}</option>)
+                            <option>{nombre.total}</option>)
                                 })}
                         </select>
                         </td>
