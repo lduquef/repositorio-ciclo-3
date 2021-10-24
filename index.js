@@ -106,6 +106,7 @@ app.post("/api/venta", (req, res) => {
     console.log("POST /api/venta")
     console.log(req.body)
      let venta = new Ventas()
+     venta.datos = req.body.datos
      venta.unidad= req.body.unidad
      venta.total=req.body.total
      venta.listaVentas = req.body.listaVenta
