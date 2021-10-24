@@ -10,9 +10,7 @@ function parImpar(numero){
     return(value)
 }
 //simula la base de datos
-const listaVentaBackend=[
-    
-]
+
 const Tabla_ventas1 = ()=>{
     return(
       <div className="container  container2">
@@ -40,7 +38,6 @@ const Tabla_ventas1 = ()=>{
 //logica general
 const Ventas =()=>{
     const [ventas, setVentas] = useState([])
-    const [listaProducto, setListaProducto] = useState([])
     const [productos, setMostrarProductos] = useState([]);
     useEffect(() => {
           const options = { method: 'GET', url: 'http://localhost:3001/api/product' };
@@ -83,7 +80,6 @@ const TablaVentas2 = ({listaVenta})=>{
     useEffect(() => {
 }, [listaVenta])
 const enviarAlBackend = async(e)=> {
-    
     const options = {
         method: 'POST',
         url: 'http://localhost:3001/api/venta',
