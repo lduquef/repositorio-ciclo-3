@@ -23,7 +23,7 @@ app.get("/api/product", (req, res) => {
             return res.status(500).send({ message: `Error al realizar la petición: ${err}` })
         if (!productos)
             return res.status(404).send({ message: `No existen productos` })
-        res.send(200, { productos })
+        res.send(200).send({ productos })
     })
 })
 
@@ -129,7 +129,7 @@ app.get("/api/usuario", (req, res) => {
     })
 })
 
-var MONGODB_URI = "mongodb+srv://admin:admin123@cluster0.fjnmf.mongodb.net";
+var MONGODB_URI = "mongodb+srv://admin:admin123@cluster0.fjnmf.mongodb.net/myFirstDatabase?retryWrites=true&w=majority/api";
 
 mongoose.connect(MONGODB_URI, (err, res) => {
     if (err) {
