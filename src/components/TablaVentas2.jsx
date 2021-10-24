@@ -13,21 +13,25 @@ function parImpar(numero){
 const listaInfo=[
     
 ]
+
 const Tabla_ventas1 = ( {funcionParaAgregarVenta ,listaInfo })=>{
     const [vendedor, setVendedor] = useState("Layo")
-    const [vendedorID, setVendedorID] = useState("")
+    const [vendedorID, setVendedorID] = useState("10000")
     const [cliente, setCliente] = useState("")
-    const [clienteID, setClienteID] = useState("")
-    const [Factura, setFactura] = useState("")
+    const [clienteID, setClienteID] = useState("10000")
+    const [Factura, setFactura] = useState("10000")
     const [Fecha, setFecha] = useState("")
+    useEffect(() => {
+    
+    }, [listaInfo])
     const enviarAlBackend =( )=>{
         if(Factura==="") {
             toast.warn("error")
         }
         else
         {
-        funcionParaAgregarVenta([...listaInfo,{datos:{Fecha:Fecha,Factura:Factura,cliente:cliente,
-            clienteID:clienteID,vendedor:vendedor,vendedorID:vendedorID}}]);
+        funcionParaAgregarVenta([...listaInfo,{Fecha:Fecha,Factura:Factura,cliente:cliente,
+            clienteID:clienteID,vendedor:vendedor,vendedorID:vendedorID}]);
             toast.success("bien ingresado");    
             console.log(listaInfo)
         }
@@ -59,6 +63,7 @@ const Tabla_ventas1 = ( {funcionParaAgregarVenta ,listaInfo })=>{
 //logica general
 const Ventas =()=>{
     const [ventas, setVentas] = useState([])
+    const [info,setInfo]=useState([])
     const [productos, setMostrarProductos] = useState([]);
     useEffect(() => {
           const options = { method: 'GET', url: 'http://localhost:3001/api/product' };
@@ -80,30 +85,30 @@ const Ventas =()=>{
     // }, []);
     return(
         <div className="classVentas">
-        <Tabla_ventas1 funcionParaAgregarVenta = {setVentas}  listaInfo={listaInfo} />
+        <Tabla_ventas1 funcionParaAgregarVenta = {setInfo}  listaInfo={listaInfo} />
         <div className= "container">
         <button type="button" className="btn btn-success">
         <Link to="/src/pages/GestionVentas2.jsx"> historial </Link>
         </button>
         <Formulario funcionParaAgregarVenta = {setVentas} listaVenta={ventas} listaProducto={productos}/>
         <ToastContainer position="bottom-center" autoclose ={3000}/>
-        <TablaVentas2 listaVenta={ventas}/>  
+        <TablaVentas2 listaVenta={ventas} listaInfo={info}/>  
         </div>
         </div>
     );
 }
 //parte de la tabla
-const TablaVentas2 = ({listaVenta})=>{
+const TablaVentas2 = ({listaVenta,listaInfo})=>{
     let total = 0;
     let unidad = 0;
     useEffect(() => {
-}, [listaVenta])
+}, [listaVenta,listaInfo])
 const enviarAlBackend = async(e)=> {
     const options = {
         method: 'POST',
         url: 'http://localhost:3001/api/venta',
         headers: {'Content-Type': 'application/json'},
-        data: {unidad: unidad,total:total,listaVenta : JSON.stringify(listaVenta)  }
+        data: {datos:JSON.stringify(listaInfo),listaVenta : JSON.stringify(listaVenta) ,unidad:unidad,total:total }
       };
       
       axios.request(options).then(function (response) {
@@ -212,7 +217,6 @@ const Formulario = ({funcionParaAgregarVenta ,listaVenta , listaProducto}) =>{
          const newUser = listaProducto.filter(function(element) {
              return(element.codigo==codigo);
          })
-         console.log("soy new user",newUser[0].codigo);
          return( setProducto(newUser[0].nombre),
              setPrecioUnitario(newUser[0].precio))
      }  
@@ -224,8 +228,8 @@ const Formulario = ({funcionParaAgregarVenta ,listaVenta , listaProducto}) =>{
     else
     {
     buscarPorID(codigo);
-    funcionParaAgregarVenta([...listaVenta,{datos:{listaInfo},venta:{codigo:codigo,nombre:nombre,cantidad:cantidad,
-        precio:precio,subtotal: precio*cantidad  }}]);
+    funcionParaAgregarVenta([...listaVenta,{codigo:codigo,nombre:nombre,cantidad:cantidad,
+        precio:precio,subtotal: precio*cantidad  }]);
         toast.success("bien ingresado");    
     }}
     

@@ -112,18 +112,12 @@ const Formulario = ({funcionParAgregarVenta ,listaVenta , listaProducto}) =>{
     const [Estado_Venta,setEstado_Venta]=useState("")
 
 const enviarAlBackend = () =>{
-    setEstado_Venta(buscarPorFactura(Factura))
+    
     funcionParAgregarVenta([...listaVenta,{Factura:Factura,Cliente:Cliente,Cliente_ID:Cliente_ID,
         Fecha:Fecha,Estado_Venta:Estado_Venta, }])
     toast.success("bien agregado")
     }
-    const buscarPorFactura = (Factura) =>{
-        const newUser = listaProducto.filter(function(element) {
-            return(element.Factura==Factura);
-        })
-        console.log("soy new user",newUser[0].precio);
-        return(newUser[0].precio)
-    }
+    
     return(
         <div>
         <table className="table table-hover">
