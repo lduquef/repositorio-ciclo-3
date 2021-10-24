@@ -129,8 +129,9 @@ app.get("/api/usuario", (req, res) => {
     })
 })
 
+var MONGODB_URI = process.env.MONGODB_URL || "mongodb+srv://admin:admin123@cluster0.fjnmf.mongodb.net";
 
-mongoose.connect("mongodb+srv://admin:admin123@cluster0.fjnmf.mongodb.net", (err, res) => {
+mongoose.connect(MONGODB_URI, (err, res) => {
     if (err) {
         return console.log(`error al conectar en base de datos: ${err} `)
     }
