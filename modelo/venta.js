@@ -7,7 +7,7 @@ const VentaSchema = Schema({
     listaVenta:String,
     unidad:{ type :Number, default:0},
     total:{ type :Number, default:0},
-    
+    estado:String
     // {
     //     Fecha : Date,
     //     Factura:{ type :Number, default:0},

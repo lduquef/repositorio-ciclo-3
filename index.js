@@ -110,6 +110,7 @@ app.post("/api/venta", (req, res) => {
      venta.listaVenta = req.body.listaVenta
      venta.unidad= req.body.unidad
      venta.total=req.body.total
+     venta.estado=req.body.estado
      
 
     venta.save((err, ventaStored) => {
@@ -117,6 +118,37 @@ app.post("/api/venta", (req, res) => {
             res.status(500).send({ message: `Error al salvar la base de datos: ${err} ` })
         }
         res.status(201).send({ venta: ventaStored })
+
+    })
+})
+app.put("/api/venta", (req, res) => {
+    console.log(req.body.id)
+    let venta = req.body.id
+    let update = req.body
+    Product.findByIdAndUpdate(venta, update, (err,  ventaUpdated) =>{
+        if (err) {
+         return res.status(500).send({ message: `Error al actuaizar producto: ${err} ` })
+            
+        }
+        res.status(201).send({ venta: ventaUpdated})
+    })
+
+
+})
+
+app.delete("/api/venta/", (req, res) => {
+    
+    let venta = req.body.id
+    venta.findById(venta, (err, venta)  =>{
+        if (err) {
+         return res.status(500).send({ message: `Error al eliminar venta: ${err} ` })
+        }
+         venta.remove(err =>{
+             if  (err) {
+                return res.status(500).send({ message: `Error al eliminar venta: ${err} ` })
+        }
+        res.status(201).send({message: "La venta ha sido eliminado"})
+    })
 
     })
 })
