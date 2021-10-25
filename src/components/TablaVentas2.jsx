@@ -101,22 +101,23 @@ const Ventas =()=>{
 const TablaVentas2 = ({listaVenta,listaInfo})=>{
     let total = 0;
     let unidad = 0;
-    useEffect(() => {
-}, [listaVenta,listaInfo])
-const enviarAlBackend = async(e)=> {
-    const options = {
-        method: 'POST',
-        url: 'http://localhost:3001/api/venta',
-        headers: {'Content-Type': 'application/json'},
-        data: {datos:JSON.stringify(listaInfo),listaVenta : JSON.stringify(listaVenta) ,unidad:unidad,total:total }
-      };
-      
-      axios.request(options).then(function (response) {
-        console.log(response.data);
-      }).catch(function (error) {
-        console.error(error);
-      });
-}
+    const [estado, setEstado] = useState("En Proceso")
+    const enviarAlBackend = async(e)=> {
+        const options = {
+            method: 'POST',
+            url: 'http://localhost:3001/api/venta',
+            headers: {'Content-Type': 'application/json'},
+            data: {datos:JSON.stringify(listaInfo),listaVenta : JSON.stringify(listaVenta) ,unidad:unidad,total:total,estado:estado}
+        };
+        
+        axios.request(options).then(function (response) {
+            console.log(response.data);
+            toast.success("venta Realizada Satisfactoriamente")
+        }).catch(function (error) {
+            console.error(error);
+            toast.warn("error")
+        });
+    }
 
     return(
       <div className="container ">
@@ -137,7 +138,7 @@ const enviarAlBackend = async(e)=> {
                 unidad += parseInt(ventas.cantidad);
                 return(
                     //  cambia color segun arreglo 
-                    index !== 0?(
+                    index !== -1?(
                     parImpar(index) ?(
                     <tr  className="table-primary">
                         <th scope="row">{ventas.codigo}</th>
@@ -186,7 +187,7 @@ const enviarAlBackend = async(e)=> {
                             $ {total}
                         </td>
                         <td className="form-group">
-                            <select className="form-select" Id="exampleSelect1">
+                            <select className="form-select" Id="exampleSelect1" value={estado} onChange={(e)=>setEstado(e.target.value)}>
                                 <option>En Proceso</option>
                                 <option>Cancelado</option>
                                 <option>Entregado</option>
@@ -207,19 +208,23 @@ const enviarAlBackend = async(e)=> {
 //formulario
 const Formulario = ({funcionParaAgregarVenta ,listaVenta , listaProducto}) =>{
     const [codigo,setCodigo]=useState("")
-    const [cantidad,setCantidad] = useState("")
-    const [nombre,setProducto] = useState("")
-    const [precio,setPrecioUnitario]=useState("")
+    const [cantidad,setCantidad] = useState("0")
+    const [nombre,setProducto] = useState("0")
+    const [precio,setPrecioUnitario]=useState("0")
+    const buscarPorID = (codigo) =>{
+        const newUser = listaProducto.filter(function(element) {
+            return(element.codigo==codigo);
+        })
+        setProducto(newUser[0].nombre);
+        setPrecioUnitario(newUser[0].precio);
+        return(console.log(newUser[0]))   
+    } 
     useEffect(() => {
-        
-    }, [setCodigo,setPrecioUnitario,setCantidad,setProducto])
-     const buscarPorID = (codigo) =>{
-         const newUser = listaProducto.filter(function(element) {
-             return(element.codigo==codigo);
-         })
-         return( setProducto(newUser[0].nombre),
-             setPrecioUnitario(newUser[0].precio))
-     }  
+        if (codigo !== "") {
+            buscarPorID(codigo)
+        }
+    }, [codigo ])
+      
 
     const enviarAlBackend =  () =>{
     if(codigo==="") {
@@ -227,7 +232,7 @@ const Formulario = ({funcionParaAgregarVenta ,listaVenta , listaProducto}) =>{
     }
     else
     {
-    buscarPorID(codigo);
+
     funcionParaAgregarVenta([...listaVenta,{codigo:codigo,nombre:nombre,cantidad:cantidad,
         precio:precio,subtotal: precio*cantidad  }]);
         toast.success("bien ingresado");    

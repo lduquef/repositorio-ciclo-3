@@ -166,69 +166,64 @@ const TablaProducto2 = ({listaProductos, setMostrarProductos }) =>{
       console.log("datos del form enviados", nuevoProducto); //" aca se puede ver en la consoloa el Json"
       await axios.post("http://localhost:3001/api/product", nuevoProducto)
   }
-  
-    
+ 
     return (
+  <section className="login_Developer_2"> 
 
-      
-            
-         
-            <section className="login_Developer_2"> 
-
-              <form ref={form} onSubmit ={submitForm}>
-                <input 
-                value={busqueda}
-                onChange={(e) => setBusqueda(e.target.value)}
-                type="text" placeholder="Buscar porducto"/>
-                <h3>Nuevo producto</h3>
-                <label htmlfor="producto">ingrese id</label>
-                  <label htmlfor="producto">ingrese producto</label>
-              
-                  <label htmlfor="producto">ingrese precio</label>
-                  <label htmlfor="producto">estado</label>
-                  <input  required type="text" placeholder="IdProducto"  name ="codigo" />
-                  <input required type="text" placeholder="NuevoProducto" name="nombre" /> 
-                  <input  required  type="id" placeholder="Precio"  name="precio" />
-                   
-                    <select  required    
-                    name="estado" 
-                     type="id" 
-                    placeholder="Estado" >
-                      <option>Disponible</option>
-                      <option>No_disponible</option>
-                      </select>
-                      <button type="submit" className ="buttoning "  >
-                     Ingresar 
-                     </button>
-                    
-                
-              </form>
-              
-              <table>
-                    <thead>
-                      <tr> 
-                        <th>id producto</th> 
-                        <th>Detalle Producto</th> 
-                        <th>Valor Unitario</th>  
-                        <th>  Estado </th> 
-                        <th>Acciones</th>
-                      
-                        
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {productosFiltrados.map((productos)=>{
-                        return (
-                          
-                          < FilaProducto key={nanoid()} productos = {productos}/>
-                        )
-                      })}              
-                    </tbody>
-
-             
-                  </table>  
+    <form ref={form} onSubmit ={submitForm}>
+      <input 
+      value={busqueda}
+      onChange={(e) => setBusqueda(e.target.value)}
+      type="text" placeholder="Buscar porducto"/>
+      <h3>Nuevo producto</h3>
+      <label htmlfor="producto">ingrese id</label>
+        <label htmlfor="producto">ingrese producto</label>
+    
+        <label htmlfor="producto">ingrese precio</label>
+        <label htmlfor="producto">estado</label>
+        <input  required type="text" placeholder="IdProducto"  name ="codigo" />
+        <input required type="text" placeholder="NuevoProducto" name="nombre" /> 
+        <input  required  type="id" placeholder="Precio"  name="precio" />
           
-                  </section>    
+          <select  required    
+          name="estado" 
+            type="id" 
+          placeholder="Estado" >
+            <option>Disponible</option>
+            <option>No_disponible</option>
+            </select>
+            <button type="submit" className ="buttoning "  >
+            Ingresar 
+            </button>
+          
+      
+    </form>
+    
+    <table>
+          <thead>
+            <tr> 
+              <th>id producto</th> 
+              <th>Detalle Producto</th> 
+              <th>Valor Unitario</th>  
+              <th>  Estado </th> 
+              <th>Acciones</th>
+            
+              
+            </tr>
+          </thead>
+          <tbody>
+            {productosFiltrados.map((productos)=>{
+              return (
+                
+                < FilaProducto key={nanoid()} productos = {productos}/>
+              )
+            })}              
+          </tbody>
+
+    
+        </table>  
+
+        </section>    
       
     );
 };

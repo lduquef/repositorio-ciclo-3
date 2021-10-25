@@ -1,177 +1,207 @@
-import React, { useEffect, useState} from 'react';
-import "../Estilos/bootstrap.css"
+import { useEffect, useState, useRef } from "react/cjs/react.development";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Link } from 'react-router-dom';
+import "../Estilos/producto.css"
 import axios from "axios";
-function parImpar(numero){
-    var value = true
-    numero%2 === 0 ? value = true : value = false;
-    return(value)
-}
-//simula la base de datos
-const listaVentaBackend=[
+import { nanoid } from "nanoid";
+import { Tooltip } from "@material-ui/core";
+
+const FilaProducto =({productos})=>{
+  console.log("productos",productos)
+  const [edit, setEdit ] = useState(false);
+  const [infoNuevoProducto, setInfoNuevoproducto] = useState({
+    codigo:productos.codigo,
+    nombre: productos.nombre,
+    precio: productos.precio,
+    estado: productos.estado,
+  })
+  const actualizarproducto = async()=>{
+    console.log(infoNuevoProducto)
+    const options = {
+      method: 'PUT',
+      url: 'http://localhost:3001/api/venta',
+      headers: {'Content-Type': 'application/json'},
+      data: { ...infoNuevoProducto, id: productos._id }
+    };
     
-]
+    await axios
+    .request(options)
+    .then(function (response) {
+      console.log(response.data);
+      toast.success("producto modificado con exito");
+      setEdit(false);
+      window.location.reload();
+    }).catch(function (error) {
+      toast.success("Error al modificar producto")
+      console.error(error); //revisar mas adelante como hacerlo sin f5 forzado
+      
+    });
+  };
 
-//logica general
-const Ventas =()=>{
-    const [ventas, setVentas] = useState([])
-    const [listaProducto, setListaProducto] = useState([])
-    const [listaVentas, setlistaVentas] = useState([]);
-    useEffect(() => {
-          var options = { method: 'GET', url: 'http://localhost:3001/api/venta' };
-
-          axios.request(options).then(function (response) {
-                console.log(response.data);
-                setlistaVentas(response.data.listaVentas)
-
-          }).catch(function (error) {
-                console.error(error);
-          });
-    }, [setlistaVentas]);
-
-    return(
-        <div className= "container">
-        <button type="button" className="btn btn-success">
-        <Link to="/src/pages/GestionVentas.jsx"> Devolver </Link> 
-        </button> 
-        <Formulario funcionParAgregarVenta = {setVentas} listaVenta={listaVentas} listaProducto={listaProducto}/>
-        <ToastContainer position="bottom-center" autoclose ={3000}/>
-        <TablaVentas2 listaVenta={ventas}/>  
-        
-        </div>
-    );
-}
-//parte de la tabla
-const TablaVentas2 = ({listaVenta})=>{
+  const eliminarProducto =()=>{
+    const options = {
+      method: 'DELETE',
+      url: 'http://localhost:3001/api/venta',
+      headers: {'Content-Type': 'application/json'},
+      data: {id: productos._id}
+    };
     
-    useEffect(() => {
-    console.log("lista venta" )
-}, [listaVenta])
-    return(
-      <div className="container ">
-        <table className="table table-hover">
-                <thead>
-                    <tr className="table-dark">
-                        <th scope="col">Fecha</th>
-                        <th scope="col">Cliente</th>
-                        <th scope="col">Cliente_ID</th>
-                        <th scope="col">Fecha</th>
-                        <th scope="col">Estado_Venta</th>
-                    </tr>
-                </thead>
-                <tbody>
-                
-            {listaVenta.map((ventas,index) => {
-                
-                return(
-                    //  cambia color segun arreglo 
-                    index !== 0?(
-                    parImpar(index) ?(
-                    <tr  className="table-primary">
-                        <th scope="row">{ventas.Factura}</th>
-                        <td>{ventas.Cliente}</td>
-                        <td>{ventas.Cliente_ID}</td>
-                        <td>${ventas.Fecha}</td>
-                        <td>${ventas.Estado_Venta}</td>
-                    </tr>)  :
-                    (
-                    <tr  className="table-light">
-                        <th scope="row">{ventas.Factura}</th>
-                        <td>{ventas.Cliente}</td>
-                        <td>{ventas.Cliente_ID}</td>
-                        <td>${ventas.Fecha}</td>
-                        <td>${ventas.Estado_Venta}</td>
-                    </tr> 
-                    )
-                    ) :(<tr  className="table-light">
-                    
-                </tr> )
+    axios.request(options).then(function (response) {
+      console.log(response.data);
+      toast.success("Producto eliminado con éxito")
+      window.location.reload();
+    }).catch(function (error) {
+      console.error(error);
+      toast.error("error eliminando el producto")
+    });
+  }
+return (
+    
+<tr> 
+  {edit ? (
+ <>
+    <td>
+      <input  
+      type ="text" 
+      value={infoNuevoProducto.codigo}
+      onChange={(e)=>setInfoNuevoproducto({...infoNuevoProducto, codigo:e.target.value})} 
+      />
+    </td>
+    <td>
+      <input 
+      type ="text" 
+      value={infoNuevoProducto.nombre}
+      onChange={(e)=>setInfoNuevoproducto({...infoNuevoProducto, nombre:e.target.value})}
+      />
+    </td>
+    <td>
+      <input 
+      type ="text"
+      value={infoNuevoProducto.precio}
+      onChange={(e)=>setInfoNuevoproducto({...infoNuevoProducto, precio:e.target.value})} />
+      </td>
+       <td>
+      <input 
+      type ="text"
+      value={infoNuevoProducto.estado}
+      onChange={(e)=>setInfoNuevoproducto({...infoNuevoProducto, estado:e.target.checked})} />
+      </td>
+    </>
+  
+   ): (
+     <>
+<td>{productos.codigo} </td>
+<td>{productos.nombre}</td> 
+<td>{productos.precio}</td>
+<td>{productos.estado}</td> 
+ </>
+   )}
+   <td>
+   <div >
+     {edit? (
+     <Tooltip title="Confirmar edición" arrow> 
+     <a 
+     onClick={()=> actualizarproducto()} 
+     className="fas fa-check a"
+     />
+     </Tooltip>
+     ):(
+      <Tooltip title="Editar vehículo" arrow>
+     <a 
+     onClick={()=>setEdit(!edit)} 
+     className="fas fa-pencil-alt a" 
+     />
+     </Tooltip>
+     )}
+    <Tooltip title="Eliminar  producto" arrow>
+     < a  
+     onClick={()=> eliminarProducto()}
+     className="fas fa-trash-alt a"
+     />
 
-                ) 
-                 ;
-                })}
-                </tbody>
-            </table>
-        
-        <div className="end">
-        <button type="button" className="btn btn-success">
-         finalizar 
-        </button>
-        </div>
-        </div>
+     </Tooltip>
+     
+     </div>
+     </td>
+     </tr>
+ 
+
+)
+}
+
+const TablaVentas2 = ({listaVentas, setMostrarVentas }) =>{
+  
+  const [busqueda, setBusqueda] = useState(""); 
+  const [productosFiltrados, setProductosFiltrados] = useState(listaVentas);
+ 
+    useEffect(() =>{
+    //  console.log("busqueda", busqueda);
+    //  console.log("lista original", listaVentas)
+    //  setProductosFiltrados(
+    //     listaVentas.filter(elemento=>{
+    //    return JSON.stringify(elemento).toLowerCase().includes(busqueda.toLowerCase());
+    //  })
+    //  );
+   }, [busqueda, listaVentas]);
+  
+  // useEffect(() =>{
+  //   console.log("este es el contenido del la lsita de productos", listaVentas)
+  //   }, [listaVentas]);
+
+    const form = useRef(null);
+    
+    
+    const submitForm = async(e)=> {
+      e.preventDefault();
+      const fd = new  FormData(form.current);
+      // esa variable esta como objeto vacio y alli ingresa los imput como un formato Json, 
+      const nuevoProducto ={};
+      fd.forEach((value, key)=>{
+          nuevoProducto[key] = value;
+      })  
+      setMostrarVentas([...listaVentas,nuevoProducto]);
+      toast.success( "El producto se ha agragado con éxito")
+      console.log("datos del form enviados", nuevoProducto); //" aca se puede ver en la consoloa el Json"
+      await axios.post("http://localhost:3001/api/product", nuevoProducto)
+  }
+ 
+    return (
+  <section className="login_Developer_2"> 
+
+    <form ref={form} onSubmit ={submitForm}>
+      <input 
+      value={busqueda}
+      onChange={(e) => setBusqueda(e.target.value)}
+      type="text" placeholder="Buscar porducto"/>
+    </form>
+    
+    <table>
+          <thead>
+            <tr> 
+              <th>id producto</th> 
+              <th>Detalle Producto</th> 
+              <th>Valor Unitario</th>  
+              <th>  Estado </th> 
+              <th>Acciones</th>
+            
+              
+            </tr>
+          </thead>
+          {/* <tbody>
+            {productosFiltrados.map((productos)=>{
+              return (
+                
+                < FilaProducto key={nanoid()} productos = {productos}/>
+              )
+            })}              
+          </tbody> */}
+
+    
+        </table>  
+
+        </section>    
+      
     );
 };
-//formulario
-const Formulario = ({funcionParAgregarVenta ,listaVenta , listaProducto}) =>{
-    const [Factura,setFactura]=useState("")
-    const [Cliente,setCliente] = useState("")
-    const [Cliente_ID,setCliente_ID] = useState("")
-    const [Fecha,setFecha]=useState("")
-    const [Estado_Venta,setEstado_Venta]=useState("")
 
-const enviarAlBackend = () =>{
-    
-    funcionParAgregarVenta([...listaVenta,{Factura:Factura,Cliente:Cliente,Cliente_ID:Cliente_ID,
-        Fecha:Fecha,Estado_Venta:Estado_Venta, }])
-    toast.success("bien agregado")
-    }
-    
-    return(
-        <div>
-        <table className="table table-hover">
-            <thead>
-                    <tr className="table-dark">
-                        <th>
-                            Factura
-                        </th>
-                        <th>
-                            Cliente
-                        </th>
-                        <th>
-                            Cliente_ID
-                        </th>
-                    </tr>
-                </thead>
-            <tbody>
-                    <tr className="table-secondary">
-                        <th>
-                            <select className="form-select" name="Cliente" value={Cliente} onChange={(e)=> setCliente(e.target.value)} required>
-                            <option value="" disabled>Cliente</option>
-                            {listaProducto.map((nombre) => {
-                                return(
-                            <option>{nombre.unidad}</option>)
-                                })}
-                    
-                            </select>
-                            </th>                
-                    <td>
-                        <select className="form-select" name = "Factura" value ={Factura} onChange ={(e)=>(setFactura(e.target.value))} required >
-                            <option disabled> buscar por Factura</option>
-                            {listaProducto.map((nombre) => {
-
-                                return(
-                            <option>{nombre.total}</option>)
-                                })}
-                        </select>
-                        </td>
-                        <td>
-                        <input type="number" min="0" className="form-control" value={Cliente_ID} onChange={(e)=>setCliente_ID(e.target.value)}  required />
-                        
-                        </td>
-                        
-                </tr>
-            </tbody>
-        </table>
-        <div className="end">
-            
-        <button type="submit" className="btn btn-success" onClick={()=>{enviarAlBackend()}}>
-         agregar
-        </button>
-        </div>
-        </div>
-    );
-
-}
-export default Ventas
+export default TablaVentas2;
