@@ -7,12 +7,14 @@ const Usuarios = require("./modelo/usuarios")
 const Ventas = require("./modelo/venta");
 const cors =require("cors");
 const venta = require("./modelo/venta");
+require("dotenv").config({path: "variables.env"})
 
 
 const app = express();
 app.use(cors())
+const host = process.env.HOST || "0.0.0.0";
 const port = process.env.PORT || "https://repositorio-ciclo-3-backend.herokuapp.com/"
-
+console.log(process.env.DB_URL);
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -129,15 +131,16 @@ app.get("/api/usuario", (req, res) => {
 })
 
 
-mongoose.connect("mongodb+srv://admin:admin123@cluster0.fjnmf.mongodb.net/api", (err, res) => {
+mongoose.connect(process.env.DB_URL, (err, res) => {
     if (err) {
         return console.log(`error al conectar en base de datos: ${err} `)
     }
     console.log("conexion de bases establecida con éxito")
 
-    app.listen(port, () => {
+    app.listen(port, host, () => {
 
         console.log(`API REST corriendo en http:/localhost:${port}`)
+        console.log(`API REST corriendo en http:/localhost:${host}`)
     })
 
 
