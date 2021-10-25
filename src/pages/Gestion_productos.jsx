@@ -10,7 +10,7 @@ import axios from "axios";
 const Gestion_productos = () =>{
       const [productos, setMostrarProductos] = useState([]);
       useEffect(() => {
-            const options = { method: 'GET', url: 'http://localhost:3001/api/product' };
+            const options = { method: 'GET', url: 'https://repositorio-ciclo-3-backend.herokuapp.com/api/product' };
 
             axios.request(options).then(function (response) {
                   console.log(response.data);
