@@ -34,7 +34,7 @@ const FilaProducto =({productos})=>{
       setEdit(false);
       window.location.reload();
     }).catch(function (error) {
-      toast.success("Error al modificar producto")
+      toast.error("Error al modificar producto")
       console.error(error); //revisar mas adelante como hacerlo sin f5 forzado
       
     });
