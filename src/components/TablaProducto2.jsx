@@ -20,10 +20,10 @@ const FilaProducto =({productos})=>{
   const actualizarproducto = async()=>{
     console.log(infoNuevoProducto)
     const options = {
-      method: 'POST',
-      url: 'https://repositorio-ciclo-3-backend.herokuapp.com/api/venta',
+      method: 'PUT',
+      url: 'https://repositorio-ciclo-3-backend.herokuapp.com/api/products',
       headers: {'Content-Type': 'application/json'},
-      data: {codigo: 'algo', nombre: 'layo', precio: 902343, estado: 'algo'}
+      data: { ...infoNuevoProducto, id: productos._id }
     };
     
     await axios
@@ -43,7 +43,7 @@ const FilaProducto =({productos})=>{
   const eliminarProducto =()=>{
     const options = {
       method: 'DELETE',
-      url: 'https://repositorio-ciclo-3-backend.herokuapp.com/api/product',
+      url: 'https://repositorio-ciclo-3-backend.herokuapp.com/api/products',
       headers: {'Content-Type': 'application/json'},
       data: {id: productos._id}
     };
@@ -164,7 +164,7 @@ const TablaProducto2 = ({listaProductos, setMostrarProductos }) =>{
       setMostrarProductos([...listaProductos,nuevoProducto]);
       toast.success( "El producto se ha agragado con éxito")
       console.log("datos del form enviados", nuevoProducto); //" aca se puede ver en la consoloa el Json"
-      await axios.post("https://repositorio-ciclo-3-backend.herokuapp.com/api/product", nuevoProducto)
+      await axios.post("https://repositorio-ciclo-3-backend.herokuapp.com/api/products", nuevoProducto)
   }
  
     return (
