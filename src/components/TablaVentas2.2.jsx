@@ -20,7 +20,7 @@ const FilaProducto =({ventas})=>{
     cliente: datos.cliente,
     clienteID:datos.clienteID,
   })
-  const actualizarproducto = async()=>{
+  const actulizarVenta = async()=>{
     console.log(infoNuevoProducto)
     const options = {
       method: 'PUT',
@@ -43,7 +43,8 @@ const FilaProducto =({ventas})=>{
     });
   };
 
-  const eliminarProducto =()=>{
+  const eliminarVenta =()=>{
+    console.log("eliminar venta:",ventas._id)
     const options = {
       method: 'DELETE',
       url: 'http://localhost:3001/api/venta',
@@ -146,7 +147,7 @@ return (
      {edit? (
      <Tooltip title="Confirmar edición" arrow> 
      <a 
-     onClick={()=> actualizarproducto()} 
+     onClick={()=> actulizarVenta()} 
      className="fas fa-check a"
      />
      </Tooltip>
@@ -160,7 +161,7 @@ return (
      )}
     <Tooltip title="Eliminar  producto" arrow>
      < a  
-     onClick={()=> eliminarProducto()}
+     onClick={()=> eliminarVenta()}
      className="fas fa-trash-alt a"
      />
 
