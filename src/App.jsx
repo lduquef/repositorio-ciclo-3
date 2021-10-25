@@ -29,15 +29,15 @@ function App() {
 
           <Switch>
           
-          <Route path="/src/pages/Gestion_productos.jsx">
+          <Route path="/src/pages/GestionProductos.jsx">
           
             <GestionProductos/>
           </Route>
-          <Route path="/src/pages/Gestion_usuario.jsx">
+          <Route path="/src/pages/GestionUsuario.jsx">
             <GestionUsuario/>
           </Route>
           
-          <Route path="/src/pages/Gestion_ventas.jsx">
+          <Route path="/src/pages/GestionVentas.jsx">
           <GestionVentas/>
           </Route> 
           <Route path="/src/pages/GestionVentas2.jsx">
