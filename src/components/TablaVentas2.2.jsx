@@ -15,8 +15,8 @@ const FilaProducto =({ventas})=>{
   const[ventaDatos,setVentasDatos]= useState("");
   const [edit, setEdit ] = useState(false);
   const [infoNuevoProducto, setInfoNuevoproducto] = useState({
-    factura : datos.Factura,
-    fecha : datos.Fecha,
+    Factura : datos.Factura,
+    Fecha : datos.Fecha,
     cliente: datos.cliente,
     clienteID:datos.clienteID,
   })
@@ -70,16 +70,16 @@ return (
       <input  
       type ="text" 
       className="form-control" 
-      value={infoNuevoProducto.factura}
-      onChange={(e)=>setInfoNuevoproducto({...infoNuevoProducto, factura:e.target.value})} 
+      value={infoNuevoProducto.Factura}
+      onChange={(e)=>setInfoNuevoproducto({...infoNuevoProducto, Factura:e.target.value})} 
       />
     </td>
     <td>
       <input  
       type ="text" 
       className="form-control" 
-      value={infoNuevoProducto.fecha}
-      onChange={(e)=>setInfoNuevoproducto({...infoNuevoProducto, fecha:e.target.value})} 
+      value={infoNuevoProducto.Fecha}
+      onChange={(e)=>setInfoNuevoproducto({...infoNuevoProducto, Fecha:e.target.value})} 
       />
     </td>
     <td>

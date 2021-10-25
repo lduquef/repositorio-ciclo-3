@@ -64,7 +64,7 @@ const Tabla_ventas1 = ( {funcionParaAgregarVenta ,listaInfo })=>{
 //logica general
 const Ventas =()=>{
     const [ventas, setVentas] = useState([])
-    const [info,setInfo]=useState([])
+    const [info,setInfo]=useState("")
     const [productos, setMostrarProductos] = useState([]);
     useEffect(() => {
           const options = { method: 'GET', url: 'http://localhost:3001/api/product' };
@@ -104,20 +104,27 @@ const TablaVentas2 = ({listaVenta,listaInfo})=>{
     let unidad = 0;
     const [estado, setEstado] = useState("En Proceso")
     const enviarAlBackend = async(e)=> {
-        const options = {
-            method: 'POST',
-            url: 'http://localhost:3001/api/venta',
-            headers: {'Content-Type': 'application/json'},
-            data: {datos:JSON.stringify(listaInfo),listaVenta : JSON.stringify(listaVenta) ,unidad:unidad,total:total,estado:estado}
-        };
+        console.log("lista info".listaInfo)
+        if (listaInfo !=="") {
+            const options = {
+                method: 'POST',
+                url: 'http://localhost:3001/api/venta',
+                headers: {'Content-Type': 'application/json'},
+                data: {datos:JSON.stringify(listaInfo),listaVenta : JSON.stringify(listaVenta) ,unidad:unidad,total:total,estado:estado}
+            };
+            
+            axios.request(options).then(function (response) {
+                console.log(response.data);
+                toast.success("venta Realizada Satisfactoriamente")
+            }).catch(function (error) {
+                console.error(error);
+                toast.warn("error")
+            });   
+        }else{
+            toast.warn("ingrese los datos factura,cliente y vendedor") 
+        }
         
-        axios.request(options).then(function (response) {
-            console.log(response.data);
-            toast.success("venta Realizada Satisfactoriamente")
-        }).catch(function (error) {
-            console.error(error);
-            toast.warn("error")
-        });
+
     }
 
     return(
