@@ -6,14 +6,17 @@ import axios from "axios";
 import { nanoid } from "nanoid";
 import { Tooltip } from "@material-ui/core";
 
-const FilaProducto =({productos})=>{
-  console.log("productos",productos)
+const FilaProducto =({ventas})=>{
+    const datos = JSON.parse( ventas.datos)[0]
+    console.log("ventas", datos)
+
+  const[ventaDatos,setVentasDatos]= useState("");
   const [edit, setEdit ] = useState(false);
   const [infoNuevoProducto, setInfoNuevoproducto] = useState({
-    codigo:productos.codigo,
-    nombre: productos.nombre,
-    precio: productos.precio,
-    estado: productos.estado,
+    factura : datos.Factura,
+    fecha : datos.Fecha,
+    cliente: datos.cliente,
+    clienteID:datos.clienteID,
   })
   const actualizarproducto = async()=>{
     console.log(infoNuevoProducto)
@@ -21,7 +24,7 @@ const FilaProducto =({productos})=>{
       method: 'PUT',
       url: 'http://localhost:3001/api/venta',
       headers: {'Content-Type': 'application/json'},
-      data: { ...infoNuevoProducto, id: productos._id }
+      data: { ...infoNuevoProducto, id: ventas._id }
     };
     
     await axios
@@ -43,7 +46,7 @@ const FilaProducto =({productos})=>{
       method: 'DELETE',
       url: 'http://localhost:3001/api/venta',
       headers: {'Content-Type': 'application/json'},
-      data: {id: productos._id}
+      data: {id: ventas._id}
     };
     
     axios.request(options).then(function (response) {
@@ -63,22 +66,29 @@ return (
     <td>
       <input  
       type ="text" 
-      value={infoNuevoProducto.codigo}
-      onChange={(e)=>setInfoNuevoproducto({...infoNuevoProducto, codigo:e.target.value})} 
+      value={infoNuevoProducto.factura}
+      onChange={(e)=>setInfoNuevoproducto({...infoNuevoProducto, factura:e.target.value})} 
+      />
+    </td>
+    <td>
+      <input  
+      type ="text" 
+      value={infoNuevoProducto.fecha}
+      onChange={(e)=>setInfoNuevoproducto({...infoNuevoProducto, fecha:e.target.value})} 
       />
     </td>
     <td>
       <input 
       type ="text" 
-      value={infoNuevoProducto.nombre}
-      onChange={(e)=>setInfoNuevoproducto({...infoNuevoProducto, nombre:e.target.value})}
+      value={infoNuevoProducto.cliente}
+      onChange={(e)=>setInfoNuevoproducto({...infoNuevoProducto, cliente:e.target.value})}
       />
     </td>
     <td>
       <input 
       type ="text"
-      value={infoNuevoProducto.precio}
-      onChange={(e)=>setInfoNuevoproducto({...infoNuevoProducto, precio:e.target.value})} />
+      value={infoNuevoProducto.total}
+      onChange={(e)=>setInfoNuevoproducto({...infoNuevoProducto, total:e.target.value})} />
       </td>
        <td>
       <input 
@@ -90,10 +100,14 @@ return (
   
    ): (
      <>
-<td>{productos.codigo} </td>
-<td>{productos.nombre}</td> 
-<td>{productos.precio}</td>
-<td>{productos.estado}</td> 
+<td>{datos.Factura} </td>  
+<td>{datos.Fecha} </td>    
+<td>{datos.cliente} </td>
+<td>{datos.clienteID}</td>
+<td>{datos.cliente} </td>
+<td>{datos.clienteID}</td>  
+<td>{ventas.total}</td>
+<td>{ventas.estado}</td> 
  </>
    )}
    <td>
@@ -132,43 +146,39 @@ return (
 const TablaVentas2 = ({listaVentas, setMostrarVentas }) =>{
   
   const [busqueda, setBusqueda] = useState(""); 
-  const [productosFiltrados, setProductosFiltrados] = useState(listaVentas);
+  const [ventasFiltrados, setVentasFiltrados] = useState(listaVentas);
+  const [prueba, setPrueba] = useState(""); 
  
     useEffect(() =>{
-    //  console.log("busqueda", busqueda);
-    //  console.log("lista original", listaVentas)
-    //  setProductosFiltrados(
-    //     listaVentas.filter(elemento=>{
-    //    return JSON.stringify(elemento).toLowerCase().includes(busqueda.toLowerCase());
-    //  })
-    //  );
-   }, [busqueda, listaVentas]);
-  
-  // useEffect(() =>{
-  //   console.log("este es el contenido del la lsita de productos", listaVentas)
-  //   }, [listaVentas]);
+     console.log("lista original");
+    //  console.log("lista parcial", listaVentas[0]);
+     setVentasFiltrados(listaVentas)
+     console.log("lista ventas");
+    //  console.log("lista prueba", JSON.parse(listaVentas[0].datos)[0])
+     
+     ;
+   }, [busqueda, listaVentas,setPrueba]);
 
     const form = useRef(null);
-    
-    
-    const submitForm = async(e)=> {
-      e.preventDefault();
-      const fd = new  FormData(form.current);
-      // esa variable esta como objeto vacio y alli ingresa los imput como un formato Json, 
-      const nuevoProducto ={};
-      fd.forEach((value, key)=>{
-          nuevoProducto[key] = value;
-      })  
-      setMostrarVentas([...listaVentas,nuevoProducto]);
-      toast.success( "El producto se ha agragado con éxito")
-      console.log("datos del form enviados", nuevoProducto); //" aca se puede ver en la consoloa el Json"
-      await axios.post("http://localhost:3001/api/product", nuevoProducto)
-  }
+ 
+//     const submitForm = async(e)=> {
+//       e.preventDefault();
+//       const fd = new  FormData(form.current);
+//       // esa variable esta como objeto vacio y alli ingresa los imput como un formato Json, 
+//       const nuevoProducto ={};
+//       fd.forEach((value, key)=>{
+//           nuevoProducto[key] = value;
+//       })  
+//       setMostrarVentas([...listaVentas,nuevoProducto]);
+//       toast.success( "El producto se ha agragado con éxito")
+//       console.log("datos del form enviados", nuevoProducto); //" aca se puede ver en la consoloa el Json"
+//       await axios.post("http://localhost:3001/api/venta", nuevoProducto)
+//   }
  
     return (
   <section className="login_Developer_2"> 
 
-    <form ref={form} onSubmit ={submitForm}>
+    <form ref={form} >
       <input 
       value={busqueda}
       onChange={(e) => setBusqueda(e.target.value)}
@@ -178,29 +188,30 @@ const TablaVentas2 = ({listaVentas, setMostrarVentas }) =>{
     <table>
           <thead>
             <tr> 
-              <th>id producto</th> 
-              <th>Detalle Producto</th> 
-              <th>Valor Unitario</th>  
-              <th>  Estado </th> 
+              <th># Factura</th> 
+              <th> Fecha</th> 
+              <th>Nombre Cliene</th> 
+              <th>Cliente ID</th>  
+              <th> Vendedor </th>
+              <th> VendedorID </th>
+              <th> Total venta </th>  
               <th>Acciones</th>
-            
-              
+
             </tr>
           </thead>
-          {/* <tbody>
-            {productosFiltrados.map((productos)=>{
+          <tbody>
+              {useEffect(() => {
+                  
+                  
+              }, [])}
+            {ventasFiltrados.map((ventas)=>{
               return (
-                
-                < FilaProducto key={nanoid()} productos = {productos}/>
+                < FilaProducto key={nanoid()} ventas = {ventas}/>
               )
             })}              
-          </tbody> */}
-
-    
+          </tbody>
         </table>  
-
-        </section>    
-      
+        </section>      
     );
 };
 
