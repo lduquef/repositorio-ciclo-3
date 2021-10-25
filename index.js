@@ -13,7 +13,7 @@ require("dotenv").config({path: "variables.env"})
 const app = express();
 app.use(cors())
 const host = process.env.HOST || "0.0.0.0";
-const port = process.env.PORT || "https://repositorio-ciclo-3-backend.herokuapp.com/"
+const port = process.env.PORT || 3001;
 console.log(process.env.DB_URL);
 
 app.use(express.urlencoded({ extended: false }));
