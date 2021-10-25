@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import "../Estilos/usuarios.css"
-import { ToastContainer, toast } from 'react-toastify';
+import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import RegistroUsuario from '../components/RegistroUsuario';
 import TablaUsuarios from '../components/TablaUsuarios';

@@ -1,9 +1,9 @@
 import { useEffect, useState, useRef } from "react/cjs/react.development";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import "../Estilos/bootstrap.css"
-import "../Estilos/EstilosVentas.css"
+import "../Estilos/EstilosVentas2.css"
 import axios from "axios";
 import { nanoid } from "nanoid";
 import { Tooltip } from "@material-ui/core";
@@ -68,6 +68,7 @@ return (
     <td>
       <input  
       type ="text" 
+      className="form-control" 
       value={infoNuevoProducto.factura}
       onChange={(e)=>setInfoNuevoproducto({...infoNuevoProducto, factura:e.target.value})} 
       />
@@ -205,8 +206,9 @@ const TablaVentas2 = ({listaVentas, setMostrarVentas }) =>{
 //       await axios.post("http://localhost:3001/api/venta", nuevoProducto)
 //   }
  
-    return (
-  <section className="login_Developer_2"> 
+  return (
+    <div className = "classVentas">
+      <section className = "container"> 
 
     <form ref={form} >
       <input 
@@ -241,7 +243,8 @@ const TablaVentas2 = ({listaVentas, setMostrarVentas }) =>{
             })}              
           </tbody>
         </table>  
-        </section>      
+      </section> 
+    </div>     
     );
 };
 

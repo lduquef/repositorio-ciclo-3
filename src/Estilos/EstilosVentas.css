@@ -1,7 +1,7 @@
 
 .container{
-    max-width: 600px;
-    
+    max-width: 600px !important;   
+    max-height: 100%;
 }
 .container2
 {
@@ -56,6 +56,7 @@ justify-content: center;
     display: flex;
     justify-content: flex-end;
 }
-tr{
-    max-width: 40vw;
+.classVentas>.container{
+    margin-left: 8%;
+    margin-right: 8%;
 }
