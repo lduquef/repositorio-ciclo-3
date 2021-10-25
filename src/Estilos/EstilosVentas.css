@@ -56,3 +56,6 @@ justify-content: center;
     display: flex;
     justify-content: flex-end;
 }
+tr{
+    max-width: 40vw;
+}

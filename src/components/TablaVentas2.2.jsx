@@ -1,7 +1,9 @@
 import { useEffect, useState, useRef } from "react/cjs/react.development";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import "../Estilos/producto.css"
+
+import "../Estilos/bootstrap.css"
+import "../Estilos/EstilosVentas.css"
 import axios from "axios";
 import { nanoid } from "nanoid";
 import { Tooltip } from "@material-ui/core";
@@ -73,12 +75,14 @@ return (
     <td>
       <input  
       type ="text" 
+      className="form-control" 
       value={infoNuevoProducto.fecha}
       onChange={(e)=>setInfoNuevoproducto({...infoNuevoProducto, fecha:e.target.value})} 
       />
     </td>
     <td>
-      <input 
+      <input
+      className="form-control" 
       type ="text" 
       value={infoNuevoProducto.cliente}
       onChange={(e)=>setInfoNuevoproducto({...infoNuevoProducto, cliente:e.target.value})}
@@ -86,12 +90,38 @@ return (
     </td>
     <td>
       <input 
+      className="form-control" 
+      type ="text" 
+      value={infoNuevoProducto.clienteID}
+      onChange={(e)=>setInfoNuevoproducto({...infoNuevoProducto, clienteID:e.target.value})}
+      />
+    </td>
+    <td>
+      <input 
+      className="form-control" 
+      type ="text" 
+      value={infoNuevoProducto.vendedor}
+      onChange={(e)=>setInfoNuevoproducto({...infoNuevoProducto, vendedor:e.target.value})}
+      />
+    </td>
+    <td>
+      <input 
+      className="form-control" 
+      type ="text" 
+      value={infoNuevoProducto.vendedorID}
+      onChange={(e)=>setInfoNuevoproducto({...infoNuevoProducto, vendedorID:e.target.value})}
+      />
+    </td>
+    <td>
+      <input 
+      className="form-control" 
       type ="text"
       value={infoNuevoProducto.total}
       onChange={(e)=>setInfoNuevoproducto({...infoNuevoProducto, total:e.target.value})} />
       </td>
        <td>
       <input 
+      className="form-control" 
       type ="text"
       value={infoNuevoProducto.estado}
       onChange={(e)=>setInfoNuevoproducto({...infoNuevoProducto, estado:e.target.checked})} />
@@ -185,7 +215,7 @@ const TablaVentas2 = ({listaVentas, setMostrarVentas }) =>{
       type="text" placeholder="Buscar porducto"/>
     </form>
     
-    <table>
+    <table className="form">
           <thead>
             <tr> 
               <th># Factura</th> 
