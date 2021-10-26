@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "proyectointerfaz",
   "main": "index.js",
+  "autor":"DeveloperGroup",
+  "license": "",
   "dependencies": {
     "@auth0/auth0-react": "^1.8.0",
     "@material-ui/core": "^4.12.3",
@@ -30,11 +32,13 @@
     "yarn-run-all": "^3.1.1"
   },
   "scripts": {
-    "start": "concurrently \"react-scripts start\"  \"start nodemon index.js\"",
+    "desarrollo": "nodemon index.js",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+
   "eslintConfig": {
     "extends": [
       "react-app",
