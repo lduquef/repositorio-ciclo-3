@@ -9,7 +9,7 @@ const Header =() =>{
     return (
     <div>
       <div className ="header2">
-      <span><Link to="../../public/index.html"> <img className="avatar" src={Developer} />
+      <span><Link to="../../public/index.html"> <img className="avatar" src={Developer} alt = "logo"/>
         </Link> </span>
       </div>
     <header>
@@ -19,9 +19,9 @@ const Header =() =>{
           
           <li><a href="#">Navegacion</a>
           <ul>
-            <li><Link to="/src/pages/Gestion_usuario.jsx"> Usuarios </Link> </li>
-            <li><Link to="/src/pages/Gestion_ventas.jsx"> Ventas </Link></li>
-            <li><Link to="/src/pages/Gestion_productos.jsx"> productos </Link></li>
+            <li><Link to="/src/pages/GestionUsuario.jsx"> Usuarios </Link> </li>
+            <li><Link to="/src/pages/GestionVentas.jsx"> Ventas </Link></li>
+            <li><Link to="/src/pages/GestionProductos.jsx"> productos </Link></li>
             
             <br />
         </ul>

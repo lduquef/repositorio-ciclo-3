@@ -7,9 +7,19 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 
 const GestionVentas2 = () =>{
+
+      const getToken = () => {
+            return `Bearer ${localStorage.getItem ('token')}`;
+        };
+
       const [Ventas, setMostrarVentas] = useState([]);
       useEffect(() => {
-            const options = { method: 'GET', url: 'http://localhost:3001/api/venta' };
+
+            const options = {
+                  method: 'GET',
+                  url: 'http://localhost:3001/api/venta',
+                  headers: {'Content-Type': 'application/json', Authorization: getToken ()},
+            };
 
             axios.request(options).then(function (response) {
                   console.log(response.data.productos);

@@ -13,7 +13,8 @@ const PrivateRoute = ({ children }) => {
         audience: `api-autenticacion-DeveloperGroup-mintic`,
     });
 
-    localStorage.setItem ('token', accessToken) 
+    localStorage.setItem ('token', accessToken)
+    
    
   };
 

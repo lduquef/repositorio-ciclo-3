@@ -5,6 +5,12 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
 import axios from "axios";
+
+const getToken = () => {
+    return `Bearer ${localStorage.getItem ('token')}`;
+  };
+
+
 function parImpar(numero){
     var value = true
     numero%2 === 0 ? value = true : value = false;
@@ -67,11 +73,15 @@ const Ventas =()=>{
     const [info,setInfo]=useState("")
     const [productos, setMostrarProductos] = useState([]);
     useEffect(() => {
-          const options = { method: 'GET', url: 'https://repositorio-ciclo-3-backend.herokuapp.com/api/prooduct' };
-
-          axios.request(options).then(function (response) {
-                console.log(response.data);
-                setMostrarProductos(response.data.productos)
+        const options = {
+            method: 'GET',
+            url: 'https://repositorio-ciclo-3-backend.herokuapp.com/api/prooduct',
+            headers: {'Content-Type': 'application/json', Authorization: getToken ()},
+      };
+      
+      axios.request(options).then(function (response) {
+          console.log(response.data);
+          setMostrarProductos(response.data.productos)
 
           }).catch(function (error) {
                 console.error(error);
@@ -109,7 +119,7 @@ const TablaVentas2 = ({listaVenta,listaInfo})=>{
             const options = {
                 method: 'POST',
                 url: 'https://repositorio-ciclo-3-backend.herokuapp.com/api/venta',
-                headers: {'Content-Type': 'application/json'},
+                headers: {'Content-Type': 'application/json', Authorization: getToken ()},
                 data: {datos:JSON.stringify(listaInfo),listaVenta : JSON.stringify(listaVenta) ,unidad:unidad,total:total,estado:estado}
             };
             

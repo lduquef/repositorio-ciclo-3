@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useRef} from "react/cjs/react.development";
 import "../Estilos/usuarios.css"
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 import {nanoid} from "nanoid";
@@ -9,12 +9,14 @@ import { Tooltip } from "@material-ui/core";
 //import { Profile_email } from "./Profile_email";
 
 
+
 const getToken = () => {
     return `Bearer ${localStorage.getItem ('token')}`;
 };
 
-
 const FilaUsuario = ({usuarios}) => {
+
+
     const[edit, setEdit ] = useState(false);
     const [infoNuevoUsuario, setInfoNuevoUsuario] = useState({
         
@@ -40,7 +42,7 @@ const FilaUsuario = ({usuarios}) => {
             console.log(response.data);
               toast.success("Usuario modificado con éxito");
               setEdit(false);
-              //window.location.reload();
+              window.location.reload();
             })
             .catch(function (error) {
                 toast.error("Error al modificar el Usuario")
@@ -86,7 +88,7 @@ return (
             /></td>
 
         <td>
-        <select required defaultValue={0} name = "Rol"  onChange={e=>setInfoNuevoUsuario({...infoNuevoUsuario, rol:e.target.value})} required defaultValue={0}>
+        <select required defaultValue={0} name = "Rol"  onChange={e=>setInfoNuevoUsuario({...infoNuevoUsuario, rol:e.target.value})}>
             <option disabled value={0}>Editar</option>
             <option>Administrador</option> 
             <option>Vendedor</option>

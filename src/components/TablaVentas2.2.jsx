@@ -8,9 +8,15 @@ import axios from "axios";
 import { nanoid } from "nanoid";
 import { Tooltip } from "@material-ui/core";
 
+
+const getToken = () => {
+  return `Bearer ${localStorage.getItem ('token')}`;
+};
+
 const FilaProducto =({ventas})=>{
-    const datos = JSON.parse( ventas.datos)[0]
-    console.log("ventas", datos)
+
+  const datos = JSON.parse( ventas.datos)[0]
+  console.log("ventas", datos)
 
   const[ventaDatos,setVentasDatos]= useState("");
   const [edit, setEdit ] = useState(false);
@@ -25,7 +31,7 @@ const FilaProducto =({ventas})=>{
     const options = {
       method: 'PUT',
       url: 'http://localhost:3001/api/venta',
-      headers: {'Content-Type': 'application/json'},
+      headers: {'Content-Type': 'application/json', Authorization: getToken ()},
       data: { ...infoNuevoProducto, id: ventas._id }
     };
     
@@ -48,7 +54,7 @@ const FilaProducto =({ventas})=>{
     const options = {
       method: 'DELETE',
       url: 'http://localhost:3001/api/venta',
-      headers: {'Content-Type': 'application/json'},
+      headers: {'Content-Type': 'application/json', Authorization: getToken ()},
       data: {id: ventas._id}
     };
     

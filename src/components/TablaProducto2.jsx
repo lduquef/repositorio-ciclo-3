@@ -7,8 +7,12 @@ import { nanoid } from "nanoid";
 import { Tooltip } from "@material-ui/core";
 
 
+const getToken = () => {
+  return `Bearer ${localStorage.getItem ('token')}`;
+};
 
 const FilaProducto =({productos})=>{
+  
   console.log("productos",productos)
   const [edit, setEdit ] = useState(false);
   const [infoNuevoProducto, setInfoNuevoproducto] = useState({
@@ -22,7 +26,7 @@ const FilaProducto =({productos})=>{
     const options = {
       method: 'PUT',
       url: 'http://localhost:3001/api/product',
-      headers: {'Content-Type': 'application/json'},
+      headers: {'Content-Type': 'application/json', Authorization: getToken ()},
       data: { ...infoNuevoProducto, id: productos._id }
     };
     
@@ -44,7 +48,7 @@ const FilaProducto =({productos})=>{
     const options = {
       method: 'DELETE',
       url: 'http://localhost:3001/api/product',
-      headers: {'Content-Type': 'application/json'},
+      headers: {'Content-Type': 'application/json', Authorization: getToken ()},
       data: {id: productos._id}
     };
     
@@ -176,11 +180,11 @@ const TablaProducto2 = ({listaProductos, setMostrarProductos }) =>{
       onChange={(e) => setBusqueda(e.target.value)}
       type="text" placeholder="Buscar porducto"/>
       <h3>Nuevo producto</h3>
-      <label htmlfor="producto">ingrese id</label>
-        <label htmlfor="producto">ingrese producto</label>
+      <label htmlFor="producto">ingrese id</label>
+        <label htmlFor="producto">ingrese producto</label>
     
-        <label htmlfor="producto">ingrese precio</label>
-        <label htmlfor="producto">estado</label>
+        <label htmlFor="producto">ingrese precio</label>
+        <label htmlFor="producto">estado</label>
         <input  required type="text" placeholder="IdProducto"  name ="codigo" />
         <input required type="text" placeholder="NuevoProducto" name="nombre" /> 
         <input  required  type="id" placeholder="Precio"  name="precio" />

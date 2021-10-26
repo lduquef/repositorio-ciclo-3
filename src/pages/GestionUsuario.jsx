@@ -6,7 +6,7 @@ import { ToastContainer } from 'react-toastify';
 import axios from "axios";
 
 
-const Gestion_usuario = () =>{
+const GestionUsuario = () =>{
 
     const getToken = () => {
         return `Bearer ${localStorage.getItem ('token')}`;
@@ -38,4 +38,4 @@ const Gestion_usuario = () =>{
 
 };
 
-export default Gestion_usuario
+export default GestionUsuario

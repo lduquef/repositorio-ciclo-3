@@ -143,15 +143,15 @@ nav{
   display: block;
 }
 
-#salir {
+.login {
     height: 5vh;
     width: 10vw;
     border-radius: 10px;
     cursor: pointer;
     color: #050505;
     background-color: #57ee32;
-    font-weight: bold;   
+     
     border: outset 1px #ccc;
-    margin-left: 650%;
+    margin-left: 630%;
     margin-top: 12%;
 }
