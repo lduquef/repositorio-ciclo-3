@@ -67,7 +67,7 @@ const Ventas =()=>{
     const [info,setInfo]=useState("")
     const [productos, setMostrarProductos] = useState([]);
     useEffect(() => {
-          const options = { method: 'GET', url: 'https://repositorio-ciclo-3-backend.herokuapp.com/api/prooduct' };
+          const options = { method: 'GET', url: 'http://localhost:3001/api/product' };
 
           axios.request(options).then(function (response) {
                 console.log(response.data);
@@ -108,7 +108,7 @@ const TablaVentas2 = ({listaVenta,listaInfo})=>{
         if (listaInfo !=="") {
             const options = {
                 method: 'POST',
-                url: 'https://repositorio-ciclo-3-backend.herokuapp.com/api/venta',
+                url: 'http://localhost:3001/api/venta',
                 headers: {'Content-Type': 'application/json'},
                 data: {datos:JSON.stringify(listaInfo),listaVenta : JSON.stringify(listaVenta) ,unidad:unidad,total:total,estado:estado}
             };
