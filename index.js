@@ -125,7 +125,7 @@ app.put("/api/venta", (req, res) => {
     console.log(req.body.id)
     let venta = req.body.id
     let update = req.body
-    Product.findByIdAndUpdate(venta, update, (err,  ventaUpdated) =>{
+    Ventas.findByIdAndUpdate(venta, update, (err,  ventaUpdated) =>{
         if (err) {
          return res.status(500).send({ message: `Error al actuaizar producto: ${err} ` })
             
@@ -139,7 +139,7 @@ app.put("/api/venta", (req, res) => {
 app.delete("/api/venta/", (req, res) => {
     
     let venta = req.body.id
-    venta.findById(venta, (err, venta)  =>{
+    Ventas.findById(venta, (err, venta)  =>{
         if (err) {
          return res.status(500).send({ message: `Error al eliminar venta: ${err} ` })
         }
@@ -153,12 +153,61 @@ app.delete("/api/venta/", (req, res) => {
     })
 })
 app.get("/api/usuario", (req, res) => {
-    Usuarios.find({}, function (err, usuario) {
+    Usuario.find({}, function (err, usuarios) {
         if (err)
             return res.status(500).send({ message: `Error al realizar la petición: ${err}` })
-        if (!usuario)
-            return res.status(404).send({ message: `No existen usuario` })
-        res.status(200).send({ usuario })
+        if (!usuarios)
+            return res.status(404).send({ message: `No existen usuarios` })
+        res.send(200, { usuarios })
+    })
+})
+
+app.put("/api/usuario", (req, res) => {
+    console.log(req.body.id)
+    let usuario = req.body.id
+    let update = req.body
+    Usuario.findByIdAndUpdate(usuario, update, (err,  usuarioUpdated) =>{
+        if (err) {
+         return res.status(500).send({ message: `Error al actuaizar usuario: ${err} ` })
+            
+        }
+        res.status(201).send({ usuario: usuarioUpdated})
+    })
+})
+
+app.delete("/api/usuario/", (req, res) => {
+    
+    let usuario = req.body.id
+    Usuario.findById(usuario, (err, usuario)  =>{
+        if (err) {
+         return res.status(500).send({ message: `Error al eliminar usuario: ${err} ` })
+        }
+         usuario.remove(err =>{
+             if  (err) {
+                return res.status(500).send({ message: `Error al eliminar usuario: ${err} ` })
+        }
+        res.status(201).send({message: "El usuario ha sido eliminado"})
+    })
+
+    })
+})
+
+app.post("/api/usuario", (req, res) => {
+    console.log("POST /api/usuario")
+    console.log(req.body)
+     let usuario = new Usuario()
+     usuario.nombre= req.body.nombre
+     usuario.email=req.body.email
+     usuario.estado=req.body.estado
+     usuario.rol=req.body.rol
+     usuario.listaUsuarios = req.body.listaUsuario
+
+    usuario.save((err, usuarioStored) => {
+        if (err) {
+            res.status(500).send({ message: `Error al salvar la base de datos: ${err} ` })
+        }
+        res.status(201).send({ usuario: usuarioStored })
+
     })
 })
 
