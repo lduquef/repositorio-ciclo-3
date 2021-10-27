@@ -3,7 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser")
 const mongoose = require("mongoose")
 const Product = require("./modelo/product");
-const Usuarios = require("./modelo/usuario")
+const Usuario = require("./modelo/usuario")
 const Ventas = require("./modelo/venta");
 const cors =require("cors");
 const venta = require("./modelo/venta");
@@ -176,7 +176,7 @@ app.get("/api/usuario", (req, res) => {
             return res.status(500).send({ message: `Error al realizar la petición: ${err}` })
         if (!usuarios)
             return res.status(404).send({ message: `No existen usuarios` })
-        res.send(200, { usuarios })
+            res.status(200).send({ usuarios })
     })
 })
 
