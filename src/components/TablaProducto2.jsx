@@ -167,8 +167,9 @@ const TablaProducto2 = ({listaProductos, setMostrarProductos }) =>{
       })  
       setMostrarProductos([...listaProductos,nuevoProducto]);
       toast.success( "El producto se ha agragado con éxito")
-      console.log("datos del form enviados", nuevoProducto); //" aca se puede ver en la consoloa el Json"
-      await axios.post("http://localhost:3001/api/product", nuevoProducto)
+      console.log("datos del form enviados", nuevoProducto);
+       //" aca se puede ver en la consoloa el Json"
+      await axios.post("http://localhost:3001/api/product", nuevoProducto, {headers:  {Authorization: getToken()}} )
   }
  
     return (
