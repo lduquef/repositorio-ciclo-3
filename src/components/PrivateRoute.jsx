@@ -1,33 +1,38 @@
-import React from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import ReactLoading from 'react-loading';
-//import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react'; 
+import { Link } from 'react-router-dom';
 
 
 const PrivateRoute = ({ children }) => {
-  const { isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
-
-  if (isLoading) return <ReactLoading type='cylon' color='#abc123' height={599} width={200} />; //verificar el reaclogin para css
-
+  const { isAuthenticated, isLoading, getAccessTokenSilently} = useAuth0();
   
+  useEffect (() => {
+    const fetchAuth0Token = async () => {
+      const accessToken = await getAccessTokenSilently ({
+        audience : 'api-autenticacion-DeveloperGroup-mintic'
+    });
+    
+    localStorage.setItem ('token', accessToken);
+    console.log (accessToken);
+    
+  };
+
+  if (isAuthenticated) {
+    fetchAuth0Token ();
+  } 
+
+}, [isAuthenticated, getAccessTokenSilently]);
+
+  if (isLoading) return <ReactLoading type='cylon' color='#abc123' height={400} width={200} />; //verificar el reaclogin para css
+
+  if (!isAuthenticated) {
+    
+    <Link to= 'http://localhost:3000/src/pages/ingreso.jsx'></Link>;
+  }
 
   return <>{children}</>;
 }
 
- /*return isAuthenticated ? ( 
-  <>{children}</>
-  ) : (
-    <div>
-      <div className='noAut'>No estas autorizado para ver este sitio.</div>
-      <Link to= 'http://localhost:3000'>
-        <span className='goHome'>Llévame al home</span>
-      </Link>
-    </div>
-  );
-};*/
 
 export default PrivateRoute;
-
-
-//Este PrivateRoute se usa en el PrivataLayout.jsx
-

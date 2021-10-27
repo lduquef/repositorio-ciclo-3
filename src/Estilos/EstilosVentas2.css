@@ -1,8 +1,8 @@
-
-.container{
-    max-width: 100vh;
     
+.container{
+    max-width: 900px !important;
 }
+
 .container2
 {
 border-radius: 1%;
@@ -10,15 +10,19 @@ margin: 2%;
 display: flex;
 justify-content: space-around;
 flex-direction: row;
-width: 100%;
+width: 100vh;
 max-width: 60vh;
 }
-main{
+.container>.container{
+    background-color: rgba(255, 255, 255, 0);
+}
+.classVentas{
     display: flex;   
     max-height: 85vh;
     padding-top: 17vh;
-margin-bottom: 10%;
-}
+    margin-bottom: 10%;
+    justify-content: space-around;
+} 
 .container2 label{
     margin-top: 1rem;
     color: rgb(253, 253, 253);
@@ -45,12 +49,16 @@ justify-content: center;
     margin: 1%;
     margin-bottom: 2%;
     margin-right: 3%;
-    width: 16%;
+    width: 15vw;
+    max-width:80px ;
 }
 .end {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
 }
-.container > div{
-
+table{
+    width: 100%;
+}
+.form-control{
+    padding: 0.2rem;
 }

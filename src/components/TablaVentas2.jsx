@@ -1,9 +1,17 @@
 import React, { useEffect, useState} from 'react';
 import "../Estilos/bootstrap.css"
+import "../Estilos/EstilosVentas.css"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
 import axios from "axios";
+
+
+const getToken = () => {
+    return `Bearer ${localStorage.getItem ('token')}`;
+  };
+
+
 function parImpar(numero){
     var value = true
     numero%2 === 0 ? value = true : value = false;
@@ -13,21 +21,25 @@ function parImpar(numero){
 const listaInfo=[
     
 ]
+
 const Tabla_ventas1 = ( {funcionParaAgregarVenta ,listaInfo })=>{
     const [vendedor, setVendedor] = useState("Layo")
-    const [vendedorID, setVendedorID] = useState("")
+    const [vendedorID, setVendedorID] = useState("10000")
     const [cliente, setCliente] = useState("")
-    const [clienteID, setClienteID] = useState("")
-    const [Factura, setFactura] = useState("")
+    const [clienteID, setClienteID] = useState("10000")
+    const [Factura, setFactura] = useState("10000")
     const [Fecha, setFecha] = useState("")
+    useEffect(() => {
+    
+    }, [listaInfo])
     const enviarAlBackend =( )=>{
         if(Factura==="") {
             toast.warn("error")
         }
         else
         {
-        funcionParaAgregarVenta([...listaInfo,{datos:{Fecha:Fecha,Factura:Factura,cliente:cliente,
-            clienteID:clienteID,vendedor:vendedor,vendedorID:vendedorID}}]);
+        funcionParaAgregarVenta([...listaInfo,{Fecha:Fecha,Factura:Factura,cliente:cliente,
+            clienteID:clienteID,vendedor:vendedor,vendedorID:vendedorID}]);
             toast.success("bien ingresado");    
             console.log(listaInfo)
         }
@@ -59,13 +71,18 @@ const Tabla_ventas1 = ( {funcionParaAgregarVenta ,listaInfo })=>{
 //logica general
 const Ventas =()=>{
     const [ventas, setVentas] = useState([])
+    const [info,setInfo]=useState("")
     const [productos, setMostrarProductos] = useState([]);
     useEffect(() => {
-          const options = { method: 'GET', url: 'http://localhost:3001/api/product' };
-
-          axios.request(options).then(function (response) {
-                console.log(response.data);
-                setMostrarProductos(response.data.productos)
+        const options = {
+            method: 'GET',
+            url: 'https://repositorio-ciclo-3-backend.herokuapp.com/api/prooduct',
+            headers: {'Content-Type': 'application/json', Authorization: getToken ()},
+      };
+      
+      axios.request(options).then(function (response) {
+          console.log(response.data);
+          setMostrarProductos(response.data.productos)
 
           }).catch(function (error) {
                 console.error(error);
@@ -80,38 +97,46 @@ const Ventas =()=>{
     // }, []);
     return(
         <div className="classVentas">
-        <Tabla_ventas1 funcionParaAgregarVenta = {setVentas}  listaInfo={listaInfo} />
+        <Tabla_ventas1 funcionParaAgregarVenta = {setInfo}  listaInfo={listaInfo} />
         <div className= "container">
         <button type="button" className="btn btn-success">
         <Link to="/src/pages/GestionVentas2.jsx"> historial </Link>
         </button>
         <Formulario funcionParaAgregarVenta = {setVentas} listaVenta={ventas} listaProducto={productos}/>
         <ToastContainer position="bottom-center" autoclose ={3000}/>
-        <TablaVentas2 listaVenta={ventas}/>  
+        <TablaVentas2 listaVenta={ventas} listaInfo={info}/>  
         </div>
         </div>
     );
 }
 //parte de la tabla
-const TablaVentas2 = ({listaVenta})=>{
+const TablaVentas2 = ({listaVenta,listaInfo})=>{
     let total = 0;
     let unidad = 0;
-    useEffect(() => {
-}, [listaVenta])
-const enviarAlBackend = async(e)=> {
-    const options = {
-        method: 'POST',
-        url: 'http://localhost:3001/api/venta',
-        headers: {'Content-Type': 'application/json'},
-        data: {unidad: unidad,total:total,listaVenta : JSON.stringify(listaVenta)  }
-      };
-      
-      axios.request(options).then(function (response) {
-        console.log(response.data);
-      }).catch(function (error) {
-        console.error(error);
-      });
-}
+    const [estado, setEstado] = useState("En Proceso")
+    const enviarAlBackend = async(e)=> {
+        console.log("lista info".listaInfo)
+        if (listaInfo !=="") {
+            const options = {
+                method: 'POST',
+                url: 'https://repositorio-ciclo-3-backend.herokuapp.com/api/venta',
+                headers: {'Content-Type': 'application/json', Authorization: getToken ()},
+                data: {datos:JSON.stringify(listaInfo),listaVenta : JSON.stringify(listaVenta) ,unidad:unidad,total:total,estado:estado}
+            };
+            
+            axios.request(options).then(function (response) {
+                console.log(response.data);
+                toast.success("venta Realizada Satisfactoriamente")
+            }).catch(function (error) {
+                console.error(error);
+                toast.warn("error")
+            });   
+        }else{
+            toast.warn("ingrese los datos factura,cliente y vendedor") 
+        }
+        
+
+    }
 
     return(
       <div className="container ">
@@ -132,7 +157,7 @@ const enviarAlBackend = async(e)=> {
                 unidad += parseInt(ventas.cantidad);
                 return(
                     //  cambia color segun arreglo 
-                    index !== 0?(
+                    index !== -1?(
                     parImpar(index) ?(
                     <tr  className="table-primary">
                         <th scope="row">{ventas.codigo}</th>
@@ -181,7 +206,7 @@ const enviarAlBackend = async(e)=> {
                             $ {total}
                         </td>
                         <td className="form-group">
-                            <select className="form-select" Id="exampleSelect1">
+                            <select className="form-select" Id="exampleSelect1" value={estado} onChange={(e)=>setEstado(e.target.value)}>
                                 <option>En Proceso</option>
                                 <option>Cancelado</option>
                                 <option>Entregado</option>
@@ -202,20 +227,23 @@ const enviarAlBackend = async(e)=> {
 //formulario
 const Formulario = ({funcionParaAgregarVenta ,listaVenta , listaProducto}) =>{
     const [codigo,setCodigo]=useState("")
-    const [cantidad,setCantidad] = useState("")
-    const [nombre,setProducto] = useState("")
-    const [precio,setPrecioUnitario]=useState("")
+    const [cantidad,setCantidad] = useState("0")
+    const [nombre,setProducto] = useState("0")
+    const [precio,setPrecioUnitario]=useState("0")
+    const buscarPorID = (codigo) =>{
+        const newUser = listaProducto.filter(function(element) {
+            return(element.codigo==codigo);
+        })
+        setProducto(newUser[0].nombre);
+        setPrecioUnitario(newUser[0].precio);
+        return(console.log(newUser[0]))   
+    } 
     useEffect(() => {
-        
-    }, [setCodigo,setPrecioUnitario,setCantidad,setProducto])
-     const buscarPorID = (codigo) =>{
-         const newUser = listaProducto.filter(function(element) {
-             return(element.codigo==codigo);
-         })
-         console.log("soy new user",newUser[0].codigo);
-         return( setProducto(newUser[0].nombre),
-             setPrecioUnitario(newUser[0].precio))
-     }  
+        if (codigo !== "") {
+            buscarPorID(codigo)
+        }
+    }, [codigo ])
+      
 
     const enviarAlBackend =  () =>{
     if(codigo==="") {
@@ -223,9 +251,9 @@ const Formulario = ({funcionParaAgregarVenta ,listaVenta , listaProducto}) =>{
     }
     else
     {
-    buscarPorID(codigo);
-    funcionParaAgregarVenta([...listaVenta,{datos:{listaInfo},venta:{codigo:codigo,nombre:nombre,cantidad:cantidad,
-        precio:precio,subtotal: precio*cantidad  }}]);
+
+    funcionParaAgregarVenta([...listaVenta,{codigo:codigo,nombre:nombre,cantidad:cantidad,
+        precio:precio,subtotal: precio*cantidad  }]);
         toast.success("bien ingresado");    
     }}
     

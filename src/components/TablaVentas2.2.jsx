@@ -1,213 +1,258 @@
-import React, { useEffect, useState} from 'react';
-import "../Estilos/bootstrap.css"
-import { ToastContainer, toast } from 'react-toastify';
+import { useEffect, useState, useRef } from "react/cjs/react.development";
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Link } from 'react-router-dom';
+
+import "../Estilos/bootstrap.css"
+import "../Estilos/EstilosVentas2.css"
 import axios from "axios";
-function parImpar(numero){
-    var value = true
-    numero%2 === 0 ? value = true : value = false;
-    return(value)
-}
-//simula la base de datos
-const listaVentaBackend=[
+import { nanoid } from "nanoid";
+import { Tooltip } from "@material-ui/core";
+
+
+const getToken = () => {
+  return `Bearer ${localStorage.getItem ('token')}`;
+};
+
+const FilaProducto =({ventas})=>{
+
+  const datos = JSON.parse( ventas.datos)[0]
+  console.log("ventas", datos)
+
+  const[ventaDatos,setVentasDatos]= useState("");
+  const [edit, setEdit ] = useState(false);
+  const [infoNuevoProducto, setInfoNuevoproducto] = useState({
+    Factura : datos.Factura,
+    Fecha : datos.Fecha,
+    cliente: datos.cliente,
+    clienteID:datos.clienteID,
+  })
+  const actulizarVenta = async()=>{
+    console.log(infoNuevoProducto)
+    const options = {
+      method: 'PUT',
+      url: 'http://localhost:3001/api/venta',
+      headers: {'Content-Type': 'application/json', Authorization: getToken ()},
+      data: { ...infoNuevoProducto, id: ventas._id }
+    };
     
-]
-// const listaProductosBackend=[
-//     {
-//         Factura: 1,
-//         Cliente: "producto1",
-//         Cliente_ID:1,
-//         Fecha:1,
-//         Estado_Venta: "entregado",
-//     },
-//     {
-//         Factura: 2,
-//         Cliente: "producto2",
-//         Cliente_ID:2,
-//         Fecha:2,
-//         Estado_Venta: "En Proceso",
-//     },
-//     {
-//         Factura: 3,
-//         Cliente: "producto1",
-//         Cliente_ID:3,
-//         Fecha:3,
-//         Estado_Venta: "cancelado",
-//     },
-//     {
-//         Factura: 4,
-//         Cliente: "producto1",
-//         Cliente_ID:4,
-//         Fecha:4,
-//         Estado_Venta: "entregado",
-//     },  
+    await axios
+    .request(options)
+    .then(function (response) {
+      console.log(response.data);
+      toast.success("producto modificado con exito");
+      setEdit(false);
+      window.location.reload();
+    }).catch(function (error) {
+      toast.success("Error al modificar producto")
+      console.error(error); //revisar mas adelante como hacerlo sin f5 forzado
+      
+    });
+  };
+
+  const eliminarVenta =()=>{
+    console.log("eliminar venta:",ventas._id)
+    const options = {
+      method: 'DELETE',
+      url: 'http://localhost:3001/api/venta',
+      headers: {'Content-Type': 'application/json', Authorization: getToken ()},
+      data: {id: ventas._id}
+    };
+    
+    axios.request(options).then(function (response) {
+      console.log(response.data);
+      toast.success("Producto eliminado con éxito")
+      window.location.reload();
+    }).catch(function (error) {
+      console.error(error);
+      toast.error("error eliminando el producto")
+    });
+  }
+return (
+    
+<tr> 
+  {edit ? (
+ <>
+    <td>
+      <input  
+      type ="text" 
+      className="form-control" 
+      value={infoNuevoProducto.Factura}
+      onChange={(e)=>setInfoNuevoproducto({...infoNuevoProducto, Factura:e.target.value})} 
+      />
+    </td>
+    <td>
+      <input  
+      type ="text" 
+      className="form-control" 
+      value={infoNuevoProducto.Fecha}
+      onChange={(e)=>setInfoNuevoproducto({...infoNuevoProducto, Fecha:e.target.value})} 
+      />
+    </td>
+    <td>
+      <input
+      className="form-control" 
+      type ="text" 
+      value={infoNuevoProducto.cliente}
+      onChange={(e)=>setInfoNuevoproducto({...infoNuevoProducto, cliente:e.target.value})}
+      />
+    </td>
+    <td>
+      <input 
+      className="form-control" 
+      type ="text" 
+      value={infoNuevoProducto.clienteID}
+      onChange={(e)=>setInfoNuevoproducto({...infoNuevoProducto, clienteID:e.target.value})}
+      />
+    </td>
+    <td>
+      <input 
+      className="form-control" 
+      type ="text" 
+      value={infoNuevoProducto.vendedor}
+      onChange={(e)=>setInfoNuevoproducto({...infoNuevoProducto, vendedor:e.target.value})}
+      />
+    </td>
+    <td>
+      <input 
+      className="form-control" 
+      type ="text" 
+      value={infoNuevoProducto.vendedorID}
+      onChange={(e)=>setInfoNuevoproducto({...infoNuevoProducto, vendedorID:e.target.value})}
+      />
+    </td>
+    <td>
+      <input 
+      className="form-control" 
+      type ="text"
+      value={infoNuevoProducto.total}
+      onChange={(e)=>setInfoNuevoproducto({...infoNuevoProducto, total:e.target.value})} />
+      </td>
+       <td>
+      <input 
+      className="form-control" 
+      type ="text"
+      value={infoNuevoProducto.estado}
+      onChange={(e)=>setInfoNuevoproducto({...infoNuevoProducto, estado:e.target.checked})} />
+      </td>
+    </>
+  
+   ): (
+     <>
+<td>{datos.Factura} </td>  
+<td>{datos.Fecha} </td>    
+<td>{datos.cliente} </td>
+<td>{datos.clienteID}</td>
+<td>{datos.cliente} </td>
+<td>{datos.clienteID}</td>  
+<td>{ventas.total}</td>
+<td>{ventas.estado}</td> 
+ </>
+   )}
+   <td>
+   <div >
+     {edit? (
+     <Tooltip title="Confirmar edición" arrow> 
+     <a 
+     onClick={()=> actulizarVenta()} 
+     className="fas fa-check a"
+     />
+     </Tooltip>
+     ):(
+      <Tooltip title="Editar vehículo" arrow>
+     <a 
+     onClick={()=>setEdit(!edit)} 
+     className="fas fa-pencil-alt a" 
+     />
+     </Tooltip>
+     )}
+    <Tooltip title="Eliminar  producto" arrow>
+     < a  
+     onClick={()=> eliminarVenta()}
+     className="fas fa-trash-alt a"
+     />
+
+     </Tooltip>
      
-// ]
-//logica general
-const Ventas =()=>{
-    const [ventas, setVentas] = useState([])
-    const [listaProducto, setListaProducto] = useState([])
-    const [listaVentas, setlistaVentas] = useState([]);
-    useEffect(() => {
-          var options = { method: 'GET', url: 'http://localhost:3001/api/venta' };
+     </div>
+     </td>
+     </tr>
+ 
 
-          axios.request(options).then(function (response) {
-                console.log(response.data);
-                setlistaVentas(response.data.listaVentas)
-
-          }).catch(function (error) {
-                console.error(error);
-          });
-    }, [setlistaVentas]);
-
-    return(
-        <div className= "container">
-        <button type="button" className="btn btn-success">
-        <Link to="/src/pages/GestionVentas.jsx"> Devolver </Link> 
-        </button> 
-        <Formulario funcionParAgregarVenta = {setVentas} listaVenta={listaVentas} listaProducto={listaProducto}/>
-        <ToastContainer position="bottom-center" autoclose ={3000}/>
-        <TablaVentas2 listaVenta={ventas}/>  
-        
-        </div>
-    );
+)
 }
-//parte de la tabla
-const TablaVentas2 = ({listaVenta})=>{
-    
-    useEffect(() => {
-    console.log("lista venta" )
-}, [listaVenta])
-    return(
-      <div className="container ">
-        <table className="table table-hover">
-                <thead>
-                    <tr className="table-dark">
-                        <th scope="col">Fecha</th>
-                        <th scope="col">Cliente</th>
-                        <th scope="col">Cliente_ID</th>
-                        <th scope="col">Fecha</th>
-                        <th scope="col">Estado_Venta</th>
-                    </tr>
-                </thead>
-                <tbody>
-                
-            {listaVenta.map((ventas,index) => {
-                
-                return(
-                    //  cambia color segun arreglo 
-                    index !== 0?(
-                    parImpar(index) ?(
-                    <tr  className="table-primary">
-                        <th scope="row">{ventas.Factura}</th>
-                        <td>{ventas.Cliente}</td>
-                        <td>{ventas.Cliente_ID}</td>
-                        <td>${ventas.Fecha}</td>
-                        <td>${ventas.Estado_Venta}</td>
-                    </tr>)  :
-                    (
-                    <tr  className="table-light">
-                        <th scope="row">{ventas.Factura}</th>
-                        <td>{ventas.Cliente}</td>
-                        <td>{ventas.Cliente_ID}</td>
-                        <td>${ventas.Fecha}</td>
-                        <td>${ventas.Estado_Venta}</td>
-                    </tr> 
-                    )
-                    ) :(<tr  className="table-light">
-                    
-                </tr> )
 
-                ) 
-                 ;
-                })}
-                </tbody>
-            </table>
-        
-        <div className="end">
-        <button type="button" className="btn btn-success">
-         finalizar 
-        </button>
-        </div>
-        </div>
+const TablaVentas2 = ({listaVentas, setMostrarVentas }) =>{
+  
+  const [busqueda, setBusqueda] = useState(""); 
+  const [ventasFiltrados, setVentasFiltrados] = useState(listaVentas);
+  const [prueba, setPrueba] = useState(""); 
+ 
+    useEffect(() =>{
+     console.log("lista original");
+    //  console.log("lista parcial", listaVentas[0]);
+     setVentasFiltrados(listaVentas)
+     console.log("lista ventas");
+    //  console.log("lista prueba", JSON.parse(listaVentas[0].datos)[0])
+     
+     ;
+   }, [busqueda, listaVentas,setPrueba]);
+
+    const form = useRef(null);
+ 
+//     const submitForm = async(e)=> {
+//       e.preventDefault();
+//       const fd = new  FormData(form.current);
+//       // esa variable esta como objeto vacio y alli ingresa los imput como un formato Json, 
+//       const nuevoProducto ={};
+//       fd.forEach((value, key)=>{
+//           nuevoProducto[key] = value;
+//       })  
+//       setMostrarVentas([...listaVentas,nuevoProducto]);
+//       toast.success( "El producto se ha agragado con éxito")
+//       console.log("datos del form enviados", nuevoProducto); //" aca se puede ver en la consoloa el Json"
+//       await axios.post("http://localhost:3001/api/venta", nuevoProducto)
+//   }
+ 
+  return (
+    <div className = "classVentas">
+      <section className = "container"> 
+
+    <form ref={form} >
+      <input 
+      value={busqueda}
+      onChange={(e) => setBusqueda(e.target.value)}
+      type="text" placeholder="Buscar porducto"/>
+    </form>
+    
+    <table className="form">
+          <thead>
+            <tr> 
+              <th># Factura</th> 
+              <th> Fecha</th> 
+              <th>Nombre Cliene</th> 
+              <th>Cliente ID</th>  
+              <th> Vendedor </th>
+              <th> VendedorID </th>
+              <th> Total venta </th>  
+              <th>Acciones</th>
+
+            </tr>
+          </thead>
+          <tbody>
+              {useEffect(() => {
+                  
+                  
+              }, [])}
+            {ventasFiltrados.map((ventas)=>{
+              return (
+                < FilaProducto key={nanoid()} ventas = {ventas}/>
+              )
+            })}              
+          </tbody>
+        </table>  
+      </section> 
+    </div>     
     );
 };
-//formulario
-const Formulario = ({funcionParAgregarVenta ,listaVenta , listaProducto}) =>{
-    const [Factura,setFactura]=useState("")
-    const [Cliente,setCliente] = useState("")
-    const [Cliente_ID,setCliente_ID] = useState("")
-    const [Fecha,setFecha]=useState("")
-    const [Estado_Venta,setEstado_Venta]=useState("")
 
-const enviarAlBackend = () =>{
-    setEstado_Venta(buscarPorFactura(Factura))
-    funcionParAgregarVenta([...listaVenta,{Factura:Factura,Cliente:Cliente,Cliente_ID:Cliente_ID,
-        Fecha:Fecha,Estado_Venta:Estado_Venta, }])
-    toast.success("bien agregado")
-    }
-    const buscarPorFactura = (Factura) =>{
-        const newUser = listaProducto.filter(function(element) {
-            return(element.Factura==Factura);
-        })
-        console.log("soy new user",newUser[0].precio);
-        return(newUser[0].precio)
-    }
-    return(
-        <div>
-        <table className="table table-hover">
-            <thead>
-                    <tr className="table-dark">
-                        <th>
-                            Factura
-                        </th>
-                        <th>
-                            Cliente
-                        </th>
-                        <th>
-                            Cliente_ID
-                        </th>
-                    </tr>
-                </thead>
-            <tbody>
-                    <tr className="table-secondary">
-                        <th>
-                            <select className="form-select" name="Cliente" value={Cliente} onChange={(e)=> setCliente(e.target.value)} required>
-                            <option value="" disabled>Cliente</option>
-                            {listaProducto.map((nombre) => {
-                                return(
-                            <option>{nombre.unidad}</option>)
-                                })}
-                    
-                            </select>
-                            </th>                
-                    <td>
-                        <select className="form-select" name = "Factura" value ={Factura} onChange ={(e)=>(setFactura(e.target.value))} required >
-                            <option disabled> buscar por Factura</option>
-                            {listaProducto.map((nombre) => {
-
-                                return(
-                            <option>{nombre.total}</option>)
-                                })}
-                        </select>
-                        </td>
-                        <td>
-                        <input type="number" min="0" className="form-control" value={Cliente_ID} onChange={(e)=>setCliente_ID(e.target.value)}  required />
-                        
-                        </td>
-                        
-                </tr>
-            </tbody>
-        </table>
-        <div className="end">
-            
-        <button type="submit" className="btn btn-success" onClick={()=>{enviarAlBackend()}}>
-         agregar
-        </button>
-        </div>
-        </div>
-    );
-
-}
-export default Ventas
+export default TablaVentas2;

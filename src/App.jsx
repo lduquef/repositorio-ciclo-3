@@ -3,9 +3,9 @@ import PrivateLayout from './Layouts/PrivateLayout.jsx';
 
 import './Estilos/Style.css';
 import "./Estilos/estilos2.css"
-import Gestion_productos from './pages/Gestion_productos.jsx';
-import Gestion_usuario from './pages/Gestion_usuario.jsx';
-import Gestion_ventas from './pages/Gestion_ventas.jsx';
+import GestionProductos from './pages/GestionProductos.jsx';
+import GestionUsuario from './pages/GestionUsuario.jsx';
+import GestionVentas from './pages/GestionVentas.jsx';
 import GestionVentas2 from './pages/GestionVentas2.jsx';
 import Ingreso from './pages/Ingreso.jsx';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
@@ -18,7 +18,8 @@ function App() {
     <Auth0Provider                 //autenticación de ususario con Auth0
       domain="misiontic-proyecto.us.auth0.com"
       clientId="S4qEAxjMrFTFLOLcUoDUNeci3bLHJWag"
-      redirectUri= {window.location.origin}>
+      redirectUri= {window.location.origin}
+      audience= 'api-autenticacion-DeveloperGroup-mintic'>
         
         <div className="App">
         
@@ -29,16 +30,16 @@ function App() {
 
           <Switch>
           
-          <Route path="/src/pages/Gestion_productos.jsx">
+          <Route path="/src/pages/GestionProductos.jsx">
           
-            <Gestion_productos/>
+            <GestionProductos/>
           </Route>
-          <Route path="/src/pages/Gestion_usuario.jsx">
-            <Gestion_usuario/>
+          <Route path="/src/pages/GestionUsuario.jsx">
+            <GestionUsuario/>
           </Route>
           
-          <Route path="/src/pages/Gestion_ventas.jsx">
-          <Gestion_ventas/>
+          <Route path="/src/pages/GestionVentas.jsx">
+          <GestionVentas/>
           </Route> 
           <Route path="/src/pages/GestionVentas2.jsx">
           <GestionVentas2/>
