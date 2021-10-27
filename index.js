@@ -138,9 +138,6 @@ app.post("/api/venta", (req, res) => {
 
     })
 })
-<<<<<<< HEAD
-
-=======
 app.put("/api/venta", (req, res) => {
     console.log(req.body.id)
     let venta = req.body.id
@@ -172,12 +169,10 @@ app.delete("/api/venta/", (req, res) => {
 
     })
 })
->>>>>>> e73195d1bd3c5c416cdc2c521dd4a87eec3c40a9
 app.get("/api/usuario", (req, res) => {
     Usuario.find({}, function (err, usuarios) {
         if (err)
             return res.status(500).send({ message: `Error al realizar la petición: ${err}` })
-<<<<<<< HEAD
         if (!usuarios)
             return res.status(404).send({ message: `No existen usuarios` })
         res.send(200, { usuarios })
@@ -230,11 +225,6 @@ app.post("/api/usuario", (req, res) => {
         }
         res.status(201).send({ usuario: usuarioStored })
 
-=======
-        if (!usuario)
-            return res.status(404).send({ message: `No existen usuario` })
-        res.status(200).send({ usuario })
->>>>>>> e73195d1bd3c5c416cdc2c521dd4a87eec3c40a9
     })
 })
 
