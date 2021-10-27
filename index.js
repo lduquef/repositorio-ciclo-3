@@ -7,11 +7,28 @@ const Usuarios = require("./modelo/usuario")
 const Ventas = require("./modelo/venta");
 const cors =require("cors");
 const venta = require("./modelo/venta");
+const jwt = require('express-jwt');
+const  jwks = require('jwks-rsa');
 
 
 const app = express();
-app.use(cors())
+app.use(cors());
+
 const port = process.env.PORT || 3001
+
+var jwtCheck = jwt({
+    secret: jwks.expressJwtSecret({
+        cache: true,
+        rateLimit: true,
+        jwksRequestsPerMinute: 5,
+        jwksUri: 'https://misiontic-proyecto.us.auth0.com/.well-known/jwks.json'
+  }),
+  audience: 'api-autenticacion-DeveloperGroup-mintic',
+  issuer: 'https://misiontic-proyecto.us.auth0.com/',
+  algorithms: ['RS256']
+});
+
+app.use(jwtCheck);
 
 
 app.use(express.urlencoded({ extended: false }));
