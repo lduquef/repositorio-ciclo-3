@@ -6,18 +6,18 @@ import { ToastContainer } from 'react-toastify';
 import axios from "axios";
 
 
-const GestionUsuario = () =>{
-
-    const getToken = () => {
-        return `Bearer ${localStorage.getItem ('token')}`;
-    };
-    
-    const [usuarios, setMostrarUsuarios] = useState([]);
+const getToken = () => {
+      return `Bearer ${localStorage.getItem ('token')}`;
+  };
+  
+  const GestionUsuario = () =>{
+        
+      const [usuarios, setMostrarUsuarios] = useState([]);
       useEffect(() => {
             const options = {
                   method: 'GET',
                   url: 'http://localhost:3001/api/usuario',
-                  headers: {'Content-Type': 'application/json', Authorization: getToken ()},
+                  headers: {Authorization: getToken ()},
             };
             axios.request(options).then(function (response) {
                   console.log(response.data);
@@ -35,7 +35,6 @@ const GestionUsuario = () =>{
         </>
            
     )
-
 };
 
 export default GestionUsuario

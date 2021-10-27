@@ -6,16 +6,16 @@ import { Link } from 'react-router-dom';
 
 const PrivateRoute = ({ children }) => {
   const { isAuthenticated, isLoading, getAccessTokenSilently} = useAuth0();
-
+  
   useEffect (() => {
     const fetchAuth0Token = async () => {
       const accessToken = await getAccessTokenSilently ({
         audience: `api-autenticacion-DeveloperGroup-mintic`,
     });
-
-    localStorage.setItem ('token', accessToken)
     
-   
+    localStorage.setItem ('token', accessToken);
+    console.log (accessToken);
+    
   };
 
   if (isAuthenticated) {
@@ -28,7 +28,7 @@ const PrivateRoute = ({ children }) => {
 
   if (!isAuthenticated) {
     
-    <Link to= 'http://localhost:3000/src/pages/ingreso.jsx'></Link>
+    <Link to= 'http://localhost:3000/src/pages/ingreso.jsx'></Link>;
   }
 
   return <>{children}</>;

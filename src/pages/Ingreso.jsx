@@ -3,7 +3,6 @@ import "../Estilos/estilos2.css";
 import { LoginButton } from "../components/Login";
 
 const Ingreso = () =>{
-
     return(
       <div className="App">
       <div className="conten">
@@ -18,8 +17,6 @@ const Ingreso = () =>{
       </section>
     </div>
     </div>
-
 );
 }
-
 export default Ingreso

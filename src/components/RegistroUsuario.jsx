@@ -214,5 +214,4 @@ const RegistroUsuario = ({listaUsuarios, setMostrarUsuarios }) =>{
             
     );
 };
-
 export default RegistroUsuario;
