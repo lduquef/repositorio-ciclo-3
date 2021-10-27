@@ -76,7 +76,7 @@ const Ventas =()=>{
     useEffect(() => {
         const options = {
             method: 'GET',
-            url: 'https://repositorio-ciclo-3-backend.herokuapp.com/api/prooduct',
+            url: 'http://localhost:3001/api/product',
             headers: {'Content-Type': 'application/json', Authorization: getToken ()},
       };
       
@@ -119,7 +119,7 @@ const TablaVentas2 = ({listaVenta,listaInfo})=>{
         if (listaInfo !=="") {
             const options = {
                 method: 'POST',
-                url: 'https://repositorio-ciclo-3-backend.herokuapp.com/api/venta',
+                url: 'http://localhost:3001/api/venta',
                 headers: {'Content-Type': 'application/json', Authorization: getToken ()},
                 data: {datos:JSON.stringify(listaInfo),listaVenta : JSON.stringify(listaVenta) ,unidad:unidad,total:total,estado:estado}
             };
