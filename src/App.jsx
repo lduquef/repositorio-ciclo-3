@@ -18,7 +18,8 @@ function App() {
     <Auth0Provider                 //autenticación de ususario con Auth0
       domain="misiontic-proyecto.us.auth0.com"
       clientId="S4qEAxjMrFTFLOLcUoDUNeci3bLHJWag"
-      redirectUri= {window.location.origin}>
+      redirectUri= {window.location.origin}
+      audience= 'api-autenticacion-DeveloperGroup-mintic'>
         
         <div className="App">
         

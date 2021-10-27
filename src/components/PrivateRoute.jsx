@@ -10,7 +10,7 @@ const PrivateRoute = ({ children }) => {
   useEffect (() => {
     const fetchAuth0Token = async () => {
       const accessToken = await getAccessTokenSilently ({
-        audience: `api-autenticacion-DeveloperGroup-mintic`,
+        audience : 'api-autenticacion-DeveloperGroup-mintic'
     });
     
     localStorage.setItem ('token', accessToken);
