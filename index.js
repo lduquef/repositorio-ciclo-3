@@ -138,6 +138,7 @@ app.post("/api/venta", (req, res) => {
 
     })
 })
+
 app.put("/api/venta", (req, res) => {
     console.log(req.body.id)
     let venta = req.body.id
