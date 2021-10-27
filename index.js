@@ -3,15 +3,32 @@ const express = require("express");
 const bodyParser = require("body-parser")
 const mongoose = require("mongoose")
 const Product = require("./modelo/product");
-const Usuarios = require("./modelo/usuarios")
+const Usuario = require("./modelo/usuario")
 const Ventas = require("./modelo/venta");
 const cors =require("cors");
 const venta = require("./modelo/venta");
+const jwt = require('express-jwt');
+const  jwks = require('jwks-rsa');
 
 
 const app = express();
-app.use(cors())
+app.use(cors());
+
 const port = process.env.PORT || 3001
+
+var jwtCheck = jwt({
+    secret: jwks.expressJwtSecret({
+        cache: true,
+        rateLimit: true,
+        jwksRequestsPerMinute: 5,
+        jwksUri: 'https://misiontic-proyecto.us.auth0.com/.well-known/jwks.json'
+  }),
+  audience: 'api-autenticacion-DeveloperGroup-mintic',
+  issuer: 'https://misiontic-proyecto.us.auth0.com/',
+  algorithms: ['RS256']
+});
+
+app.use(jwtCheck);
 
 
 app.use(express.urlencoded({ extended: false }));
@@ -23,7 +40,7 @@ app.get("/api/product", (req, res) => {
             return res.status(500).send({ message: `Error al realizar la petición: ${err}` })
         if (!productos)
             return res.status(404).send({ message: `No existen productos` })
-        res.send(200, { productos })
+        res.status(200).send({ productos })
     })
 })
 
@@ -98,7 +115,7 @@ app.get("/api/venta", (req, res) => {
             return res.status(500).send({ message: `Error al realizar la petición: ${err}` })
         if (!productos)
             return res.status(404).send({ message: `No existen productos` })
-        res.send(200, { productos })
+        res.status(200).send({ productos })
     })
 })
 
@@ -106,9 +123,12 @@ app.post("/api/venta", (req, res) => {
     console.log("POST /api/venta")
     console.log(req.body)
      let venta = new Ventas()
+     venta.datos = req.body.datos
+     venta.listaVenta = req.body.listaVenta
      venta.unidad= req.body.unidad
      venta.total=req.body.total
-     venta.listaVentas = req.body.listaVenta
+     venta.estado=req.body.estado
+     
 
     venta.save((err, ventaStored) => {
         if (err) {
@@ -118,18 +138,100 @@ app.post("/api/venta", (req, res) => {
 
     })
 })
+
+app.put("/api/venta", (req, res) => {
+    console.log(req.body.id)
+    let venta = req.body.id
+    let update = req.body
+    Product.findByIdAndUpdate(venta, update, (err,  ventaUpdated) =>{
+        if (err) {
+         return res.status(500).send({ message: `Error al actuaizar producto: ${err} ` })
+            
+        }
+        res.status(201).send({ venta: ventaUpdated})
+    })
+
+
+})
+
+app.delete("/api/venta/", (req, res) => {
+    
+    let venta = req.body.id
+    venta.findById(venta, (err, venta)  =>{
+        if (err) {
+         return res.status(500).send({ message: `Error al eliminar venta: ${err} ` })
+        }
+         venta.remove(err =>{
+             if  (err) {
+                return res.status(500).send({ message: `Error al eliminar venta: ${err} ` })
+        }
+        res.status(201).send({message: "La venta ha sido eliminado"})
+    })
+
+    })
+})
 app.get("/api/usuario", (req, res) => {
-    Usuarios.find({}, function (err, usuario) {
+    Usuario.find({}, function (err, usuarios) {
         if (err)
             return res.status(500).send({ message: `Error al realizar la petición: ${err}` })
-        if (!usuario)
-            return res.status(404).send({ message: `No existen usuario` })
-        res.send(200, { usuario })
+        if (!usuarios)
+            return res.status(404).send({ message: `No existen usuarios` })
+            res.status(200).send({ usuarios })
     })
 })
 
+app.put("/api/usuario", (req, res) => {
+    console.log(req.body.id)
+    let usuario = req.body.id
+    let update = req.body
+    Usuario.findByIdAndUpdate(usuario, update, (err,  usuarioUpdated) =>{
+        if (err) {
+         return res.status(500).send({ message: `Error al actuaizar usuario: ${err} ` })
+            
+        }
+        res.status(201).send({ usuario: usuarioUpdated})
+    })
+})
 
-mongoose.connect("mongodb+srv://admin:admin123@cluster0.fjnmf.mongodb.net/api", (err, res) => {
+app.delete("/api/usuario/", (req, res) => {
+    
+    let usuario = req.body.id
+    Usuario.findById(usuario, (err, usuario)  =>{
+        if (err) {
+         return res.status(500).send({ message: `Error al eliminar usuario: ${err} ` })
+        }
+         usuario.remove(err =>{
+             if  (err) {
+                return res.status(500).send({ message: `Error al eliminar usuario: ${err} ` })
+        }
+        res.status(201).send({message: "El usuario ha sido eliminado"})
+    })
+
+    })
+})
+
+app.post("/api/usuario", (req, res) => {
+    console.log("POST /api/usuario")
+    console.log(req.body)
+     let usuario = new Usuario()
+     usuario.nombre= req.body.nombre
+     usuario.email=req.body.email
+     usuario.estado=req.body.estado
+     usuario.rol=req.body.rol
+     usuario.listaUsuarios = req.body.listaUsuario
+
+    usuario.save((err, usuarioStored) => {
+        if (err) {
+            res.status(500).send({ message: `Error al salvar la base de datos: ${err} ` })
+        }
+        res.status(201).send({ usuario: usuarioStored })
+
+    })
+})
+
+var MONGODB_URI = "mongodb+srv://admin:admin123@cluster0.fjnmf.mongodb.net/api";
+
+mongoose.connect(MONGODB_URI, (err, res) => {
     if (err) {
         return console.log(`error al conectar en base de datos: ${err} `)
     }
