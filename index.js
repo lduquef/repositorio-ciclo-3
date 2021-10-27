@@ -25,7 +25,7 @@ app.get("/api/product", (req, res) => {
             return res.status(500).send({ message: `Error al realizar la petición: ${err}` })
         if (!productos)
             return res.status(404).send({ message: `No existen productos` })
-        res.send(200, { productos })
+            res.status(200).send({ productos })
     })
 })
 
@@ -100,7 +100,7 @@ app.get("/api/venta", (req, res) => {
             return res.status(500).send({ message: `Error al realizar la petición: ${err}` })
         if (!productos)
             return res.status(404).send({ message: `No existen productos` })
-        res.send(200, { productos })
+            res.status(200).send({ product })
     })
 })
 
@@ -126,7 +126,7 @@ app.get("/api/usuario", (req, res) => {
             return res.status(500).send({ message: `Error al realizar la petición: ${err}` })
         if (!usuario)
             return res.status(404).send({ message: `No existen usuario` })
-        res.send(200, { usuario })
+            res.status(200).send({ product })
     })
 })
 
@@ -135,7 +135,7 @@ mongoose.connect(process.env.DB_URL, (err, res) => {
     if (err) {
         return console.log(`error al conectar en base de datos: ${err} `)
     }
-    console.log("conexion de bases establecida con éxito")
+    console.log("conexion de bases establecida con éxito", process.env.DB_URL)
 
     app.listen(port, host, () => {
 

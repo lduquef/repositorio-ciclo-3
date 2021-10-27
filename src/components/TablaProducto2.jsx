@@ -21,7 +21,7 @@ const FilaProducto =({productos})=>{
     console.log(infoNuevoProducto)
     const options = {
       method: 'PUT',
-      url: 'https://repositorio-ciclo-3-backend.herokuapp.com/api/product',
+      url: 'http://localhost:3001/api/product',
       headers: {'Content-Type': 'application/json'},
       data: { ...infoNuevoProducto, id: productos._id }
     };
@@ -43,7 +43,7 @@ const FilaProducto =({productos})=>{
   const eliminarProducto =()=>{
     const options = {
       method: 'DELETE',
-      url: 'https://repositorio-ciclo-3-backend.herokuapp.com/api/product',
+      url: 'http://localhost:3001/api/product',
       headers: {'Content-Type': 'application/json'},
       data: {id: productos._id}
     };
@@ -164,7 +164,7 @@ const TablaProducto2 = ({listaProductos, setMostrarProductos }) =>{
       setMostrarProductos([...listaProductos,nuevoProducto]);
       toast.success( "El producto se ha agragado con éxito")
       console.log("datos del form enviados", nuevoProducto); //" aca se puede ver en la consoloa el Json"
-      await axios.post("https://repositorio-ciclo-3-backend.herokuapp.com/api/product", nuevoProducto)
+      await axios.post("http://localhost:3001/api/product", nuevoProducto)
   }
  
     return (
