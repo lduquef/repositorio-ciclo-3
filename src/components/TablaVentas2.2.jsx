@@ -20,7 +20,7 @@ const Ventas =()=>{
     const [listaProducto, setListaProducto] = useState([])
     const [listaVentas, setlistaVentas] = useState([]);
     useEffect(() => {
-          var options = { method: 'GET', url: 'http://localhost:3001/api/venta' };
+          var options = { method: 'GET', url: 'mongodb+srv://admin:admin123@cluster0.fjnmf.mongodb.net/api/venta' };
 
           axios.request(options).then(function (response) {
                 console.log(response.data);
