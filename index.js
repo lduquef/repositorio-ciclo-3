@@ -3,15 +3,32 @@ const express = require("express");
 const bodyParser = require("body-parser")
 const mongoose = require("mongoose")
 const Product = require("./modelo/product");
-const Usuarios = require("./modelo/usuarios")
+const Usuario = require("./modelo/usuario")
 const Ventas = require("./modelo/venta");
 const cors =require("cors");
 const venta = require("./modelo/venta");
+const jwt = require('express-jwt');
+const  jwks = require('jwks-rsa');
 
 
 const app = express();
-app.use(cors())
+app.use(cors());
+
 const port = process.env.PORT || 3001
+
+var jwtCheck = jwt({
+    secret: jwks.expressJwtSecret({
+        cache: true,
+        rateLimit: true,
+        jwksRequestsPerMinute: 5,
+        jwksUri: 'https://misiontic-proyecto.us.auth0.com/.well-known/jwks.json'
+  }),
+  audience: 'api-autenticacion-DeveloperGroup-mintic',
+  issuer: 'https://misiontic-proyecto.us.auth0.com/',
+  algorithms: ['RS256']
+});
+
+app.use(jwtCheck);
 
 
 app.use(express.urlencoded({ extended: false }));
@@ -121,6 +138,7 @@ app.post("/api/venta", (req, res) => {
 
     })
 })
+
 app.put("/api/venta", (req, res) => {
     console.log(req.body.id)
     let venta = req.body.id
@@ -158,7 +176,7 @@ app.get("/api/usuario", (req, res) => {
             return res.status(500).send({ message: `Error al realizar la petición: ${err}` })
         if (!usuarios)
             return res.status(404).send({ message: `No existen usuarios` })
-        res.send(200, { usuarios })
+            res.status(200).send({ usuarios })
     })
 })
 
