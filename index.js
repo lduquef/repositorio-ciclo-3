@@ -40,7 +40,7 @@ app.get("/api/product", (req, res) => {
             return res.status(500).send({ message: `Error al realizar la petición: ${err}` })
         if (!productos)
             return res.status(404).send({ message: `No existen productos` })
-        res.send(200, { productos })
+        res.status(200).send({ productos })
     })
 })
 
@@ -115,7 +115,7 @@ app.get("/api/venta", (req, res) => {
             return res.status(500).send({ message: `Error al realizar la petición: ${err}` })
         if (!productos)
             return res.status(404).send({ message: `No existen productos` })
-        res.send(200, { productos })
+        res.status(200).send({ productos })
     })
 })
 
@@ -123,9 +123,12 @@ app.post("/api/venta", (req, res) => {
     console.log("POST /api/venta")
     console.log(req.body)
      let venta = new Ventas()
+     venta.datos = req.body.datos
+     venta.listaVenta = req.body.listaVenta
      venta.unidad= req.body.unidad
      venta.total=req.body.total
-     venta.listaVentas = req.body.listaVenta
+     venta.estado=req.body.estado
+     
 
     venta.save((err, ventaStored) => {
         if (err) {
@@ -135,11 +138,46 @@ app.post("/api/venta", (req, res) => {
 
     })
 })
+<<<<<<< HEAD
 
+=======
+app.put("/api/venta", (req, res) => {
+    console.log(req.body.id)
+    let venta = req.body.id
+    let update = req.body
+    Product.findByIdAndUpdate(venta, update, (err,  ventaUpdated) =>{
+        if (err) {
+         return res.status(500).send({ message: `Error al actuaizar producto: ${err} ` })
+            
+        }
+        res.status(201).send({ venta: ventaUpdated})
+    })
+
+
+})
+
+app.delete("/api/venta/", (req, res) => {
+    
+    let venta = req.body.id
+    venta.findById(venta, (err, venta)  =>{
+        if (err) {
+         return res.status(500).send({ message: `Error al eliminar venta: ${err} ` })
+        }
+         venta.remove(err =>{
+             if  (err) {
+                return res.status(500).send({ message: `Error al eliminar venta: ${err} ` })
+        }
+        res.status(201).send({message: "La venta ha sido eliminado"})
+    })
+
+    })
+})
+>>>>>>> e73195d1bd3c5c416cdc2c521dd4a87eec3c40a9
 app.get("/api/usuario", (req, res) => {
     Usuario.find({}, function (err, usuarios) {
         if (err)
             return res.status(500).send({ message: `Error al realizar la petición: ${err}` })
+<<<<<<< HEAD
         if (!usuarios)
             return res.status(404).send({ message: `No existen usuarios` })
         res.send(200, { usuarios })
@@ -192,11 +230,17 @@ app.post("/api/usuario", (req, res) => {
         }
         res.status(201).send({ usuario: usuarioStored })
 
+=======
+        if (!usuario)
+            return res.status(404).send({ message: `No existen usuario` })
+        res.status(200).send({ usuario })
+>>>>>>> e73195d1bd3c5c416cdc2c521dd4a87eec3c40a9
     })
 })
 
+var MONGODB_URI = "mongodb+srv://admin:admin123@cluster0.fjnmf.mongodb.net/api";
 
-mongoose.connect("mongodb+srv://admin:admin123@cluster0.fjnmf.mongodb.net/api", (err, res) => {
+mongoose.connect(MONGODB_URI, (err, res) => {
     if (err) {
         return console.log(`error al conectar en base de datos: ${err} `)
     }
